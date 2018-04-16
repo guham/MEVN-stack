@@ -1,0 +1,28 @@
+{
+  "name": "mevn-stack",
+  "version": "1.0.0",
+  "description": "MEVN stack",
+  "license": "MIT",
+  "author": "Guillaume Hamoniez <guham.dev@gmail.com>",
+  "repository": "https://github.com/guham/MEVN-stack",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node node_modules/nodemon/bin/nodemon.js -w ./ -w .env -e js,env server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "debug": "^3.1.0",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "http-errors": "^1.6.3",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "nodemon": "^1.17.3",
+    "tailwindcss": "^0.5.2"
+  }
+}

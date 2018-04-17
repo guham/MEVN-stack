@@ -7,7 +7,7 @@
   "repository": "https://github.com/guham/MEVN-stack",
   "main": "server.js",
   "scripts": {
-    "dev": "node node_modules/nodemon/bin/nodemon.js -w ./ -w .env -e js,env server.js",
+    "dev": "node node_modules/nodemon/bin/nodemon.js --config nodemon.json server.js",
     "start": "node server.js"
   },
   "dependencies": {

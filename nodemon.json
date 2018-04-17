@@ -1,0 +1,6 @@
+{
+  "verbose": false,
+  "watch": ["./", ".env"],
+  "extension": ["js", "json", "env"],
+  "ignore": ["client/*"]
+}

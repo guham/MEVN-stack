@@ -6,9 +6,9 @@ const router = express.Router()
 /* GET test page. */
 router.get('/test', (req, res) => {
   res.send(
-    [{
-      title: 'Test page',
-    }]
+    {
+      value: 'This is a value fetched from server',
+    }
   )
 })
 

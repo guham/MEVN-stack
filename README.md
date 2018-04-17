@@ -1,4 +1,5 @@
 # MEVN-stack
-MongoDB, Express, Vue.js &amp; Node.js
+
+MongoDB, Express, Vue.js & Node.js
 
 WIP

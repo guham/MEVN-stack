@@ -5,4 +5,3 @@ export default {
     return Api().get('test')
   }
 }
-

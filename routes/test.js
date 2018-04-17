@@ -7,7 +7,7 @@ const router = express.Router()
 router.get('/test', (req, res) => {
   res.send(
     [{
-      title: "Test page",
+      title: 'Test page',
     }]
   )
 })

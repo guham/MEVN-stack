@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 })
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
@@ -43,4 +43,4 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, HOST)
 debug(`Running on http://${HOST}:${PORT}`)
-debug(`Env: ` + app.get('env'))
+debug('Env: ' + app.get('env'))

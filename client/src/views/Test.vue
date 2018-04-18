@@ -19,9 +19,13 @@ export default {
     this.fetchValueFromServer()
   },
   methods: {
-    async fetchValueFromServer () {
-      const response  = await TestService.fetchValueFromServer()
-      this.value = response.data.value
+    fetchValueFromServer () {
+      TestService.fetchValueFromServer()
+        .then(response => {
+          this.value = response.data.value
+        }).catch(error => {
+          this.value = error.message
+        })
     }
   }
 }

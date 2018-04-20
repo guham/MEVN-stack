@@ -1,7 +1,13 @@
 DOCKER			= docker
 DOCKER_COMPOSE  = docker-compose
-EXEC_APP       	= $(DOCKER_COMPOSE) exec -T app
-YARN            = $(EXEC_APP) yarn
+
+EXEC_BACKEND    = $(DOCKER_COMPOSE) exec -T backend
+YARN_BACKEND	= $(EXEC_BACKEND) yarn
+SH_BACKEND		= $(EXEC_BACKEND) /bin/sh
+
+EXEC_FRONTEND   = $(DOCKER_COMPOSE) exec -T frontend
+YARN_FRONTEND	= $(EXEC_FRONTEND) yarn
+SH_FRONTEND		= $(EXEC_FRONTEND) /bin/sh
 
 ##
 ## Project
@@ -29,8 +35,7 @@ stop: ## Stop the project
 	$(DOCKER_COMPOSE) stop
 
 clean: ## Stop the project and remove generated files
-clean: kill
-	rm -rf .env node_modules
+clean: kill backend-clean frontend-clean
 
 ps: ## List containers
 	$(DOCKER) ps
@@ -38,29 +43,65 @@ ps: ## List containers
 logs: ## Show logs
 	$(DOCKER_COMPOSE) logs -f
 
-eslint:	## eslint
-eslint: node_modules
-	$(EXEC_APP) ./node_modules/.bin/eslint --fix-dry-run ./
+lint: ## Lint back & front files
+lint: lint-backend lint-frontend
 
-.PHONY: build kill install reset start stop clean ps logs eslint
+.PHONY: build kill install reset start stop clean ps logs lint
 
-node_modules: yarn.lock
-	$(YARN) install
-	@touch -c node_modules
-
-yarn.lock: package.json
-	$(YARN) upgrade
+node_modules: backend.node_modules frontend.node_modules
 
 .env: .env.dist
 	@if [ -f .env ]; \
 	then\
-		echo '\033[1;41m/!\ The .env.dist file has changed. Please check your .env file (this message will not be displayed again).\033[0m';\
+		echo '\033[1;41m/!\ The .env.dist file has changed. Please check your .env file.\033[0m';\
 		touch .env;\
 		exit 1;\
 	else\
 		echo cp .env.dist .env;\
 		cp .env.dist .env;\
 	fi
+
+##
+## Express server
+## -------
+##
+
+lint-backend: ## Lint (ESLint)
+lint-backend: backend.node_modules
+	$(YARN_BACKEND) lint
+
+.PHONY: lint-backend
+
+backend-clean:
+	rm -rf .env node_modules
+
+backend.node_modules: backend.yarn.lock
+	$(YARN_BACKEND) install
+	touch -c backend.node_modules
+
+backend.yarn.lock: package.json
+	$(YARN_BACKEND) upgrade
+
+##
+## Vue
+## -------
+##
+
+lint-frontend: ## Lint (ESLint)
+lint-frontend: frontend.node_modules
+	$(YARN_FRONTEND) lint
+
+.PHONY: lint-frontend
+
+frontend-clean:
+	rm -rf client/node_modules
+
+frontend.node_modules: frontend.yarn.lock
+	$(YARN_FRONTEND) install
+	touch -c frontend.node_modules
+
+frontend.yarn.lock: client/package.json
+	$(YARN_FRONTEND) upgrade
 
 .DEFAULT_GOAL := help
 help:

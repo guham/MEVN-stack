@@ -7,8 +7,9 @@
   "repository": "https://github.com/guham/MEVN-stack",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "dev": "node node_modules/nodemon/bin/nodemon.js --config nodemon.json server.js",
-    "start": "node server.js"
+    "lint": "./node_modules/.bin/eslint --fix-dry-run ."
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -22,7 +23,6 @@
   },
   "devDependencies": {
     "eslint": "^4.19.1",
-    "nodemon": "^1.17.3",
-    "tailwindcss": "^0.5.2"
+    "nodemon": "^1.17.3"
   }
 }

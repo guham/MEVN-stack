@@ -1,18 +1,37 @@
 version: '3.2'
 
 services:
-  app:
+  backend:
     build:
       context: .
-    user: "node"
     volumes:
       - .:/usr/src/app:rw,cached
+      - backend_node_modules:/usr/src/app/node_modules
+    restart: always
     environment:
       - NODE_ENV=${NODE_ENV}
       - DEBUG=${DEBUG}
     ports:
       - "49160:${PORT}"
-    expose:
-      - "${PORT}"
-    working_dir: /usr/src/app
     command: "npm run dev"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile-vue
+    volumes:
+      - ./client:/usr/src/app:rw,cached
+      - frontend_node_modules:/usr/src/app/node_modules
+    depends_on:
+      - backend
+    restart: always
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - VUE_APP_API_URL=${VUE_APP_API_URL}
+    ports:
+      - "8080:8080"
+    command: "yarn serve"
+
+volumes:
+  backend_node_modules:
+  frontend_node_modules:

@@ -4,7 +4,10 @@
   "description": "MEVN stack",
   "license": "MIT",
   "author": "Guillaume Hamoniez <guham.dev@gmail.com>",
-  "repository": "https://github.com/guham/MEVN-stack",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guham/MEVN-stack"
+  },
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

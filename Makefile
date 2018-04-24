@@ -40,13 +40,19 @@ clean: kill backend-clean frontend-clean
 ps: ## List containers
 	$(DOCKER) ps
 
-logs: ## Show logs
+logs: ## Show back & front logs
 	$(DOCKER_COMPOSE) logs -f
 
 lint: ## Lint back & front files
 lint: lint-backend lint-frontend
 
-.PHONY: build kill install reset start stop clean ps logs lint
+tests: ## Run back & front unit and functional tests
+tests: test-frontend
+
+upgrade: ## Upgrade back & front dependencies
+upgrade: upgrade-backend upgrade-frontend
+
+.PHONY: build kill install reset start stop clean ps logs lint tests upgrade
 
 node_modules: backend.node_modules frontend.node_modules
 
@@ -66,42 +72,63 @@ node_modules: backend.node_modules frontend.node_modules
 ## -------
 ##
 
+logs-backend: ## Show logs
+	$(DOCKER_COMPOSE) logs -f backend
+
 lint-backend: ## Lint (ESLint)
 lint-backend: backend.node_modules
 	$(YARN_BACKEND) lint
 
-.PHONY: lint-backend
+upgrade-backend: ## Upgrade dependencies
+	$(YARN_BACKEND) upgrade
+
+.PHONY: logs-backend lint-backend upgrade-backend
 
 backend-clean:
 	rm -rf .env node_modules
 
-backend.node_modules: backend.yarn.lock
+backend.node_modules: package.json yarn.lock
 	$(YARN_BACKEND) install
-	touch -c backend.node_modules
-
-backend.yarn.lock: package.json
-	$(YARN_BACKEND) upgrade
+	@touch -c backend.node_modules
 
 ##
 ## Vue
 ## -------
 ##
 
+logs-frontend: ## Show logs
+	$(DOCKER_COMPOSE) logs -f frontend
+
 lint-frontend: ## Lint (ESLint)
 lint-frontend: frontend.node_modules
 	$(YARN_FRONTEND) lint
 
-.PHONY: lint-frontend
+upgrade-frontend: ## Upgrade dependencies
+	$(YARN_FRONTEND) upgrade
+
+test-frontend: ## Run unit & functional tests
+test-frontend: tu-frontend tf-frontend
+
+tu-frontend: ## Run unit tests
+tu-frontend: frontend.node_modules
+	$(YARN_FRONTEND) test
+
+tf-frontend: ## Run functional tests
+tf-frontend: frontend.node_modules
+	$(YARN_FRONTEND) e2e
+
+build-frontend: ## Produce a production-ready bundle
+build-frontend: frontend.node_modules
+	$(YARN_FRONTEND) build
+
+.PHONY: logs-frontend lint-frontend upgrade-frontend test-frontend tu-frontend tf-frontend build-frontend
 
 frontend-clean:
-	rm -rf client/node_modules
+	rm -rf client/node_modules client/dist
 
-frontend.node_modules: frontend.yarn.lock
+frontend.node_modules: client/package.json client/yarn.lock
 	$(YARN_FRONTEND) install
-	touch -c frontend.node_modules
-
-frontend.yarn.lock: client/package.json
-	$(YARN_FRONTEND) upgrade
+	@touch -c frontend.node_modules
 
 .DEFAULT_GOAL := help
 help:

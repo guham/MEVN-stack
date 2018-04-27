@@ -1,0 +1,12 @@
+ /**
+ * https://tailwindcss.com/docs/installation#3-use-tailwind-in-your-css
+ */
+ @tailwind preflight;
+
+ @tailwind components;
+
+ @tailwind utilities;
+
+ a {
+   text-decoration: none;
+ }

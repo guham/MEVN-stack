@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Fetch a value from the server</h1>
-    <p>{{ value }}</p>
+    <p class="p-2">>> {{ value }}</p>
   </div>
 </template>
 

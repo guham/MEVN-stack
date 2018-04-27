@@ -3,11 +3,9 @@ DOCKER_COMPOSE  = docker-compose
 
 EXEC_BACKEND    = $(DOCKER_COMPOSE) exec -T backend
 YARN_BACKEND	= $(EXEC_BACKEND) yarn
-SH_BACKEND		= $(EXEC_BACKEND) /bin/sh
 
 EXEC_FRONTEND   = $(DOCKER_COMPOSE) exec -T frontend
 YARN_FRONTEND	= $(EXEC_FRONTEND) yarn
-SH_FRONTEND		= $(EXEC_FRONTEND) /bin/sh
 
 ##
 ## Project

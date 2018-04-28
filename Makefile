@@ -44,13 +44,13 @@ logs: ## Show back & front logs
 lint: ## Lint back & front files
 lint: lint-backend lint-frontend
 
-tests: ## Run back & front unit and functional tests
-tests: test-frontend
+test: ## Run back & front unit and functional tests
+test: test-frontend
 
 upgrade: ## Upgrade back & front dependencies
 upgrade: upgrade-backend upgrade-frontend
 
-.PHONY: build kill install reset start stop clean ps logs lint tests upgrade
+.PHONY: build kill install reset start stop clean ps logs lint test upgrade
 
 node_modules: backend.node_modules frontend.node_modules
 

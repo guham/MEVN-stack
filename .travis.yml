@@ -1,0 +1,21 @@
+sudo: required
+
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - docker-ce
+
+before_install:
+  - docker -v
+  - docker-compose -v
+
+script:
+  - make install
+  - make ps
+  - make test
+  - make lint
+  - make build-frontend
+  - make stop

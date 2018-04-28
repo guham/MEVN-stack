@@ -12,9 +12,6 @@ before_install:
   - docker -v
   - docker-compose -v
 
-before_script:
-  - mkdir -p client/dist client/tests/e2e/reports
-
 script:
   - make install
   - make ps

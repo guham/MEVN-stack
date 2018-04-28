@@ -1,8 +1,10 @@
 .DS_Store
 node_modules
-/dist
+/dist/*
+!/dist/.gitkeep
 
-/tests/e2e/reports/
+/tests/e2e/reports/*
+!/tests/e2e/reports/.gitkeep
 selenium-debug.log
 
 # local env files

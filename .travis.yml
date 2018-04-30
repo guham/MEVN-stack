@@ -14,17 +14,12 @@ before_install:
 
 before_script:
   - mkdir -p client/dist client/tests/e2e/reports
-  - ls -al
-  - ls -al client
-  - ls -al client/tests/e2e
+  - chmod o+w client/dist client/tests/e2e/reports
 
 script:
   - make install
   - make ps
-  - docker-compose exec frontend ls -al
-  - docker-compose exec frontend ls -al tests/e2e
   - make test
-  - docker-compose exec frontend ls -al tests/e2e/reports
   - make lint
   - make build-frontend
   - make stop

@@ -1,8 +1,5 @@
 FROM node:9-stretch
 
-ARG NODE_USER
-ENV NODE_USER ${NODE_USER:-node}
-
 ARG CHROME_VERSION="google-chrome-stable"
 
 RUN set -xe \
@@ -20,9 +17,9 @@ RUN mkdir -p /usr/src/app
 
 COPY client/package.json client/yarn.lock /usr/src/app/
 
-RUN chown -R $NODE_USER: /usr/src/app
+RUN chown -R node: /usr/src/app
 
-USER $NODE_USER
+USER node
 
 WORKDIR /usr/src/app
 

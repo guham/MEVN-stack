@@ -19,8 +19,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-vue
-      args:
-        - NODE_USER=${NODE_USER}
     volumes:
       - ./client:/usr/src/app:rw,cached
       - frontend_node_modules:/usr/src/app/node_modules

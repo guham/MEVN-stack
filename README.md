@@ -12,7 +12,7 @@ WIP
 
 - [x] Set up Tailwind CSS
 - [x] Travis CI
-- [ ] Add e2e Firefox tests
+- [x] Add e2e Firefox tests
 - [ ] Set up MongoDB service
 - [ ] Express unit tests
 - [ ] Update browserslist

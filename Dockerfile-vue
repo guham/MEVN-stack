@@ -9,9 +9,12 @@ RUN set -xe \
 	&& apt-get install -y --no-install-recommends --no-install-suggests \
 		openjdk-8-jdk \
 		${CHROME_VERSION:-google-chrome-stable} \
-		chromedriver \
+		libdbus-glib-1-2 \
+	&& wget --no-verbose -O firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US" \
+	&& tar xjf firefox.tar.bz2 -C /opt/ \
+	&& ln -s /opt/firefox/firefox /usr/bin/firefox \
 	&& rm /etc/apt/sources.list.d/google-chrome.list \
-	&& rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+	&& rm -rf /var/lib/apt/lists/* /var/cache/apt/* firefox.tar.bz2
 
 RUN mkdir -p /usr/src/app
 

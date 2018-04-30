@@ -1,9 +1,26 @@
 {
+  "test_workers": true,
+  "selenium": {
+    "cli_args": {
+      "webdriver.gecko.driver": "node_modules/.bin/geckodriver"
+    }
+  },
   "test_settings": {
     "chrome": {
       "desiredCapabilities": {
         "chromeOptions": {
           "args" : ["no-sandbox", "headless"]
+        }
+      }
+    },
+    "firefox": {
+      "desiredCapabilities": {
+        "browserName": "firefox",
+        "marionette": true,
+        "javascriptEnabled": true,
+        "acceptSslCerts": true,
+        "moz:firefoxOptions": {
+          "args" : ["-headless"]
         }
       }
     }

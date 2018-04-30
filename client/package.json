@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test": "vue-cli-service test",
-    "e2e": "vue-cli-service e2e",
+    "e2e": "vue-cli-service e2e --env chrome,firefox",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
     "@vue/test-utils": "^1.0.0-beta.14",
     "babel-core": "^7.0.0-0",
     "babel-jest": "^22.0.4",
+    "geckodriver": "^1.11.0",
     "tailwindcss": "^0.5.2",
     "vue-template-compiler": "^2.5.13"
   },

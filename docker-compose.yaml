@@ -4,6 +4,8 @@ services:
   backend:
     build:
       context: .
+    depends_on:
+      - mongodb
     volumes:
       - .:/usr/src/app:rw,cached
       - backend_node_modules:/usr/src/app/node_modules
@@ -31,6 +33,23 @@ services:
     ports:
       - "8080:8080"
     command: "yarn serve"
+
+  mongodb:
+    build:
+      context: .
+      dockerfile: Dockerfile-mongodb
+      args:
+        - mongodb_username=${MONGODB_USERNAME}
+        - mongodb_password=${MONGODB_PASSWORD}
+        - mongodb_database=${MONGO_INITDB_DATABASE}
+    volumes:
+      - ./.data/mongo:/data/db:rw,cached
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+    ports:
+      - "27017:27017"
 
 volumes:
   backend_node_modules:

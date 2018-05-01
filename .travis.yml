@@ -19,6 +19,7 @@ script:
   - make install
   - make ps
   - make test
-  - make lint
+  - make lint-backend
+  - make lint-frontend
   - make build-frontend
   - make stop

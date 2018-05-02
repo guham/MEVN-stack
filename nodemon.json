@@ -2,5 +2,5 @@
   "verbose": true,
   "watch": ["./", ".env"],
   "extension": ["js", "json", "env"],
-  "ignore": ["client/"]
+  "ignore": ["client/", "mongodb-setup.js"]
 }

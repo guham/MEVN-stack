@@ -7,13 +7,26 @@ const morgan = require('morgan')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const debug = require('debug')('server')
+const mongoose = require('mongoose')
 require('dotenv').config()
+
+// Express
+const PORT = process.env.PORT
+const HOST = process.env.HOST
+// MongoDB
+const MONGODB_USER = process.env.MONGODB_USERNAME
+const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD
+const MONGODB_DATABASE = process.env.MONGO_INITDB_DATABASE
+
+mongoose.Promise = require('bluebird')
+mongoose.connect(`mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@mongodb:27017/${MONGODB_DATABASE}`)
+
+const db = mongoose.connection
+db.on('error', () => debug('MongoDB connection error:'))
+db.once('open', () => debug('MongoDB connection OK'))
 
 const indexRouter = require('./routes/index');
 const testRouter = require('./routes/test')
-
-const PORT = process.env.PORT
-const HOST = process.env.HOST
 
 const app = express()
 app.use(morgan('dev'))

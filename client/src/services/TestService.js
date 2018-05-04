@@ -2,6 +2,6 @@ import Api from '@/services/Api'
 
 export default {
   fetchValueFromServer () {
-    return Api().get('test')
+    return Api().get('api/foo/test')
   }
 }

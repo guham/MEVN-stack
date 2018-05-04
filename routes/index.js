@@ -1,11 +1,7 @@
-'use strict'
+const defaultRoutes = require('./default')
+const apiRoutes = require('./api')
 
-const express = require('express')
-const router = express.Router()
-
-/* GET home page. */
-router.get('/', (req, res) => {
-  res.send('Home')
-})
-
-module.exports = router
+module.exports = {
+  defaultRoutes,
+  apiRoutes
+}

@@ -7,6 +7,8 @@ YARN_BACKEND	= $(EXEC_BACKEND) yarn
 EXEC_FRONTEND   = $(DOCKER_COMPOSE) exec -T frontend
 YARN_FRONTEND	= $(EXEC_FRONTEND) yarn
 
+EXEC_DB			= $(DOCKER_COMPOSE) exec mongodb
+
 ##
 ## Project
 ## -------
@@ -27,7 +29,7 @@ reset: ## Stop and start a fresh install of the project
 reset: kill install
 
 start: ## Start the project
-	$(DOCKER_COMPOSE) up -d --remove-orphans --no-recreate
+	$(DOCKER_COMPOSE) up -d --remove-orphans
 
 stop: ## Stop the project
 	$(DOCKER_COMPOSE) stop
@@ -38,16 +40,16 @@ clean: kill backend-clean frontend-clean
 ps: ## List containers
 	$(DOCKER) ps
 
-logs: ## Show back & front logs
+logs: ## Show all logs
 	$(DOCKER_COMPOSE) logs -f
 
 lint: ## Lint back & front files
 lint: lint-backend lint-frontend
 
-test: ## Run back & front unit and functional tests
+test: ## Run all unit & functional tests
 test: test-frontend
 
-upgrade: ## Upgrade back & front dependencies
+upgrade: ## Upgrade all dependencies
 upgrade: upgrade-backend upgrade-frontend
 
 .PHONY: build kill install reset start stop clean ps logs lint test upgrade
@@ -66,7 +68,7 @@ node_modules: backend.node_modules frontend.node_modules
 	fi
 
 ##
-## Express server
+## API (Express/Node.js)
 ## -------
 ##
 
@@ -127,6 +129,19 @@ frontend-clean:
 frontend.node_modules: client/package.json client/yarn.lock
 	$(YARN_FRONTEND) install
 	@touch -c frontend.node_modules
+
+##
+## MongoDB
+## -------
+##
+
+logs-db: ## Show logs
+	$(DOCKER_COMPOSE) logs -f mongodb
+
+db-terminal: ## Open terminal
+	$(EXEC_DB) mongo mevn -u mevn -p mevn
+
+.PHONY: logs-db
 
 .DEFAULT_GOAL := help
 help:

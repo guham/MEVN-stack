@@ -1,11 +1,15 @@
 {
   "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
   "env": {
     "es6": true,
     "node": true
   },
   "rules": {
     "quotes": [2, "single"],
-    "no-console": "off"
+    "no-console": "off",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
   }
 }

@@ -1,9 +1,7 @@
-'use strict'
-
 const createError = require('http-errors')
 const express = require('express')
 const bodyParser = require('body-parser')
-const morgan = require('morgan')
+const logger = require('morgan')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const debug = require('debug')('server')
@@ -17,25 +15,37 @@ const HOST = process.env.HOST
 const MONGODB_USER = process.env.MONGODB_USERNAME
 const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD
 const MONGODB_DATABASE = process.env.MONGO_INITDB_DATABASE
+const MONGODB_HOST = process.env.MONGODB_HOST
+const MONGODB_PORT = process.env.MONGODB_PORT
 
-mongoose.Promise = require('bluebird')
-mongoose.connect(`mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@mongodb:27017/${MONGODB_DATABASE}`)
-
-const db = mongoose.connection
-db.on('error', () => debug('MongoDB connection error:'))
-db.once('open', () => debug('MongoDB connection OK'))
-
-const indexRouter = require('./routes/index');
-const testRouter = require('./routes/test')
+const { defaultRoutes } = require('./routes')
+const { apiRoutes } = require('./routes')
 
 const app = express()
-app.use(morgan('dev'))
+
+mongoose.Promise = require('bluebird')
+mongoose.connect(`mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DATABASE}`, {
+  autoReconnect: true,
+  reconnectTries: 3600,
+  reconnectInterval: 1000,
+  autoIndex: app.get('env') === 'development'
+}).then(
+  () => { debug('MongoDB connection OK') },
+  err => { debug(err) }
+)
+
+const db = mongoose.connection
+db.on('connected', () => debug('MongoDB connection: connected'))
+db.on('disconnected', () => debug('MongoDB connection: disconnected'))
+db.on('reconnect', () => debug('MongoDB connection: reconnected'))
+
+app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(cors())
 app.use(cookieParser())
 
-app.use('/', indexRouter)
-app.use('/', testRouter)
+app.use('/', defaultRoutes)
+app.use('/api', apiRoutes)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -43,14 +53,15 @@ app.use((req, res, next) => {
 })
 
 // error handler
-app.use((err, req, res) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
+app.use((err, req, res, next) => {
+  debug(err.stack)
 
   res.status(err.status || 500)
-  res.send('error')
-  debug(res.locals)
+  res.json({
+    type: err.name,
+    message: err.message,
+    error: req.app.get('env') === 'development' ? err : {}
+  })
 })
 
 app.listen(PORT, HOST)

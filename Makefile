@@ -9,6 +9,10 @@ YARN_FRONTEND	= $(EXEC_FRONTEND) yarn
 
 EXEC_DB			= $(DOCKER_COMPOSE) exec mongodb
 
+DB_USER			= $(shell echo $$(grep MONGODB_USERNAME .env | xargs) | sed 's/.*=//')
+DB_PWD			= $(shell echo $$(grep MONGODB_PASSWORD .env | xargs) | sed 's/.*=//')
+DB_NAME			= $(shell echo $$(grep MONGO_INITDB_DATABASE .env | xargs) | sed 's/.*=//')
+
 ##
 ## Project
 ## -------
@@ -139,7 +143,7 @@ logs-db: ## Show logs
 	$(DOCKER_COMPOSE) logs -f mongodb
 
 db-terminal: ## Open terminal
-	$(EXEC_DB) mongo mevn -u mevn -p mevn
+	$(EXEC_DB) mongo $(DB_NAME) -u $(DB_USER) -p $(DB_PWD)
 
 .PHONY: logs-db
 

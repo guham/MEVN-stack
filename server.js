@@ -6,31 +6,27 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const debug = require('debug')('server')
 const mongoose = require('mongoose')
+mongoose.Promise = require('bluebird')
 require('dotenv').config()
 
 // Express
 const PORT = process.env.PORT
 const HOST = process.env.HOST
 // MongoDB
-const MONGODB_USER = process.env.MONGODB_USERNAME
-const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD
-const MONGODB_DATABASE = process.env.MONGO_INITDB_DATABASE
-const MONGODB_HOST = process.env.MONGODB_HOST
-const MONGODB_PORT = process.env.MONGODB_PORT
+const MONGODB_URI = process.env.MONGODB_URI
 
 const { defaultRoutes } = require('./routes')
 const { apiRoutes } = require('./routes')
 
 const app = express()
 
-mongoose.Promise = require('bluebird')
-mongoose.connect(`mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DATABASE}`, {
+mongoose.connect(MONGODB_URI, {
   autoReconnect: true,
-  reconnectTries: 3600,
+  reconnectTries: 60,
   reconnectInterval: 1000,
   autoIndex: app.get('env') === 'development'
 }).then(
-  () => { debug('MongoDB connection OK') },
+  () => { debug(`MongoDB running on ${MONGODB_URI}`) },
   err => { debug(err) }
 )
 

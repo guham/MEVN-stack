@@ -15,6 +15,7 @@ services:
     environment:
       - NODE_ENV=${NODE_ENV}
       - DEBUG=${DEBUG}
+      - MONGODB_URI=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongodb:27017/${MONGO_INITDB_DATABASE}
     ports:
       - "49160:${PORT}"
     command: "npm run dev"
@@ -53,7 +54,7 @@ services:
       - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
       - TZ=${TZ}
     ports:
-      - "${MONGODB_PORT}:${MONGODB_PORT}"
+      - "27017:27017"
 
 volumes:
   backend_node_modules:

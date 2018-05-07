@@ -4,6 +4,8 @@ services:
   backend:
     build:
       context: .
+      args:
+        - TZ=${TZ}
     depends_on:
       - mongodb
     volumes:
@@ -30,6 +32,7 @@ services:
     environment:
       - NODE_ENV=${NODE_ENV}
       - VUE_APP_API_URL=${VUE_APP_API_URL}
+      - TZ=${TZ}
     ports:
       - "8080:8080"
     command: "yarn serve"
@@ -39,15 +42,16 @@ services:
       context: .
       dockerfile: Dockerfile-mongodb
       args:
-        - mongodb_username=${MONGODB_USERNAME}
-        - mongodb_password=${MONGODB_PASSWORD}
-        - mongodb_database=${MONGO_INITDB_DATABASE}
+        - MONGODB_USERNAME=${MONGODB_USERNAME}
+        - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+        - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
     volumes:
       - ./.data/mongo:/data/db:rw,cached
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
       - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - TZ=${TZ}
     ports:
       - "${MONGODB_PORT}:${MONGODB_PORT}"
 

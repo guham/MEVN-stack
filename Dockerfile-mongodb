@@ -1,11 +1,11 @@
 FROM mongo:3.6
 
-ARG mongodb_username
-ARG mongodb_password
-ARG mongodb_database
+ARG MONGODB_USERNAME
+ARG MONGODB_PASSWORD
+ARG MONGO_INITDB_DATABASE
 
 COPY mongodb-setup.js /docker-entrypoint-initdb.d/
 
-RUN sed -i -e "s/MONGODB_USERNAME/$mongodb_username/g" /docker-entrypoint-initdb.d/mongodb-setup.js
-RUN sed -i -e "s/MONGODB_PASSWORD/$mongodb_password/g" /docker-entrypoint-initdb.d/mongodb-setup.js
-RUN sed -i -e "s/MONGODB_DATABASE/$mongodb_database/g" /docker-entrypoint-initdb.d/mongodb-setup.js
+RUN sed -i -e "s/MONGODB_USERNAME/$MONGODB_USERNAME/g" /docker-entrypoint-initdb.d/mongodb-setup.js
+RUN sed -i -e "s/MONGODB_PASSWORD/$MONGODB_PASSWORD/g" /docker-entrypoint-initdb.d/mongodb-setup.js
+RUN sed -i -e "s/MONGO_INITDB_DATABASE/$MONGO_INITDB_DATABASE/g" /docker-entrypoint-initdb.d/mongodb-setup.js

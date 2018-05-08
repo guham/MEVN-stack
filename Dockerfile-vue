@@ -1,4 +1,4 @@
-FROM node:9-stretch
+FROM node:10-stretch
 
 ARG CHROME_VERSION="google-chrome-stable"
 

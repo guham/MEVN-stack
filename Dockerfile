@@ -2,7 +2,8 @@ FROM node:9-alpine
 
 ARG TZ
 
-RUN apk add --no-cache tzdata \
+RUN set -xe \
+	&& apk add --no-cache tzdata mongodb \
 	&& cp /usr/share/zoneinfo/${TZ} /etc/localtime \
 	&& echo ${TZ} > /etc/timezone
 

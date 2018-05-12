@@ -14,6 +14,6 @@ WIP
 - [x] Travis CI
 - [x] Add e2e Firefox tests
 - [x] Set up MongoDB service
-- [ ] Express unit tests
+- [x] Express unit tests
 - [ ] Update browserslist
 - [ ] Write doc

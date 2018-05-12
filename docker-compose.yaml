@@ -18,6 +18,7 @@ services:
       - MONGODB_URI=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongodb:27017/${MONGO_INITDB_DATABASE}
     ports:
       - "49160:${PORT}"
+      - "9222:9222"
     command: ["./wait-for-mongodb.sh", "yarn run dev"]
 
   frontend:

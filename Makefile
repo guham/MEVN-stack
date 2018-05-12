@@ -51,7 +51,7 @@ lint: ## Lint back & front files
 lint: lint-backend lint-frontend
 
 test: ## Run all unit & functional tests
-test: test-frontend
+test: test-backend test-frontend
 
 upgrade: ## Upgrade all dependencies
 upgrade: upgrade-backend upgrade-frontend
@@ -86,7 +86,14 @@ lint-backend: backend.node_modules
 upgrade-backend: ## Upgrade dependencies
 	$(YARN_BACKEND) upgrade
 
-.PHONY: logs-backend lint-backend upgrade-backend
+test-backend: ## Run tests
+test-backend: tu-backend
+
+tu-backend: ## Run unit tests
+tu-backend: backend.node_modules
+	$(YARN_BACKEND) test
+
+.PHONY: logs-backend lint-backend upgrade-backend test-backend tu-backend
 
 backend-clean:
 	rm -rf .env node_modules

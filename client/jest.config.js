@@ -1,4 +1,5 @@
 module.exports = {
+  verbose: true,
   moduleFileExtensions: [
     'js',
     'jsx',
@@ -18,5 +19,16 @@ module.exports = {
   ],
   testMatch: [
     '<rootDir>/(tests/unit/**/*.spec.(ts|tsx|js)|**/__tests__/*.(ts|tsx|js))'
+  ],
+  collectCoverage: true,
+  collectCoverageFrom: [
+    "**/*.{js,jsx,vue}",
+    "!**/node_modules/**",
+    "!**/coverage/**",
+    "!**/tests/**",
+    "!**/dist/**",
+    "!**/jest.config.js",
+    "!**/tailwind.js",
+    "!**/vue.config.js"
   ]
 }

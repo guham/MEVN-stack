@@ -11,8 +11,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node node_modules/nodemon/bin/nodemon.js --config nodemon.json server.js",
-    "lint": "./node_modules/.bin/eslint --fix-dry-run ."
+    "dev": "nodemon --config nodemon.json server.js",
+    "lint": "eslint --fix-dry-run .",
+    "test": "NODE_ENV=test jest --colors"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -27,6 +28,8 @@
   },
   "devDependencies": {
     "eslint": "^4.19.1",
-    "nodemon": "^1.17.3"
+    "jest": "^22.4.3",
+    "nodemon": "^1.17.3",
+    "supertest": "^3.0.0"
   }
 }

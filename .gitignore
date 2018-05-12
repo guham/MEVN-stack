@@ -1,7 +1,8 @@
 .DS_Store
-node_modules
+/node_modules
 .data/*
 !.data/.gitkeep
+/coverage
 
 # local env files
 .env

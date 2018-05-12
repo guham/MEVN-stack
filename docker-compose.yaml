@@ -14,11 +14,12 @@ services:
     restart: always
     environment:
       - NODE_ENV=${NODE_ENV}
+      - NODE_DEBUG_PORT=${NODE_DEBUG_PORT}
       - DEBUG=${DEBUG}
       - MONGODB_URI=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongodb:27017/${MONGO_INITDB_DATABASE}
     ports:
       - "49160:${PORT}"
-      - "9222:9222"
+      - "${NODE_DEBUG_PORT}:${NODE_DEBUG_PORT}"
     command: ["./wait-for-mongodb.sh", "yarn run dev"]
 
   frontend:

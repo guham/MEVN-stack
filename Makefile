@@ -96,7 +96,7 @@ tu-backend: backend.node_modules
 .PHONY: logs-backend lint-backend upgrade-backend test-backend tu-backend
 
 backend-clean:
-	rm -rf .env node_modules coverage
+	rm -rf .env node_modules coverage yarn-error.log
 
 backend.node_modules: package.json yarn.lock
 	$(YARN_BACKEND) install
@@ -135,7 +135,7 @@ build-frontend: frontend.node_modules
 .PHONY: logs-frontend lint-frontend upgrade-frontend test-frontend tu-frontend tf-frontend build-frontend
 
 frontend-clean:
-	rm -rf client/node_modules client/dist client/coverage client/tests/e2e/reports
+	rm -rf client/node_modules client/dist client/coverage client/tests/e2e/reports client/yarn-error.log client/selenium-debug.log
 
 frontend.node_modules: client/package.json client/yarn.lock
 	$(YARN_FRONTEND) install

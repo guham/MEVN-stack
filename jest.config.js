@@ -1,6 +1,6 @@
 module.exports = {
   verbose: true,
-  testEnvironment: "node",
+  testEnvironment: 'node',
   moduleFileExtensions: [
     'js',
     'json'
@@ -10,12 +10,13 @@ module.exports = {
   ],
   collectCoverage: true,
   collectCoverageFrom: [
-    "**/*.{js}",
-    "!**/node_modules/**",
-    "!**/client/**",
-    "!**/coverage/**",
-    "!**/jest.config.js",
-    "!**/mongodb-setup.js",
-    "!**/server.js"
+    '**/*.{js}',
+    '!**/node_modules/**',
+    '!**/client/**',
+    '!**/coverage/**',
+    '!**/jest.config.js',
+    '!**/.eslintrc.js',
+    '!**/mongodb-setup.js',
+    '!**/server.js'
   ]
 }

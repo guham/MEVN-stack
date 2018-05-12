@@ -6,27 +6,27 @@
 </template>
 
 <script>
-import TestService from '@/services/TestService'
+import TestService from '@/services/TestService';
 
 export default {
   name: 'test',
-  data () {
+  data() {
     return {
-      value: 'Waiting for value...'
-    }
+      value: 'Waiting for value...',
+    };
   },
-  mounted () {
-    this.fetchValueFromServer()
+  mounted() {
+    this.fetchValueFromServer();
   },
   methods: {
-    fetchValueFromServer () {
+    fetchValueFromServer() {
       TestService.fetchValueFromServer()
-        .then(response => {
-          this.value = response.data.value
-        }).catch(error => {
-          this.value = error.message
-        })
-    }
-  }
-}
+        .then((response) => {
+          this.value = response.data.value;
+        }).catch((error) => {
+          this.value = error.message;
+        });
+    },
+  },
+};
 </script>

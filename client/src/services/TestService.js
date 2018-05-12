@@ -1,7 +1,7 @@
-import Api from '@/services/Api'
+import Api from '@/services/Api';
 
 export default {
-  fetchValueFromServer () {
-    return Api().get('api/foo/test')
-  }
-}
+  fetchValueFromServer() {
+    return Api().get('api/foo/test');
+  },
+};

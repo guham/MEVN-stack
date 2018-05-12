@@ -122,11 +122,11 @@ test-frontend: tu-frontend tf-frontend
 
 tu-frontend: ## Run unit tests
 tu-frontend: frontend.node_modules
-	$(YARN_FRONTEND) test
+	$(YARN_FRONTEND) test:unit
 
 tf-frontend: ## Run functional tests
 tf-frontend: frontend.node_modules
-	$(YARN_FRONTEND) e2e
+	$(YARN_FRONTEND) test:e2e
 
 build-frontend: ## Produce a production-ready bundle
 build-frontend: frontend.node_modules

@@ -1,3 +1,9 @@
+language: node_js
+dist: trusty
+
+node_js:
+  - "9.8"
+
 sudo: required
 
 services:
@@ -14,14 +20,15 @@ before_install:
 
 before_script:
   - chmod -R o+w ./
+  - npm install -g coveralls
 
 script:
   - make install
   - make ps
   - make test
-  - make ci-coverage
   - make lint-backend
   - make lint-frontend
   - make build-frontend
   - make stop
-  - make clean
+  - cat ./coverage/lcov.info | coveralls --verbose
+  - sudo make clean

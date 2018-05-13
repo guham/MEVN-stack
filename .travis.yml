@@ -20,7 +20,7 @@ before_install:
 
 before_script:
   - chmod -R o+w ./
-  - npm install -g sshpk coveralls
+  - npm install -g codecov coveralls
 
 script:
   - make install
@@ -31,4 +31,5 @@ script:
   - make build-frontend
   - make stop
   - cat ./coverage/lcov.info | coveralls -v
+  - codecov
   - sudo make clean

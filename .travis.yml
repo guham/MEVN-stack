@@ -30,5 +30,5 @@ script:
   - make lint-frontend
   - make build-frontend
   - make stop
-  - cat ./coverage/lcov.info | coveralls --verbose
+  - cat ./coverage/lcov.info | coveralls
   - sudo make clean

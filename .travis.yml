@@ -30,6 +30,7 @@ script:
   - make lint-frontend
   - make build-frontend
   - make stop
+  - sudo rm -rf .data
   - cat ./coverage/lcov.info | coveralls -v
   - codecov
   - sudo make clean

@@ -19,7 +19,9 @@ script:
   - make install
   - make ps
   - make test
+  - make ci-coverage
   - make lint-backend
   - make lint-frontend
   - make build-frontend
   - make stop
+  - make clean

@@ -1,8 +1,4 @@
-# MEVN-stack
-
-| master | develop |
-|----------|-----------|
-| [![Build Status](https://travis-ci.org/guham/MEVN-stack.svg?branch=master)](https://travis-ci.org/guham/MEVN-stack) | [![Build Status](https://travis-ci.org/guham/MEVN-stack.svg?branch=develop)](https://travis-ci.org/guham/MEVN-stack) |
+# MEVN-stack [![Build Status](https://travis-ci.org/guham/MEVN-stack.svg?branch=master)](https://travis-ci.org/guham/MEVN-stack) [![Coverage Status](https://coveralls.io/repos/github/guham/MEVN-stack/badge.svg?branch=master)](https://coveralls.io/github/guham/MEVN-stack?branch=master)
 
 MongoDB, Express, Vue.js & Node.js
 

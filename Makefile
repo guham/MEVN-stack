@@ -71,6 +71,11 @@ node_modules: backend.node_modules frontend.node_modules
 		cp .env.dist .env;\
 	fi
 
+ci-coverage:
+	$(YARN_BACKEND) add coveralls -D
+	$(EXEC_BACKEND) cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js --verbose
+	$(EXEC_BACKEND) rm -rf ./coverage
+
 ##
 ## API (Express/Node.js)
 ## -------

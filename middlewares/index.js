@@ -1,5 +1,5 @@
-const errorHandlers = require('./errorHandlers')
+const errorHandlers = require('./errorHandlers');
 
 module.exports = {
-  errorHandlers
-}
+  errorHandlers,
+};

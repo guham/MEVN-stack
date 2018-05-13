@@ -1,5 +1,5 @@
-const fooController = require('./foo')
+const fooController = require('./foo');
 
 module.exports = {
-  fooController
-}
+  fooController,
+};

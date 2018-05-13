@@ -1,5 +1,5 @@
-const Foo = require('./foo')
+const Foo = require('./foo');
 
 module.exports = {
-  Foo
-}
+  Foo,
+};

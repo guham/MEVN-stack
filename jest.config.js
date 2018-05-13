@@ -3,20 +3,14 @@ module.exports = {
   testEnvironment: 'node',
   moduleFileExtensions: [
     'js',
-    'json'
+    'json',
   ],
   testMatch: [
-    '<rootDir>/tests/**/*.js'
+    '<rootDir>/tests/**/*.test.js',
   ],
   collectCoverage: true,
   collectCoverageFrom: [
-    '**/*.{js}',
-    '!**/node_modules/**',
-    '!**/client/**',
-    '!**/coverage/**',
-    '!**/jest.config.js',
-    '!**/.eslintrc.js',
-    '!**/mongodb-setup.js',
-    '!**/server.js'
-  ]
-}
+    '<rootDir>/(controllers|middlewares|models|routes)/**/*.js',
+    '<rootDir>/app.js',
+  ],
+};

@@ -1,15 +1,16 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
 
-const { fooController } = require('../controllers')
-const { errorHandlers } = require('../middlewares')
+const router = express.Router();
 
-router.get('/', errorHandlers.asyncMiddleware(fooController.index))
+const { fooController } = require('../controllers');
+const { errorHandlers } = require('../middlewares');
 
-router.get('/add', errorHandlers.asyncMiddleware(fooController.add))
+router.get('/', errorHandlers.asyncMiddleware(fooController.index));
 
-router.get('/throw-exception', errorHandlers.asyncMiddleware(fooController.throwException))
+router.get('/add', errorHandlers.asyncMiddleware(fooController.add));
 
-router.get('/test', errorHandlers.asyncMiddleware(fooController.test))
+router.get('/throw-exception', errorHandlers.asyncMiddleware(fooController.throwException));
 
-module.exports = router
+router.get('/test', errorHandlers.asyncMiddleware(fooController.test));
+
+module.exports = router;

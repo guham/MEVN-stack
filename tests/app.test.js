@@ -1,58 +1,61 @@
-let app, logger, env, mongoose, debug
+let app;
+let logger;
+let env;
+let mongoose;
+let debug;
 
 beforeEach(() => {
-  env = process.env.NODE_ENV
-  jest.resetModules()
-  mongoose = require('mongoose')
-  debug = require('debug')
+  env = process.env.NODE_ENV;
+  jest.resetModules();
+  mongoose = require('mongoose');
+  debug = require('debug');
   // disable app logs
-  debug.disable()
-})
+  debug.disable();
+});
 
-afterEach(done => {
-  process.env.NODE_ENV = env
-  mongoose.disconnect(done)
-})
+afterEach((done) => {
+  process.env.NODE_ENV = env;
+  mongoose.disconnect(done);
+});
 
-afterAll(done => {
-  mongoose.disconnect(done)
-})
+afterAll((done) => {
+  mongoose.disconnect(done);
+});
+
+function createApp(mode) {
+  process.env.NODE_ENV = mode;
+  app = require('../app');
+  logger = app._router.stack.find(layer => layer.name === 'logger');
+}
 
 describe('Test app', () => {
-
   describe('In development mode', () => {
     beforeEach(() => {
-      process.env.NODE_ENV = 'development'
-      app = require('../app')
-      logger = app._router.stack.find(layer => layer.name === 'logger')
-    })
+      createApp('development');
+    });
 
     test('Should use logger', () => {
-      expect(logger).toBeDefined()
-    })
-  })
+      expect(logger).toBeDefined();
+    });
+  });
 
   describe('In test mode', () => {
     beforeEach(() => {
-      process.env.NODE_ENV = 'test'
-      app = require('../app')
-      logger = app._router.stack.find(layer => layer.name === 'logger')
-    })
+      createApp('test');
+    });
 
     test('Should not use logger', () => {
-      expect(logger).not.toBeDefined()
-    })
-  })
+      expect(logger).not.toBeDefined();
+    });
+  });
 
   describe('In production mode', () => {
     beforeEach(() => {
-      process.env.NODE_ENV = 'production'
-      app = require('../app')
-      logger = app._router.stack.find(layer => layer.name === 'logger')
-    })
+      createApp('production');
+    });
 
     test('Should use logger', () => {
-      expect(logger).toBeDefined()
-    })
-  })
-})
+      expect(logger).toBeDefined();
+    });
+  });
+});

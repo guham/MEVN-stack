@@ -1,8 +1,9 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
 
-const fooRoutes = require('./foo')
+const router = express.Router();
 
-router.use('/foo', fooRoutes)
+const fooRoutes = require('./foo');
 
-module.exports = router
+router.use('/foo', fooRoutes);
+
+module.exports = router;

@@ -22,13 +22,6 @@ module.exports = {
   ],
   collectCoverage: true,
   collectCoverageFrom: [
-    '**/*.{js,jsx,vue}',
-    '!**/node_modules/**',
-    '!**/coverage/**',
-    '!**/tests/**',
-    '!**/dist/**',
-    '!**/jest.config.js',
-    '!**/tailwind.js',
-    '!**/vue.config.js',
+    '<rootDir>/src/**/*.{js,jsx,vue}',
   ],
 };

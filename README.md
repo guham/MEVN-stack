@@ -6,10 +6,10 @@ WIP
 
 ## Todo
 
-- [x] Set up Tailwind CSS
-- [x] Travis CI
-- [x] Add e2e Firefox tests
-- [x] Set up MongoDB service
-- [x] Express unit tests
 - [ ] Update browserslist
 - [ ] Write doc
+- [ ] Vue tests
+- [ ] Nginx proxy, https
+- [ ] JWT
+- [ ] Security
+- [ ] Perfs

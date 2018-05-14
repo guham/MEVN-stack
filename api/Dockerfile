@@ -7,15 +7,15 @@ RUN set -xe \
 	&& cp /usr/share/zoneinfo/${TZ} /etc/localtime \
 	&& echo ${TZ} > /etc/timezone
 
-RUN mkdir -p /usr/src/app
+RUN mkdir -p /api
 
-COPY package.json yarn.lock /usr/src/app/
+COPY package.json yarn.lock /api/
 
-RUN chown -R node: /usr/src/app
+RUN chown -R node: /api
 
 USER node
 
-WORKDIR /usr/src/app
+WORKDIR /api
 
 RUN yarn install && yarn cache clean
 

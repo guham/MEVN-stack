@@ -16,15 +16,15 @@ RUN set -xe \
 	&& rm /etc/apt/sources.list.d/google-chrome.list \
 	&& rm -rf /var/lib/apt/lists/* /var/cache/apt/* firefox.tar.bz2
 
-RUN mkdir -p /usr/src/app
+RUN mkdir -p /client
 
-COPY package.json yarn.lock /usr/src/app/
+COPY package.json yarn.lock /client/
 
-RUN chown -R node: /usr/src/app
+RUN chown -R node: /client
 
 USER node
 
-WORKDIR /usr/src/app
+WORKDIR /client
 
 RUN yarn install && yarn cache clean
 

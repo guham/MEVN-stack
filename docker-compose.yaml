@@ -9,8 +9,8 @@ services:
     depends_on:
       - db
     volumes:
-      - ./api:/usr/src/app:rw,cached
-      - api_node_modules:/usr/src/app/node_modules
+      - ./api:/api:rw,cached
+      - api_node_modules:/api/node_modules
     restart: always
     environment:
       - HOST=${HOST}
@@ -28,8 +28,8 @@ services:
     build:
       context: ./client
     volumes:
-      - ./client:/usr/src/app:rw,cached
-      - client_node_modules:/usr/src/app/node_modules
+      - ./client:/client:rw,cached
+      - client_node_modules:/client/node_modules
     depends_on:
       - api
     restart: always

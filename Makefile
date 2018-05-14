@@ -1,20 +1,20 @@
 DOCKER			= docker
 DOCKER_COMPOSE  = docker-compose
 
-EXEC_BACKEND    = $(DOCKER_COMPOSE) exec -T backend
-YARN_BACKEND	= $(EXEC_BACKEND) yarn
+EXEC_API		= $(DOCKER_COMPOSE) exec -T api
+YARN_API		= $(EXEC_API) yarn
 
-EXEC_FRONTEND   = $(DOCKER_COMPOSE) exec -T frontend
-YARN_FRONTEND	= $(EXEC_FRONTEND) yarn
+EXEC_CLIENT		= $(DOCKER_COMPOSE) exec -T client
+YARN_CLIENT		= $(EXEC_CLIENT) yarn
 
-EXEC_DB			= $(DOCKER_COMPOSE) exec mongodb
+EXEC_DB			= $(DOCKER_COMPOSE) exec db
 
 DB_USER			= $(shell echo $$(grep MONGODB_USERNAME .env | xargs) | sed 's/.*=//')
 DB_PWD			= $(shell echo $$(grep MONGODB_PASSWORD .env | xargs) | sed 's/.*=//')
 DB_NAME			= $(shell echo $$(grep MONGO_INITDB_DATABASE .env | xargs) | sed 's/.*=//')
 
 ##
-## Project
+## MEVN Project
 ## -------
 ##
 
@@ -39,7 +39,7 @@ stop: ## Stop the project
 	$(DOCKER_COMPOSE) stop
 
 clean: ## Stop the project and remove generated files
-clean: kill backend-clean frontend-clean
+clean: kill clean-api clean-client
 
 ps: ## List containers
 	$(DOCKER) ps
@@ -48,17 +48,17 @@ logs: ## Show all logs
 	$(DOCKER_COMPOSE) logs -f
 
 lint: ## Lint back & front files
-lint: lint-backend lint-frontend
+lint: lint-api lint-client
 
 test: ## Run all unit & functional tests
-test: test-backend test-frontend
+test: test-api test-client
 
 upgrade: ## Upgrade all dependencies
-upgrade: upgrade-backend upgrade-frontend
+upgrade: upgrade-api upgrade-client
 
 .PHONY: build kill install reset start stop clean ps logs lint test upgrade
 
-node_modules: backend.node_modules frontend.node_modules
+node_modules: api.node_modules client.node_modules
 
 .env: .env.dist
 	@if [ -f .env ]; \
@@ -76,78 +76,78 @@ node_modules: backend.node_modules frontend.node_modules
 ## -------
 ##
 
-logs-backend: ## Show logs
-	$(DOCKER_COMPOSE) logs -f backend
+logs-api: ## Show logs
+	$(DOCKER_COMPOSE) logs -f api
 
-lint-backend: ## Lint (ESLint)
-lint-backend: backend.node_modules
-	$(YARN_BACKEND) lint
+lint-api: ## Lint (ESLint)
+lint-api: api.node_modules
+	$(YARN_API) lint
 
-upgrade-backend: ## Upgrade dependencies
-	$(YARN_BACKEND) upgrade
+upgrade-api: ## Upgrade dependencies
+	$(YARN_API) upgrade
 
-test-backend: ## Run tests
-test-backend: tu-backend
+test-api: ## Run tests
+test-api: tu-api
 
-tu-backend: ## Run unit tests
-tu-backend: backend.node_modules
-	$(YARN_BACKEND) test
+tu-api: ## Run unit tests
+tu-api: api.node_modules
+	$(YARN_API) test
 
-.PHONY: logs-backend lint-backend upgrade-backend test-backend tu-backend
+.PHONY: logs-api lint-api upgrade-api test-api tu-api
 
-backend-clean:
-	rm -rf .env node_modules coverage yarn-error.log
+clean-api:
+	rm -rf .env api/node_modules api/coverage api/yarn-error.log
 
-backend.node_modules: package.json yarn.lock
-	$(YARN_BACKEND) install
-	@touch -c backend.node_modules
+api.node_modules: api/package.json api/yarn.lock
+	$(YARN_API) install
+	@touch -c api.node_modules
 
 ##
-## Vue
+## CLIENT (Vue.js)
 ## -------
 ##
 
-logs-frontend: ## Show logs
-	$(DOCKER_COMPOSE) logs -f frontend
+logs-client: ## Show logs
+	$(DOCKER_COMPOSE) logs -f client
 
-lint-frontend: ## Lint (ESLint)
-lint-frontend: frontend.node_modules
-	$(YARN_FRONTEND) lint
+lint-client: ## Lint (ESLint)
+lint-client: client.node_modules
+	$(YARN_CLIENT) lint
 
-upgrade-frontend: ## Upgrade dependencies
-	$(YARN_FRONTEND) upgrade
+upgrade-client: ## Upgrade dependencies
+	$(YARN_CLIENT) upgrade
 
-test-frontend: ## Run unit & functional tests
-test-frontend: tu-frontend tf-frontend
+test-client: ## Run unit & functional tests
+test-client: tu-client tf-client
 
-tu-frontend: ## Run unit tests
-tu-frontend: frontend.node_modules
-	$(YARN_FRONTEND) test:unit
+tu-client: ## Run unit tests
+tu-client: client.node_modules
+	$(YARN_CLIENT) test:unit
 
-tf-frontend: ## Run functional tests
-tf-frontend: frontend.node_modules
-	$(YARN_FRONTEND) test:e2e
+tf-client: ## Run functional tests
+tf-client: client.node_modules
+	$(YARN_CLIENT) test:e2e
 
-build-frontend: ## Produce a production-ready bundle
-build-frontend: frontend.node_modules
-	$(YARN_FRONTEND) build
+build-client: ## Produce a production-ready bundle
+build-client: client.node_modules
+	$(YARN_CLIENT) build
 
-.PHONY: logs-frontend lint-frontend upgrade-frontend test-frontend tu-frontend tf-frontend build-frontend
+.PHONY: logs-client lint-client upgrade-client test-client tu-client tf-client build-client
 
-frontend-clean:
+clean-client:
 	rm -rf client/node_modules client/dist client/coverage client/tests/e2e/reports client/yarn-error.log client/selenium-debug.log
 
-frontend.node_modules: client/package.json client/yarn.lock
-	$(YARN_FRONTEND) install
-	@touch -c frontend.node_modules
+client.node_modules: client/package.json client/yarn.lock
+	$(YARN_CLIENT) install
+	@touch -c client.node_modules
 
 ##
-## MongoDB
+## DB (MongoDB)
 ## -------
 ##
 
 logs-db: ## Show logs
-	$(DOCKER_COMPOSE) logs -f mongodb
+	$(DOCKER_COMPOSE) logs -f db
 
 db-terminal: ## Open terminal
 	$(EXEC_DB) mongo $(DB_NAME) -u $(DB_USER) -p $(DB_PWD)

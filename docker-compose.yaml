@@ -1,36 +1,37 @@
 version: '3.2'
 
 services:
-  backend:
+  api:
     build:
-      context: .
+      context: ./api
       args:
         - TZ=${TZ}
     depends_on:
-      - mongodb
+      - db
     volumes:
-      - .:/usr/src/app:rw,cached
-      - backend_node_modules:/usr/src/app/node_modules
+      - ./api:/usr/src/app:rw,cached
+      - api_node_modules:/usr/src/app/node_modules
     restart: always
     environment:
+      - HOST=${HOST}
+      - PORT=${PORT}
       - NODE_ENV=${NODE_ENV}
-      - NODE_DEBUG_PORT=${NODE_DEBUG_PORT}
       - DEBUG=${DEBUG}
-      - MONGODB_URI=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongodb:27017/${MONGO_INITDB_DATABASE}
+      - MONGODB_URI=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@db:27017/${MONGO_INITDB_DATABASE}
+      - NODE_DEBUG_PORT=${NODE_DEBUG_PORT} # used only in "dev" package script
     ports:
       - "49160:${PORT}"
       - "${NODE_DEBUG_PORT}:${NODE_DEBUG_PORT}"
     command: ["./wait-for-mongodb.sh", "yarn run dev"]
 
-  frontend:
+  client:
     build:
-      context: .
-      dockerfile: Dockerfile-vue
+      context: ./client
     volumes:
       - ./client:/usr/src/app:rw,cached
-      - frontend_node_modules:/usr/src/app/node_modules
+      - client_node_modules:/usr/src/app/node_modules
     depends_on:
-      - backend
+      - api
     restart: always
     environment:
       - NODE_ENV=${NODE_ENV}
@@ -40,10 +41,9 @@ services:
       - "8080:8080"
     command: "yarn serve"
 
-  mongodb:
+  db:
     build:
-      context: .
-      dockerfile: Dockerfile-mongodb
+      context: ./db
       args:
         - MONGODB_USERNAME=${MONGODB_USERNAME}
         - MONGODB_PASSWORD=${MONGODB_PASSWORD}
@@ -59,5 +59,5 @@ services:
       - "27017:27017"
 
 volumes:
-  backend_node_modules:
-  frontend_node_modules:
+  api_node_modules:
+  client_node_modules:

@@ -1,6 +1,0 @@
-{
-  "verbose": false,
-  "watch": ["./", "./.env"],
-  "ignore": [".data/", "client/", "tests/", "jest.config.js", "mongodb-setup.js"],
-  "ext": "js,json,env"
-}

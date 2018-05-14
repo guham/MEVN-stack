@@ -18,7 +18,7 @@ RUN set -xe \
 
 RUN mkdir -p /usr/src/app
 
-COPY client/package.json client/yarn.lock /usr/src/app/
+COPY package.json yarn.lock /usr/src/app/
 
 RUN chown -R node: /usr/src/app
 
@@ -28,4 +28,4 @@ WORKDIR /usr/src/app
 
 RUN yarn install && yarn cache clean
 
-COPY ./client .
+COPY . .

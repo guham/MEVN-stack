@@ -25,12 +25,13 @@ before_script:
 script:
   - make install
   - make ps
-  - make test
-  - make lint-backend
-  - make lint-frontend
-  - make build-frontend
+  - make test-api
+  - make test-client
+  - make lint-api
+  - make lint-client
+  - make build-client
   - make stop
   - sudo rm -rf .data
-  - cat ./coverage/lcov.info | coveralls -v
+  - cat ./api/coverage/lcov.info | coveralls -v
   - codecov
   - sudo make clean

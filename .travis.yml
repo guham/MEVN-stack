@@ -20,7 +20,7 @@ before_install:
 
 before_script:
   - chmod -R o+w ./
-  - npm install -g codecov coveralls
+  - npm install -g codecov
 
 script:
   - make install
@@ -32,6 +32,5 @@ script:
   - make build-client
   - make stop
   - sudo rm -rf .data
-  - cat ./api/coverage/lcov.info | coveralls -v
   - codecov
   - sudo make clean

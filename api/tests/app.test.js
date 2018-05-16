@@ -1,44 +1,27 @@
 let app;
 let logger;
 let env;
-let mongoose;
-let debug;
-
-beforeEach(() => {
-  env = process.env.NODE_ENV;
-  jest.resetModules();
-  mongoose = require('mongoose');
-  debug = require('debug');
-  // disable app logs
-  debug.disable();
-});
+let db;
 
 afterEach((done) => {
   process.env.NODE_ENV = env;
-  mongoose.disconnect(done);
+  db.disconnect(done);
 });
 
 afterAll((done) => {
-  mongoose.disconnect(done);
+  db.disconnect(done);
 });
 
 function createApp(mode) {
+  env = process.env.NODE_ENV;
+  jest.resetModules();
   process.env.NODE_ENV = mode;
   app = require('../app');
+  db = require('../db');
   logger = app._router.stack.find(layer => layer.name === 'logger');
 }
 
 describe('Test app', () => {
-  describe('In development mode', () => {
-    beforeEach(() => {
-      createApp('development');
-    });
-
-    test('Should use logger', () => {
-      expect(logger).toBeDefined();
-    });
-  });
-
   describe('In test mode', () => {
     beforeEach(() => {
       createApp('test');
@@ -46,6 +29,16 @@ describe('Test app', () => {
 
     test('Should not use logger', () => {
       expect(logger).not.toBeDefined();
+    });
+  });
+
+  describe('In development mode', () => {
+    beforeEach(() => {
+      createApp('development');
+    });
+
+    test('Should use logger', () => {
+      expect(logger).toBeDefined();
     });
   });
 

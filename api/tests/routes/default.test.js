@@ -1,13 +1,10 @@
 const request = require('supertest');
 const app = require('../../app');
-const mongoose = require('mongoose');
-const debug = require('debug');
-// disable app logs
-debug.disable();
+const db = require('../../db');
 
 describe('Test default routes', () => {
   afterAll((done) => {
-    mongoose.disconnect(done);
+    db.disconnect(done);
   });
 
   describe('Test "/" path', () => {

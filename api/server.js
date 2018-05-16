@@ -1,11 +1,11 @@
-const debug = require('debug')('server');
 const app = require('./app');
-
+const debug = require('./components/debug')('app');
+const { parameters } = require('./parameters');
 // Express
-const { PORT, HOST } = process.env;
+const { port, host } = parameters.app;
 
-const server = app.listen(PORT, HOST);
-debug(`Running on http://${HOST}:${PORT}`);
+const server = app.listen(port, host);
+debug(`Running on http://${host}:${port}`);
 debug(`Env: ${app.get('env')}`);
 
 module.exports = server;

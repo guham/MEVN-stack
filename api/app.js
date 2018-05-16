@@ -4,40 +4,25 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const debug = require('debug')('app');
-const mongoose = require('mongoose');
-mongoose.Promise = require('bluebird');
+const db = require('./db');
+const { parameters } = require('./parameters');
 const { errorHandler } = require('./middlewares/errorHandlers');
 
-// MongoDB
-const { MONGODB_URI } = process.env;
-
+// Routes
 const { defaultRoutes } = require('./routes');
 const { apiRoutes } = require('./routes');
 
 const app = express();
 
-mongoose.connect(MONGODB_URI, {
-  autoReconnect: true,
-  reconnectTries: 60,
-  reconnectInterval: 1000,
-  autoIndex: process.env.NODE_ENV === 'development',
-}).then(
-  () => { debug(`MongoDB running on ${MONGODB_URI}`); },
-  (err) => { debug(err); },
-);
+db.connect();
 
-const db = mongoose.connection;
-db.on('connected', () => debug('MongoDB connection: connected'));
-db.on('disconnected', () => debug('MongoDB connection: disconnected'));
-db.on('reconnect', () => debug('MongoDB connection: reconnected'));
-
-if (process.env.NODE_ENV !== 'test') {
-  app.use(logger(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
-}
 app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
+
+if (!parameters.app.isInEnv('test')) {
+  app.use(logger(parameters.app.isInEnv('production') ? 'combined' : 'dev'));
+}
 
 app.use('/', defaultRoutes);
 app.use('/api', apiRoutes);

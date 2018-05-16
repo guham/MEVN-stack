@@ -1,4 +1,5 @@
-const debug = require('debug')('app');
+const debug = require('../components/debug')('app');
+const { parameters } = require('../parameters');
 
 exports.asyncMiddleware = fn => (req, res, next) => {
   Promise.resolve(fn(req, res, next)).catch(next);
@@ -11,6 +12,6 @@ exports.errorHandler = (err, req, res, next) => {
   res.json({
     type: err.name,
     message: err.message,
-    error: process.env.NODE_ENV === 'development' ? err : {},
+    error: parameters.app.isInEnv('development') ? err : {},
   });
 };

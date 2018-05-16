@@ -1,7 +1,16 @@
-const debug = require('debug');
-const { errorHandler } = require('../../middlewares/errorHandlers');
-// disable app logs
-debug.disable();
+let env;
+let errorHandler;
+
+function initErrorHandler(mode) {
+  env = process.env.NODE_ENV;
+  jest.resetModules();
+  process.env.NODE_ENV = mode;
+  ({ errorHandler } = require('../../middlewares/errorHandlers'));
+}
+
+afterEach(() => {
+  process.env.NODE_ENV = env;
+});
 
 describe('Test middleware error handlers', () => {
   // mocks
@@ -23,6 +32,10 @@ describe('Test middleware error handlers', () => {
   const next = jest.fn();
   next.mockClear();
 
+  beforeEach(() => {
+    initErrorHandler('test');
+  });
+
   test('Should handle error', () => {
     errorHandler(new Error('Unexpected error'), req, res, next);
 
@@ -34,16 +47,9 @@ describe('Test middleware error handlers', () => {
   });
 
   describe('In development mode, "error" property is fulfilled with an error object', () => {
-    let env;
     beforeEach(() => {
-      env = process.env.NODE_ENV;
-      process.env.NODE_ENV = 'development';
+      initErrorHandler('development');
     });
-
-    afterEach(() => {
-      process.env.NODE_ENV = env;
-    });
-
     test('Should provide an error object', () => {
       errorHandler(new Error('Some error'), req, res, next);
       expect(res.body).toHaveProperty('error');

@@ -1,27 +1,21 @@
-language: node_js
 dist: trusty
-
-node_js:
-  - "9.8"
-
 sudo: required
-
 services:
   - docker
-
 addons:
   apt:
     packages:
       - docker-ce
-
-before_install:
-  - docker -v
-  - docker-compose -v
-
+language: node_js
+node_js:
+  - '10'
+cache:
+  directories:
+    - $HOME/.npm
+    - node_modules
 before_script:
   - chmod -R o+w ./
   - npm install -g codecov
-
 script:
   - make install
   - make ps

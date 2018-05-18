@@ -9,8 +9,8 @@ router.get('/', errorHandlers.asyncMiddleware(fooController.index));
 
 router.get('/add', errorHandlers.asyncMiddleware(fooController.add));
 
-router.get('/throw-exception', errorHandlers.asyncMiddleware(fooController.throwException));
-
 router.get('/test', errorHandlers.asyncMiddleware(fooController.test));
+
+router.get('/:id', errorHandlers.asyncMiddleware(fooController.get));
 
 module.exports = router;

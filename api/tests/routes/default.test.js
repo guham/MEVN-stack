@@ -2,11 +2,11 @@ const request = require('supertest');
 const app = require('../../app');
 const db = require('../../db');
 
-describe('Test default routes', () => {
-  afterAll((done) => {
-    db.disconnect(done);
-  });
+afterAll((done) => {
+  db.disconnect(done);
+});
 
+describe('Test default routes', () => {
   describe('Test "/" path', () => {
     test('Should respond "Home" with a 200', async () => {
       const response = await request(app).get('/');

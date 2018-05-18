@@ -2,11 +2,18 @@ const request = require('supertest');
 const app = require('../../app');
 const db = require('../../db');
 
-describe('Test API routes', () => {
-  afterAll((done) => {
-    db.disconnect(done);
+beforeAll(async () => {
+  db.mongoose.connection.on('open', async () => {
+    const collections = await db.mongoose.connection.db.collections();
+    return Promise.all(collections.map(collection => collection.drop()));
   });
+});
 
+afterAll((done) => {
+  db.disconnect(done);
+});
+
+describe('Test API routes', () => {
   describe('Test "/api/foo" path', () => {
     test('Should respond an object with a 200', async () => {
       const response = await request(app).get('/api/foo');
@@ -24,10 +31,26 @@ describe('Test API routes', () => {
     });
   });
 
-  describe('Test "/api/foo/throw-exception" path', () => {
-    test('Should respond with a 500', async () => {
-      const response = await request(app).get('/api/foo/throw-exception');
+  describe('Test "/api/foo/ID" path', () => {
+    test('Should respond with a 500 with a fake id', async () => {
+      const response = await request(app).get('/api/foo/42');
       expect(response.statusCode).toBe(500);
+    });
+
+    test('Should respond with a 200 with valid id but foo does not exist', async () => {
+      const response = await request(app).get('/api/foo/5bfe0af364e3bf0830f649ba');
+      expect(response.statusCode).toBe(200);
+      expect(Object.keys(response.body)).toEqual(['data']);
+      expect(response.body.data).toBeNull();
+    });
+
+    test('Should respond with a 200 with an existing foo', async () => {
+      // add foo
+      let response = await request(app).get('/api/foo/add');
+      const foo = response.body.data;
+      response = await request(app).get(`/api/foo/${foo._id}`);
+      expect(response.statusCode).toBe(200);
+      expect(response.body.data).toEqual(foo);
     });
   });
 

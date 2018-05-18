@@ -4,26 +4,28 @@ const { parameters } = require('./parameters');
 mongoose.Promise = require('bluebird');
 
 const { uri } = parameters.db;
+const { connection } = mongoose;
 
-const db = mongoose.connection;
-db.on('connected', () => debug('MongoDB connection: connected'));
-db.on('disconnected', () => debug('MongoDB connection: disconnected'));
-db.on('reconnect', () => debug('MongoDB connection: reconnected'));
+connection.on('connected', () => debug('MongoDB connection: connected'));
+connection.on('disconnected', () => debug('MongoDB connection: disconnected'));
+connection.on('reconnect', () => debug('MongoDB connection: reconnected'));
 
 module.exports = {
-  connect: () => {
-    mongoose.connect(uri, {
+  mongoose,
+  connect() {
+    return mongoose.connect(uri, {
       autoReconnect: true,
       reconnectTries: 60,
       reconnectInterval: 1000,
       autoIndex: parameters.app.isInEnv('development'),
-    }).then(() => {
+    }).then((db) => {
       debug(`MongoDB running on ${uri}`);
-    }, (err) => {
+      return db;
+    }).catch((err) => {
       debug(err);
     });
   },
-  disconnect: (fn) => {
-    mongoose.disconnect(fn);
+  disconnect(fn) {
+    return mongoose.disconnect(fn);
   },
 };

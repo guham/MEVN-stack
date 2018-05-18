@@ -11,9 +11,9 @@ exports.add = async (req, res, next) => {
   res.status(201).json({ data: foo });
 };
 
-exports.throwException = async (req, res, next) => {
-  const fakeId = '42';
-  const foo = await Foo.findById(fakeId).exec();
+exports.get = async (req, res, next) => {
+  const { id } = req.params;
+  const foo = await Foo.findById(id).exec();
   res.json({ data: foo });
 };
 

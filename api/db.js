@@ -23,6 +23,7 @@ module.exports = {
       return db;
     }).catch((err) => {
       debug(err);
+      return err;
     });
   },
   disconnect(fn) {

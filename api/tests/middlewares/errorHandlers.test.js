@@ -38,11 +38,11 @@ describe('Test middleware error handlers', () => {
 
   test('Should handle error', () => {
     errorHandler(new Error('Unexpected error'), req, res, next);
-
     expect(res.statusCode).toBe(500);
     expect(Object.keys(res.body).sort()).toEqual(['type', 'message', 'error'].sort());
     expect(res.body.type).toBe('Error');
     expect(res.body.message).toMatch(/.*/);
+    expect(res.body).toHaveProperty('error');
     expect(res.body.error).toMatchObject({});
   });
 
@@ -52,7 +52,6 @@ describe('Test middleware error handlers', () => {
     });
     test('Should provide an error object', () => {
       errorHandler(new Error('Some error'), req, res, next);
-      expect(res.body).toHaveProperty('error');
       expect(res.body.error).toHaveProperty('stack');
     });
   });

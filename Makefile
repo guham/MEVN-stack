@@ -96,7 +96,7 @@ tu-api: api.node_modules
 .PHONY: logs-api lint-api upgrade-api test-api tu-api
 
 clean-api:
-	rm -rf .env api/node_modules api/coverage api/yarn-error.log
+	rm -rf .env api/node_modules api/coverage api/yarn-error.log api/tests/access.log
 
 api.node_modules: api/package.json api/yarn.lock
 	$(YARN_API) install

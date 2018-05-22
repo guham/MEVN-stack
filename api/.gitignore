@@ -1,6 +1,7 @@
 .DS_Store
 /coverage
 /node_modules
+/tests/access.log
 
 # Log files
 npm-debug.log*

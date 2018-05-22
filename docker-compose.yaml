@@ -4,8 +4,6 @@ services:
   api:
     build:
       context: ./api
-      args:
-        - TZ=${TZ}
     depends_on:
       - db
     volumes:
@@ -39,7 +37,6 @@ services:
     environment:
       - NODE_ENV=${NODE_ENV}
       - VUE_APP_API_URL=${VUE_APP_API_URL}
-      - TZ=${TZ}
     ports:
       - "8080:8080"
     command: "yarn serve"
@@ -55,7 +52,6 @@ services:
       - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
       - MONGODB_USERNAME=${MONGODB_USERNAME}
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
-      - TZ=${TZ}
     ports:
       - "27017:27017"
 

@@ -1,11 +1,7 @@
 FROM node:10-alpine
 
-ARG TZ
-
 RUN set -xe \
-	&& apk add --no-cache tzdata mongodb \
-	&& cp /usr/share/zoneinfo/${TZ} /etc/localtime \
-	&& echo ${TZ} > /etc/timezone
+	&& apk add --no-cache mongodb
 
 RUN mkdir -p /api
 

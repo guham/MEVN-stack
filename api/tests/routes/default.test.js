@@ -26,4 +26,11 @@ describe('Test default routes', () => {
       });
     });
   });
+
+  describe('Test "/favicon.ico" path', () => {
+    test('Should respond with a 204', async () => {
+      const response = await request(app).get('/favicon.ico');
+      expect(response.statusCode).toBe(204);
+    });
+  });
 });

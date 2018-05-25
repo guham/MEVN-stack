@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Fetch a value from the server</h1>
-    <p class="p-2">>> {{ value }}</p>
+    <p class="p-2"><span>>></span> {{ value }}</p>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import TestService from '@/services/TestService';
 
 export default {
-  name: 'test',
+  name: 'Test',
   data() {
     return {
       value: 'Waiting for value...',

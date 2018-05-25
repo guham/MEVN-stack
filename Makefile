@@ -135,7 +135,7 @@ build-client: client.node_modules
 .PHONY: logs-client lint-client upgrade-client test-client tu-client tf-client build-client
 
 clean-client:
-	rm -rf client/node_modules client/dist client/coverage client/tests/e2e/reports client/yarn-error.log client/selenium-debug.log
+	rm -rf client/node_modules client/dist client/tests/coverage client/tests/e2e/reports client/yarn-error.log client/selenium-debug.log
 
 client.node_modules: client/package.json client/yarn.lock
 	$(YARN_CLIENT) install

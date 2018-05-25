@@ -1,5 +1,5 @@
 .DS_Store
-/coverage
+/tests/coverage
 /dist
 /node_modules
 

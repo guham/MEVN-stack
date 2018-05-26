@@ -20,9 +20,9 @@ export default {
   },
   methods: {
     fetchValueFromServer() {
-      TestService.fetchValueFromServer()
+      return TestService.fetchValueFromServer()
         .then((response) => {
-          this.value = response.data.value;
+          this.value = response.data.data;
         }).catch((error) => {
           this.value = error.message;
         });

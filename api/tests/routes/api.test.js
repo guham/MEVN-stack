@@ -58,8 +58,8 @@ describe('Test API routes', () => {
     test('Should respond an object with a 200', async () => {
       const response = await request(app).get('/api/foo/test');
       expect(response.statusCode).toBe(200);
-      expect(typeof response.body.value).toBe('string');
-      expect(response.body.value).toMatch(/.*/);
+      expect(typeof response.body.data).toBe('string');
+      expect(response.body.data).toMatch(/.*/);
     });
   });
 });

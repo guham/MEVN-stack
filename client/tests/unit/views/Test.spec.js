@@ -7,6 +7,8 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
+axios.get.mockImplementation(() => Promise.resolve({ data: { data: 'message from the API' } }));
+
 describe('Test.vue ', () => {
   test('renders a default message', () => {
     const wrapper = factory(Test);
@@ -17,10 +19,16 @@ describe('Test.vue ', () => {
     expect(typeof Test.mounted).toBe('function');
   });
 
+  test('once mounted, an API call is done', async () => {
+    const wrapper = factory(Test);
+    await wrapper.vm.fetchValueFromServer();
+    expect(axios.get).toBeCalled();
+  });
+
   test('once mounted, should renders the value fetched from the API', async () => {
     const wrapper = factory(Test);
     await wrapper.vm.fetchValueFromServer();
-    expect(wrapper.find('p').text()).toBe('>> This is a value fetched from server');
+    expect(wrapper.find('p').text()).toBe('>> message from the API');
   });
 
   test('API endpoint should be called with "api/foo/test"', async () => {
@@ -31,8 +39,14 @@ describe('Test.vue ', () => {
 
   test("renders error's message when an error occurs", async () => {
     const wrapper = factory(Test);
-    axios.get.mockImplementationOnce(() => Promise.reject(new Error('Error')));
+    axios.get.mockImplementation(() => Promise.reject(new Error('Error')));
     await wrapper.vm.fetchValueFromServer();
     expect(wrapper.find('p').text()).toBe('>> Error');
+  });
+
+  test('has the expected html structure', () => {
+    const wrapper = factory(Test);
+    const template = wrapper.html();
+    expect(template).toMatchSnapshot();
   });
 });

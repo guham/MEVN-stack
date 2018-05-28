@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home.vue  has the expected html structure 1`] = `
+<div class="home">
+  <img src="../assets/logo.png">
+  <!---->
+</div>
+`;

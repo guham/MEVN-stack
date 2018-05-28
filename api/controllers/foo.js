@@ -18,5 +18,5 @@ exports.get = async (req, res, next) => {
 };
 
 exports.test = (req, res, next) => {
-  res.json({ data: 'This is a value fetched from server' });
+  res.json({ data: 'This is a message fetched from the API' });
 };

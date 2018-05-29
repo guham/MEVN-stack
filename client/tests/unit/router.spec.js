@@ -2,8 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import router from '@/router';
 // routes
-import Home from '@/views/Home.vue';
-import Test from '@/views/Test.vue';
+import Home from '@/views/Home';
+import Test from '@/views/Test';
+import NotFound from '@/views/NotFound';
 
 jest.mock('vue', () => ({
   use: jest.fn(),
@@ -30,5 +31,16 @@ describe('Router', () => {
     expect(router.routes[1].path).toEqual('/test');
     expect(router.routes[1].name).toEqual('Test');
     expect(router.routes[1].component).toEqual(Test);
+  });
+
+  test('should declare NotFound route', () => {
+    expect(router.routes[2].path).toEqual('/404');
+    expect(router.routes[2].name).toEqual('NotFound');
+    expect(router.routes[2].component).toEqual(NotFound);
+  });
+
+  test('should declare redirect to 404 route', () => {
+    expect(router.routes[3].path).toEqual('*');
+    expect(router.routes[3].redirect).toEqual('/404');
   });
 });

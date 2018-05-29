@@ -1,4 +1,4 @@
-import Home from '@/views/Home.vue';
+import Home from '@/views/Home';
 import factory from '../factory';
 
 describe('Home.vue ', () => {

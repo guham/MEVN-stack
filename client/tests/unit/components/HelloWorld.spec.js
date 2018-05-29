@@ -1,4 +1,4 @@
-import HelloWorld from '@/components/HelloWorld.vue';
+import HelloWorld from '@/components/HelloWorld';
 import factory from '../factory';
 
 describe('HelloWorld.vue', () => {

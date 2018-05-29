@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test.vue  has the expected html structure 1`] = `
+exports[`Test.vue has the expected html structure 1`] = `
 <div>
   <h1>Fetch a value from the server</h1>
   <p class="p-2"><span>&gt;&gt;</span> Waiting for value...</p>

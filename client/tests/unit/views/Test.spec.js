@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Test from '@/views/Test.vue';
+import Test from '@/views/Test';
 import factory from '../factory';
 
 beforeEach(() => {
@@ -9,7 +9,7 @@ beforeEach(() => {
 
 axios.get.mockImplementation(() => Promise.resolve({ data: { data: 'message from the API' } }));
 
-describe('Test.vue ', () => {
+describe('Test.vue', () => {
   test('renders a default message', () => {
     const wrapper = factory(Test);
     expect(wrapper.find('p').text()).toBe('>> Waiting for value...');

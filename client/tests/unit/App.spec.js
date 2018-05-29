@@ -1,7 +1,7 @@
 import App from '@/App';
 import factory from './factory';
 
-describe('App.vue ', () => {
+describe('App.vue', () => {
   test('#app is define', () => {
     const wrapper = factory(App, {}, {}, ['router-link', 'router-view']);
     expect(wrapper.find('app')).toBeDefined();

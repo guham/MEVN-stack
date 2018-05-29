@@ -1,7 +1,7 @@
 import Home from '@/views/Home';
 import factory from '../factory';
 
-describe('Home.vue ', () => {
+describe('Home.vue', () => {
   test('use HelloWorld component', () => {
     const wrapper = factory(Home);
     const { HelloWorld } = wrapper.vm.$options.components;

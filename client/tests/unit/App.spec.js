@@ -1,4 +1,4 @@
-import App from '@/App';
+import App from '@/App.vue';
 import factory from './factory';
 
 describe('App.vue', () => {

@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import router from '@/router';
-// routes
-import Home from '@/views/Home';
-import Test from '@/views/Test';
-import NotFound from '@/views/NotFound';
+// components
+import Home from '@/views/Home.vue';
+import Test from '@/views/Test.vue';
+import NotFound from '@/views/NotFound.vue';
 
 jest.mock('vue', () => ({
   use: jest.fn(),

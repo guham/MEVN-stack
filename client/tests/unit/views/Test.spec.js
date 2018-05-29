@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Test from '@/views/Test';
+import Test from '@/views/Test.vue';
 import factory from '../factory';
 
 beforeEach(() => {

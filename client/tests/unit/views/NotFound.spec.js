@@ -1,4 +1,4 @@
-import NotFound from '@/views/NotFound';
+import NotFound from '@/views/NotFound.vue';
 import factory from '../factory';
 
 describe('NotFound.vue', () => {

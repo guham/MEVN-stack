@@ -11,7 +11,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'import/extensions': ['error', 'never']
+    'import/extensions': ['error', 'never', { 'vue': 'always' }]
   },
   parserOptions: {
     parser: 'babel-eslint'

@@ -7,7 +7,7 @@ const { errorHandlers } = require('../middlewares');
 
 router.get('/', errorHandlers.asyncMiddleware(fooController.index));
 
-router.get('/add', errorHandlers.asyncMiddleware(fooController.add));
+router.post('/add', errorHandlers.asyncMiddleware(fooController.add));
 
 router.get('/test', errorHandlers.asyncMiddleware(fooController.test));
 

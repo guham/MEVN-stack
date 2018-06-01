@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FooPanel.vue has the expected html structure 1`] = `
+<div>
+  <h1>FooPanel</h1>
+  <p>Count: 2</p>
+</div>
+`;

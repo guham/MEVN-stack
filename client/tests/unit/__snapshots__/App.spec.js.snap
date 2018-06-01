@@ -4,6 +4,7 @@ exports[`App.vue has the expected html structure 1`] = `
 <div id="app">
   <div id="nav">
     <!---->|
+    <!---->|
     <!---->
   </div>
   <!---->

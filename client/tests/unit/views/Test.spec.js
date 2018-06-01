@@ -31,10 +31,10 @@ describe('Test.vue', () => {
     expect(wrapper.find('p').text()).toBe('>> message from the API');
   });
 
-  test('API endpoint should be called with "api/foo/test"', async () => {
+  test('API endpoint should be called with "/api/foo/test"', async () => {
     const wrapper = factory(Test);
     await wrapper.vm.fetchValueFromServer();
-    expect(axios.get).toBeCalledWith('api/foo/test');
+    expect(axios.get).toBeCalledWith('/api/foo/test');
   });
 
   test("renders error's message when an error occurs", async () => {

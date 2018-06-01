@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/views/Home.vue';
 import Test from '@/views/Test.vue';
+import FooPanel from '@/views/FooPanel.vue';
 import NotFound from '@/views/NotFound.vue';
 
 Vue.use(Router);
@@ -17,6 +18,11 @@ export default new Router({
       path: '/test',
       name: 'Test',
       component: Test,
+    },
+    {
+      path: '/foo',
+      name: 'FooPanel',
+      component: FooPanel,
     },
     {
       path: '/404',

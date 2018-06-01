@@ -4,6 +4,7 @@ import router from '@/router';
 // components
 import Home from '@/views/Home.vue';
 import Test from '@/views/Test.vue';
+import FooPanel from '@/views/FooPanel.vue';
 import NotFound from '@/views/NotFound.vue';
 
 jest.mock('vue', () => ({
@@ -33,14 +34,20 @@ describe('Router', () => {
     expect(router.routes[1].component).toEqual(Test);
   });
 
+  test('should declare FooPanel route', () => {
+    expect(router.routes[2].path).toEqual('/foo');
+    expect(router.routes[2].name).toEqual('FooPanel');
+    expect(router.routes[2].component).toEqual(FooPanel);
+  });
+
   test('should declare NotFound route', () => {
-    expect(router.routes[2].path).toEqual('/404');
-    expect(router.routes[2].name).toEqual('NotFound');
-    expect(router.routes[2].component).toEqual(NotFound);
+    expect(router.routes[3].path).toEqual('/404');
+    expect(router.routes[3].name).toEqual('NotFound');
+    expect(router.routes[3].component).toEqual(NotFound);
   });
 
   test('should declare redirect to 404 route', () => {
-    expect(router.routes[3].path).toEqual('*');
-    expect(router.routes[3].redirect).toEqual('/404');
+    expect(router.routes[4].path).toEqual('*');
+    expect(router.routes[4].redirect).toEqual('/404');
   });
 });

@@ -2,19 +2,20 @@ const { Foo } = require('../models');
 
 exports.index = async (req, res, next) => {
   const foos = await Foo.find().exec();
-  res.json({ data: foos.length });
+  res.json(foos);
 };
 
 exports.add = async (req, res, next) => {
-  const foo = new Foo({ name: 'default name' });
+  const { name } = req.body;
+  const foo = new Foo({ name });
   await foo.save();
-  res.status(201).json({ data: foo });
+  res.status(201).json(foo);
 };
 
 exports.get = async (req, res, next) => {
   const { id } = req.params;
   const foo = await Foo.findById(id).exec();
-  res.json({ data: foo });
+  res.json(foo);
 };
 
 exports.test = (req, res, next) => {

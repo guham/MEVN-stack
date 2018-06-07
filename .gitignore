@@ -1,13 +1,14 @@
 .DS_Store
 .data/*
 !.data/.gitkeep
+.vscode/*
+!.vscode/launch.json
 
 # local env files
 .env
 
 # Editor directories and files
 .idea
-.vscode
 *.suo
 *.ntvs*
 *.njsproj

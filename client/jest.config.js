@@ -25,5 +25,6 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{js,jsx,vue}',
     '!<rootDir>/src/main.js',
+    '!<rootDir>/src/store/index.js',
   ],
 };

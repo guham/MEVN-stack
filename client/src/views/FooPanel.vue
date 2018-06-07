@@ -6,7 +6,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapGetters, mapActions } = createNamespacedHelpers('foos');
 
 export default {
   name: 'FooPanel',

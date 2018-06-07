@@ -5,7 +5,9 @@ import foos from '@/store/modules/foos';
 import factory from '../factory';
 
 const store = new Vuex.Store({
-  ...foos,
+  modules: {
+    foos,
+  },
 });
 
 beforeEach(() => {

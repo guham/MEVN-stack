@@ -1,5 +1,5 @@
 // https://vuex.vuejs.org/guide/testing.html#testing-actions
-export default function testAction(action, payload, state, expectedMutations, done) {
+export default function testAction(action, payload, state, getters, expectedMutations, done) {
   let count = 0;
 
   // mock commit
@@ -22,7 +22,7 @@ export default function testAction(action, payload, state, expectedMutations, do
   };
 
   // call the action with mocked store and arguments
-  action({ commit, state }, payload);
+  action({ commit, state, getters }, payload);
 
   // check if no mutations should have been dispatched
   if (expectedMutations.length === 0) {

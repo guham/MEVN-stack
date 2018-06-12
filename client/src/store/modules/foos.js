@@ -3,10 +3,15 @@ import * as types from '../mutation-types';
 
 const state = {
   foos: [],
+  name: '',
+  error: {},
 };
 
 const getters = {
   count: state => state.foos.length,
+  error: state => state.error,
+  isValidName: state => state.name.length > 0,
+  hasError: state => Object.keys(state.error).length > 0,
 };
 
 const mutations = {
@@ -17,6 +22,18 @@ const mutations = {
   [types.ADD_FOO](state, foo) {
     state.foos.push(foo);
   },
+
+  [types.UPDATE_FOO_NAME](state, name) {
+    state.name = name.trim();
+  },
+
+  [types.SET_ERROR](state, error) {
+    state.error = error;
+  },
+
+  [types.RESET_ERROR](state) {
+    state.error = {};
+  },
 };
 
 const actions = {
@@ -25,9 +42,18 @@ const actions = {
     commit(types.FETCH_FOOS, foos);
   },
 
-  async addFoo({ commit }, name) {
-    const foo = await api.addFoo(name);
-    commit(types.ADD_FOO, foo);
+  async addFoo({ commit, state, getters }) {
+    if (!getters.isValidName) {
+      return;
+    }
+    try {
+      const foo = await api.addFoo(state.name);
+      commit(types.ADD_FOO, foo);
+      commit(types.UPDATE_FOO_NAME, '');
+      commit(types.RESET_ERROR);
+    } catch (error) {
+      commit(types.SET_ERROR, error.response.data);
+    }
   },
 };
 

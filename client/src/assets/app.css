@@ -5,6 +5,16 @@
 
  @tailwind components;
 
+ .btn {
+   @apply .flex-no-shrink .text-sm .border-4 .py-1 .px-2 .rounded;
+ }
+ .btn-green {
+   @apply .text-white .bg-green .border-green;
+ }
+ .btn-green:hover {
+  @apply .bg-green-dark .border-green-dark;
+}
+
  @tailwind utilities;
 
  a {

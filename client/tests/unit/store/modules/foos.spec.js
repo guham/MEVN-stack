@@ -25,11 +25,46 @@ const foos = [
 
 describe('Foos store', () => {
   describe('getters', () => {
-    test('count() returns state.foos length', () => {
+    test('`count` returns state.foos length', () => {
       const state = {
         foos,
       };
       expect(foosStore.getters.count(state)).toEqual(2);
+    });
+
+    test('`error` returns state.error', () => {
+      const state = {
+        error: {},
+      };
+      expect(foosStore.getters.error(state)).toEqual(state.error);
+    });
+
+    test('`isValidName` returns true if state.name length > 0', () => {
+      const state = {
+        name: 'valid name',
+      };
+      expect(foosStore.getters.isValidName(state)).toBeTruthy();
+    });
+
+    test('`isValidName` returns false if state.name is empty', () => {
+      const state = {
+        name: '',
+      };
+      expect(foosStore.getters.isValidName(state)).toBeFalsy();
+    });
+
+    test('`hasError` returns true if state.error object has keys', () => {
+      const state = {
+        error: { message: 'Error message' },
+      };
+      expect(foosStore.getters.hasError(state)).toBeTruthy();
+    });
+
+    test('`hasError` returns false if state.error is an empty object', () => {
+      const state = {
+        error: {},
+      };
+      expect(foosStore.getters.hasError(state)).toBeFalsy();
     });
   });
 
@@ -49,6 +84,31 @@ describe('Foos store', () => {
       foosStore.mutations.ADD_FOO(state, foo);
       expect(state.foos).toContain(foo);
     });
+
+    test('UPDATE_FOO_NAME', () => {
+      const state = {
+        name: '',
+      };
+      foosStore.mutations.UPDATE_FOO_NAME(state, ' foo name will be trimmed   ');
+      expect(state.name).toBe('foo name will be trimmed');
+    });
+
+    test('SET_ERROR', () => {
+      const error = { message: 'error', errorType: 'Error' };
+      const state = {
+        error: {},
+      };
+      foosStore.mutations.SET_ERROR(state, error);
+      expect(state.error).toEqual(error);
+    });
+
+    test('RESET_ERROR', () => {
+      const state = {
+        error: { message: 'error', errorType: 'Error' },
+      };
+      foosStore.mutations.RESET_ERROR(state);
+      expect(state.error).toEqual({});
+    });
   });
 
   describe('actions', () => {
@@ -57,19 +117,26 @@ describe('Foos store', () => {
         data: foos,
       }));
 
-      testAction(foosStore.actions.fetchFoos, null, {}, [
+      testAction(foosStore.actions.fetchFoos, null, {}, {}, [
         { type: 'FETCH_FOOS', payload: foos },
       ], done);
     });
 
-    test('addFoo - add a new foo', (done) => {
+    test('addFoo - add a valid foo', (done) => {
       axios.post.mockImplementation(() => Promise.resolve({
         data: foo,
       }));
 
-      testAction(foosStore.actions.addFoo, 'new foo', {}, [
+      testAction(foosStore.actions.addFoo, null, { name: 'new foo' }, { isValidName: true }, [
         { type: 'ADD_FOO', payload: foo },
+        { type: 'UPDATE_FOO_NAME', payload: '' },
+        { type: 'RESET_ERROR' },
       ], done);
+    });
+
+    test('addFoo - add an unvalid foo', (done) => {
+      expect.assertions(1);
+      testAction(foosStore.actions.addFoo, null, { name: '' }, { isValidName: false }, [], done);
     });
   });
 });

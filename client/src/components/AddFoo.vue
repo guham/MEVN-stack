@@ -16,6 +16,7 @@
     </div>
     <div
       v-if="hasError"
+      id="error"
       class="pt-2">
       <p class="text-red text-sm text-left italic">{{ error.message }}</p>
     </div>

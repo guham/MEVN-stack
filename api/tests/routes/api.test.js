@@ -2,16 +2,7 @@ const request = require('supertest');
 const app = require('../../app');
 const db = require('../../db');
 
-beforeAll(async () => {
-  db.mongoose.connection.on('open', async () => {
-    const collections = await db.mongoose.connection.db.collections();
-    return Promise.all(collections.map(collection => collection.drop()));
-  });
-});
-
-afterAll((done) => {
-  db.disconnect(done);
-});
+afterAll(done => db.disconnect(done));
 
 describe('Test API routes', () => {
   describe('Test "/api/foo" path', () => {
@@ -24,7 +15,7 @@ describe('Test API routes', () => {
 
   describe('Test "/api/foo/add" path', () => {
     test('Should respond an object with a 201', async () => {
-      const response = await request(app).post('/api/foo/add').send({ name: 'new foo' });
+      const response = await request(app).post('/api/foo/add').send({ name: 'foo' });
       expect(response.statusCode).toBe(201);
       expect(Object.keys(response.body).sort()).toEqual(['name', 'createdAt', 'updatedAt', '__v', '_id'].sort());
     });
@@ -44,7 +35,7 @@ describe('Test API routes', () => {
 
     test('Should respond with a 200 with an existing foo', async () => {
       // add foo
-      let response = await request(app).post('/api/foo/add').send({ name: 'new foo' });
+      let response = await request(app).post('/api/foo/add').send({ name: 'bar' });
       const foo = response.body;
       response = await request(app).get(`/api/foo/${foo._id}`);
       expect(response.statusCode).toBe(200);

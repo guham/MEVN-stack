@@ -2,9 +2,7 @@ const request = require('supertest');
 const app = require('../../app');
 const db = require('../../db');
 
-afterAll((done) => {
-  db.disconnect(done);
-});
+afterAll(done => db.disconnect(done));
 
 describe('Test default routes', () => {
   describe('Test "/" path', () => {

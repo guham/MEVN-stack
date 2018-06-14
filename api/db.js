@@ -17,7 +17,7 @@ module.exports = {
       autoReconnect: true,
       reconnectTries: 60,
       reconnectInterval: 1000,
-      autoIndex: parameters.app.isInEnv('development'),
+      autoIndex: !parameters.app.isInEnv('production'),
     }).then((db) => {
       debug(`MongoDB running on ${uri}`);
       return db;

@@ -1,9 +1,13 @@
+const request = require('supertest');
 const app = require('../app');
 const db = require('../db');
 
-afterAll((done) => {
-  db.disconnect(done);
+beforeAll(async () => {
+  // wait for DB connection to be up
+  await request(app).get('/api/foo');
 });
+
+afterAll(done => db.disconnect(done));
 
 function getLayerByName(name) {
   return app._router.stack.find(layer => layer.name === name);

@@ -16,4 +16,5 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/**/*.js',
   ],
+  globalSetup: '<rootDir>/tests/global-setup.js',
 };

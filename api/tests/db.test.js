@@ -6,9 +6,7 @@ beforeEach(() => {
   db = require('../db');
 });
 
-afterEach(async () => {
-  await db.disconnect();
-});
+afterEach(done => db.disconnect(done));
 
 describe('Test database connection', () => {
   test('Successful DB connection should return DB instance', async () => {
@@ -37,9 +35,9 @@ describe('Test database connection', () => {
       expect(db.mongoose.connection.name).toBe('test');
     });
 
-    test('Option "autoIndex" should be false', async () => {
+    test('Option "autoIndex" should be true', async () => {
       await db.connect();
-      expect(db.mongoose.connection.config.autoIndex).toBeFalsy();
+      expect(db.mongoose.connection.config.autoIndex).toBeTruthy();
     });
   });
 

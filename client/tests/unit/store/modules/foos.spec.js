@@ -23,6 +23,14 @@ const foos = [
   },
 ];
 
+const error = {
+  status: 500,
+  statusText: 'Internal Server Error',
+  data: {
+    message: 'Error message',
+  },
+};
+
 describe('Foos store', () => {
   describe('getters', () => {
     test('`count` returns state.foos length', () => {
@@ -55,7 +63,7 @@ describe('Foos store', () => {
 
     test('`hasError` returns true if state.error object has keys', () => {
       const state = {
-        error: { message: 'Error message' },
+        error,
       };
       expect(foosStore.getters.hasError(state)).toBeTruthy();
     });
@@ -94,7 +102,6 @@ describe('Foos store', () => {
     });
 
     test('SET_ERROR', () => {
-      const error = { message: 'error', errorType: 'Error' };
       const state = {
         error: {},
       };
@@ -104,7 +111,7 @@ describe('Foos store', () => {
 
     test('RESET_ERROR', () => {
       const state = {
-        error: { message: 'error', errorType: 'Error' },
+        error,
       };
       foosStore.mutations.RESET_ERROR(state);
       expect(state.error).toEqual({});
@@ -137,6 +144,14 @@ describe('Foos store', () => {
     test('addFoo - add an unvalid foo', (done) => {
       expect.assertions(1);
       testAction(foosStore.actions.addFoo, null, { name: '' }, { isValidName: false }, [], done);
+    });
+
+    test('addFoo - error from API', (done) => {
+      axios.post.mockImplementation(() => Promise.reject(error));
+
+      testAction(foosStore.actions.addFoo, null, { name: 'valid foo name but already exist in DB' }, { isValidName: true }, [
+        { type: 'SET_ERROR', payload: error },
+      ], done);
     });
   });
 });

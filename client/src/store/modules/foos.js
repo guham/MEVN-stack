@@ -52,7 +52,7 @@ const actions = {
       commit(types.UPDATE_FOO_NAME, '');
       commit(types.RESET_ERROR);
     } catch (error) {
-      commit(types.SET_ERROR, error.response.data);
+      commit(types.SET_ERROR, error);
     }
   },
 };

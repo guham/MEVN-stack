@@ -65,7 +65,11 @@ describe('AddFoo.vue', () => {
           namespaced: foos.namespaced,
           state: foos.state,
           getters: {
-            error: () => ({ message: 'error message' }),
+            error: () => ({
+              data: {
+                message: 'error message',
+              },
+            }),
             hasError: () => true,
           },
           mutations,

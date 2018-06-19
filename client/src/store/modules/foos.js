@@ -1,3 +1,4 @@
+import _get from 'lodash/get';
 import * as api from '@/api/foos';
 import * as types from '../mutation-types';
 
@@ -9,9 +10,9 @@ const state = {
 
 const getters = {
   count: state => state.foos.length,
-  error: state => state.error,
   isValidName: state => state.name.length > 0,
   hasError: state => Object.keys(state.error).length > 0,
+  errorMessage: (state, getters) => (getters.hasError ? _get(state.error, 'data.message', _get(state.error, 'message', '')) : ''),
 };
 
 const mutations = {
@@ -38,8 +39,12 @@ const mutations = {
 
 const actions = {
   async fetchFoos({ commit }) {
-    const foos = await api.fetchFoos();
-    commit(types.FETCH_FOOS, foos);
+    try {
+      const foos = await api.fetchFoos();
+      commit(types.FETCH_FOOS, foos);
+    } catch (error) {
+      commit(types.SET_ERROR, error);
+    }
   },
 
   async addFoo({ commit, state, getters }) {

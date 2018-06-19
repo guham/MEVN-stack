@@ -40,11 +40,48 @@ describe('Foos store', () => {
       expect(foosStore.getters.count(state)).toEqual(2);
     });
 
-    test('`error` returns state.error', () => {
+    test('`errorMessage` returns an empty string if there is no error', () => {
       const state = {
         error: {},
       };
-      expect(foosStore.getters.error(state)).toEqual(state.error);
+      const getters = {
+        hasError: false,
+      };
+      expect(foosStore.getters.errorMessage(state, getters)).toEqual('');
+    });
+
+    test('`errorMessage` returns state.error.data.message if exist', () => {
+      const state = {
+        error,
+      };
+      const getters = {
+        hasError: true,
+      };
+      expect(foosStore.getters.errorMessage(state, getters)).toEqual('Error message');
+    });
+
+    test('`errorMessage` returns state.error.message if exist', () => {
+      const state = {
+        error: {
+          message: 'client error message',
+        },
+      };
+      const getters = {
+        hasError: true,
+      };
+      expect(foosStore.getters.errorMessage(state, getters)).toEqual('client error message');
+    });
+
+    test('`errorMessage` returns an empty string if state.error.data.message and state.error.message don\'t exist', () => {
+      const state = {
+        error: {
+          data: {},
+        },
+      };
+      const getters = {
+        hasError: true,
+      };
+      expect(foosStore.getters.errorMessage(state, getters)).toEqual('');
     });
 
     test('`isValidName` returns true if state.name length > 0', () => {
@@ -129,6 +166,14 @@ describe('Foos store', () => {
       ], done);
     });
 
+    test('fetchFoos - calls SET_ERROR mutation if error', (done) => {
+      axios.get.mockImplementation(() => Promise.reject(error));
+
+      testAction(foosStore.actions.fetchFoos, null, {}, {}, [
+        { type: 'SET_ERROR', payload: error },
+      ], done);
+    });
+
     test('addFoo - add a valid foo', (done) => {
       axios.post.mockImplementation(() => Promise.resolve({
         data: foo,
@@ -142,7 +187,6 @@ describe('Foos store', () => {
     });
 
     test('addFoo - add an unvalid foo', (done) => {
-      expect.assertions(1);
       testAction(foosStore.actions.addFoo, null, { name: '' }, { isValidName: false }, [], done);
     });
 

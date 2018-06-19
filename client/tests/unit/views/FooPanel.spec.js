@@ -35,7 +35,7 @@ axios.get.mockImplementation(() => Promise.resolve({
 }));
 
 describe('FooPanel.vue', () => {
-  test('when the view is initialized, there is no foos', () => {
+  test('when the view is initialized, there are no foos', () => {
     const wrapper = factory(FooPanel, {}, {}, [], store);
     expect(wrapper.find('p').text()).toBe('Count: 0');
   });

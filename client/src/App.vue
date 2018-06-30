@@ -1,16 +1,28 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/test">Test</router-link> |
-      <router-link to="/foo">Foo</router-link>
+    <div class="w-full">
+      <div
+        id="nav"
+        class="inline-block w-4/5">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/test">Test</router-link> |
+        <router-link to="/foo">Foo</router-link>
+      </div>
+      <div class="inline-block w-1/5">
+        <google-sign-in-button/>
+      </div>
     </div>
     <router-view/>
   </div>
 </template>
 
 <script>
+import GoogleSignInButton from '@/components/auth/GoogleSignInButton.vue';
+
 export default {
+  components: {
+    GoogleSignInButton,
+  },
   data() {
     return {};
   },

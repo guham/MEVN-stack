@@ -2,10 +2,15 @@
 
 exports[`App.vue has the expected html structure 1`] = `
 <div id="app">
-  <div id="nav">
-    <!---->|
-    <!---->|
-    <!---->
+  <div class="w-full">
+    <div id="nav" class="inline-block w-4/5">
+      <!---->|
+      <!---->|
+      <!---->
+    </div>
+    <div class="inline-block w-1/5">
+      <!---->
+    </div>
   </div>
   <!---->
 </div>

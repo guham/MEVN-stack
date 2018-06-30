@@ -13,6 +13,11 @@ const parameters = {
   db: {
     uri: process.env.MONGODB_URI,
   },
+  auth: {
+    clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
+    jwtSecretKey: process.env.JWT_SECRET_KEY,
+    jwtIssuer: process.env.JWT_ISSUER,
+  },
 };
 
 if (parameters.app.isInEnv('test')) {

@@ -1,7 +1,11 @@
 export const ADD_FOO = 'ADD_FOO';
 export const UPDATE_FOO_NAME = 'UPDATE_FOO_NAME';
-
 export const FETCH_FOOS = 'FETCH_FOOS';
 
 export const SET_ERROR = 'SET_ERROR';
 export const RESET_ERROR = 'RESET_ERROR';
+
+export const SET_USER_AUTHENTICATED = 'SET_USER_AUTHENTICATED';
+export const SET_USER_UNAUTHENTICATED = 'SET_USER_UNAUTHENTICATED';
+export const SET_JWT = 'SET_JWT';
+export const SET_JWT_EXPIRATION = 'SET_JWT_EXPIRATION';

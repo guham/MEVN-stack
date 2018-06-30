@@ -3,7 +3,10 @@ let { parameters } = require('../../parameters');
 describe('Test API parameters', () => {
   test('Parameters module should be an object', () => {
     expect(typeof parameters).toBe('object');
-    expect(Object.keys(parameters).sort()).toEqual(['app', 'db'].sort());
+    expect(Object.keys(parameters).sort()).toEqual(['app', 'db', 'auth'].sort());
+  });
+
+  test('`app` property', () => {
     // "app" property
     expect(Object.keys(parameters.app).sort()).toEqual(['env', 'host', 'port', 'isInEnv', 'httpLogs'].sort());
     // "app" object properties
@@ -12,8 +15,18 @@ describe('Test API parameters', () => {
     expect(parameters.app.port).toBe(process.env.PORT);
     expect(typeof parameters.app.isInEnv).toBe('function');
     expect(parameters.app.isInEnv(process.env.NODE_ENV)).toBeTruthy();
-    // "db" property
+  });
+
+  test('`db` property', () => {
     expect(Object.keys(parameters.db)).toEqual(['uri']);
+  });
+
+  test('`auth` property', () => {
+    expect(Object.keys(parameters.auth).sort()).toEqual(['clientId', 'jwtSecretKey', 'jwtIssuer'].sort());
+    // "auth" object properties
+    expect(parameters.auth.clientId).toBe(process.env.GOOGLE_OAUTH_CLIENT_ID);
+    expect(parameters.auth.jwtSecretKey).toBe(process.env.JWT_SECRET_KEY);
+    expect(parameters.auth.jwtIssuer).toBe(process.env.JWT_ISSUER);
   });
 
   describe('In test mode', () => {

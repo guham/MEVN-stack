@@ -8,8 +8,7 @@ const { logger } = require('./components');
 const { errorHandler } = require('./middlewares/errorHandlers');
 
 // Routes
-const { defaultRoutes } = require('./routes');
-const { apiRoutes } = require('./routes');
+const { defaultRoutes, apiRoutes, authRoutes } = require('./routes');
 
 const app = express();
 
@@ -21,6 +20,7 @@ app.use(cookieParser());
 app.use(logger);
 
 app.use('/', defaultRoutes);
+app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
 // catch 404 and forward to error handler

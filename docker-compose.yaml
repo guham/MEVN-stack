@@ -20,6 +20,9 @@ services:
       - MONGODB_URI=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@db:27017/${MONGO_INITDB_DATABASE}
       - MONGODB_URI_TEST=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@db:27017/test
       - NODE_DEBUG_PORT=${NODE_DEBUG_PORT} # used only in "dev" package script
+      - GOOGLE_OAUTH_CLIENT_ID=${GOOGLE_OAUTH_CLIENT_ID}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_ISSUER=${JWT_ISSUER}
     ports:
       - "49160:${PORT}"
       - "${NODE_DEBUG_PORT}:${NODE_DEBUG_PORT}"
@@ -37,6 +40,7 @@ services:
     environment:
       - NODE_ENV=${NODE_ENV}
       - VUE_APP_API_URL=${VUE_APP_API_URL}
+      - VUE_APP_GOOGLE_OAUTH_CLIENT_ID=${GOOGLE_OAUTH_CLIENT_ID}
     ports:
       - "8080:8080"
     command: "yarn serve"

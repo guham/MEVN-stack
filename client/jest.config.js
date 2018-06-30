@@ -27,4 +27,7 @@ module.exports = {
     '!<rootDir>/src/main.js',
     '!<rootDir>/src/store/index.js',
   ],
+  setupFiles: [
+    '<rootDir>/tests/unit/localStorage.js',
+  ],
 };

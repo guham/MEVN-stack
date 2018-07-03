@@ -1,4 +1,3 @@
-
 import Vue from 'vue';
 import Router from 'vue-router';
 import router from '@/router';
@@ -8,19 +7,29 @@ import Test from '@/views/Test.vue';
 import FooPanel from '@/views/FooPanel.vue';
 import NotFound from '@/views/NotFound.vue';
 
+jest.mock('@/store', () => ({
+  default: jest.fn(),
+}));
+
 jest.mock('vue', () => ({
   use: jest.fn(),
 }));
 
 jest.mock('vue-router', () => class VueRouter {
   constructor(routes) {
-    return routes;
+    const r = routes;
+    r.beforeEach = jest.fn();
+    return r;
   }
 });
 
 describe('Router', () => {
   test('Vue should use router', () => {
     expect(Vue.use).toHaveBeenCalledWith(Router);
+  });
+
+  test('is in mode `history`', () => {
+    expect(router.mode).toBe('history');
   });
 
   test('should declare Home route', () => {
@@ -33,12 +42,14 @@ describe('Router', () => {
     expect(router.routes[1].path).toEqual('/test');
     expect(router.routes[1].name).toEqual('Test');
     expect(router.routes[1].component).toEqual(Test);
+    expect(router.routes[1].meta.requiresAuth).toBeTruthy();
   });
 
   test('should declare FooPanel route', () => {
     expect(router.routes[2].path).toEqual('/foo');
     expect(router.routes[2].name).toEqual('FooPanel');
     expect(router.routes[2].component).toEqual(FooPanel);
+    expect(router.routes[2].meta.requiresAuth).toBeTruthy();
   });
 
   test('should declare NotFound route', () => {

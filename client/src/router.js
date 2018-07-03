@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-/* import store from '@/store'; */
+import store from '@/store';
 import Home from '@/views/Home.vue';
 import Test from '@/views/Test.vue';
 import FooPanel from '@/views/FooPanel.vue';
@@ -44,7 +44,7 @@ const router = new Router({
   ],
 });
 
-/* router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
   if (requiresAuth) {
@@ -59,6 +59,6 @@ const router = new Router({
   } else {
     next();
   }
-}); */
+});
 
 export default router;

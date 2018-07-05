@@ -28,6 +28,7 @@ module.exports = {
     '!<rootDir>/src/store/index.js',
   ],
   setupFiles: [
-    '<rootDir>/tests/unit/localStorage.js',
+    '<rootDir>/tests/unit/setup/localStorage.js',
+    '<rootDir>/tests/unit/setup/gapi.js',
   ],
 };

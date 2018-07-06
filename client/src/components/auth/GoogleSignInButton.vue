@@ -2,6 +2,7 @@
   <div>
     <button
       v-if="isAuthenticated"
+      id="btn-signout"
       class="btn btn-grey"
       type="button"
       @click="signOutAndRedirect()">
@@ -9,6 +10,7 @@
     </button>
     <button
       v-else
+      id="btn-signin"
       class="btn btn-green"
       type="button"
       @click="signIn()">

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoogleSignInButton.vue has the expected html structure 1`] = `
+<div>
+  <button id="btn-signin" type="button" class="btn btn-green">
+    Sign In
+  </button>
+</div>
+`;

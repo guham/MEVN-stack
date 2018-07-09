@@ -1,10 +1,10 @@
 import Vue from 'vue';
-import { createNamespacedHelpers } from 'vuex';
+import { createNamespacedHelpers, Store } from 'vuex';
 import { SET_USER_AUTHENTICATED } from '@/store/mutation-types';
 
 const { mapMutations } = createNamespacedHelpers('user');
 
-const auth = (options = {}) => new Vue({
+const auth = options => new Vue({
   store: options.store,
   created() {
     window.gapi.load('auth2', async () => {
@@ -23,7 +23,13 @@ const auth = (options = {}) => new Vue({
 
 /* eslint-disable no-shadow, no-param-reassign */
 export default {
-  install: (Vue, options) => {
+  install: (Vue, options = {}) => {
+    if (!(options.store instanceof Store)) {
+      throw new Error('A valid Vuex store is required.');
+    }
+    if (!options.authOptions || !(options.authOptions.client_id)) {
+      throw new Error('Google client ID is required.');
+    }
     Vue.prototype.$auth = auth(options);
   },
 };

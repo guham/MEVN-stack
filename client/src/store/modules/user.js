@@ -1,14 +1,15 @@
-import sendIdToken from '@/api/authentication/auth';
+import authClient from '@/api/auth';
 import * as types from '@/store/mutation-types';
 
 const state = {
   isAuthenticated: false,
   jwt: localStorage.getItem('token'),
-  jwtExpiration: localStorage.getItem('tokenExpiration'),
+  jwtExpiration: parseInt(localStorage.getItem('tokenExpiration'), 10) || null,
 };
 
 const getters = {
   isAuthenticated: state => state.isAuthenticated,
+  token: state => state.jwt,
 };
 
 const mutations = {
@@ -41,7 +42,7 @@ const actions = {
     try {
       const googleUser = await auth2.signIn();
       const idToken = googleUser.getAuthResponse().id_token;
-      const response = await sendIdToken(idToken);
+      const response = await authClient.sendIdToken(idToken);
       commit(types.SET_USER_AUTHENTICATED);
       commit(types.SET_JWT, response.token);
       commit(types.SET_JWT_EXPIRATION, response.tokenExpiration);

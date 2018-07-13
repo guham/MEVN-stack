@@ -34,7 +34,7 @@ describe('Test.vue', () => {
   test('API endpoint should be called with "/api/foo/test"', async () => {
     const wrapper = factory(Test);
     await wrapper.vm.fetchValueFromServer();
-    expect(axios.get).toBeCalledWith('/api/foo/test');
+    expect(axios.get).toHaveBeenCalledWith('/api/foo/test', {});
   });
 
   test("renders error's message when an error occurs", async () => {

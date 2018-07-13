@@ -28,6 +28,13 @@ describe('User store', () => {
       };
       expect(userStore.getters.isAuthenticated(state)).toBe(false);
     });
+
+    test('`token` returns state.jwt value', () => {
+      const state = {
+        jwt: 'token',
+      };
+      expect(userStore.getters.token(state)).toBe('token');
+    });
   });
 
   describe('mutations', () => {

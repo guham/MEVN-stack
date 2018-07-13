@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import fetchValueFromServer from '@/api/test';
+import testClient from '@/api/test';
 
 export default {
   name: 'Test',
@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     fetchValueFromServer() {
-      return fetchValueFromServer()
+      return testClient.fetchValueFromServer()
         .then((response) => {
           this.value = response.data.data;
         }).catch((error) => {

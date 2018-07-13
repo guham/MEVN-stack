@@ -53,7 +53,7 @@ describe('FooPanel.vue', () => {
   test('API endpoint should be called with "/api/foo"', async () => {
     const wrapper = factory(FooPanel, {}, {}, [], store);
     await wrapper.vm.fetchFoos();
-    expect(axios.get).toBeCalledWith('/api/foo');
+    expect(axios.get).toHaveBeenCalledWith('/api/foo', {});
   });
 
   test('once created, renders foos count value', async () => {

@@ -1,8 +1,12 @@
-import api from '@/api';
+import { ApiClient } from './client';
 
-/**
- * @returns {Promise<Object>}
- */
-export default function fetchValueFromServer() {
-  return api.get('/api/foo/test');
-}
+const client = new ApiClient();
+
+export default {
+  /**
+   * @returns {Promise<Object>}
+   */
+  fetchValueFromServer() {
+    return client.get('/api/foo/test');
+  },
+};

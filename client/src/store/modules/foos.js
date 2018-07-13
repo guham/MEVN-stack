@@ -1,5 +1,5 @@
 import _get from 'lodash/get';
-import * as api from '@/api/foos';
+import foosClient from '@/api/foos';
 import * as types from '../mutation-types';
 
 const state = {
@@ -40,7 +40,7 @@ const mutations = {
 const actions = {
   async fetchFoos({ commit }) {
     try {
-      const foos = await api.fetchFoos();
+      const foos = await foosClient.fetchFoos();
       commit(types.FETCH_FOOS, foos);
     } catch (error) {
       commit(types.SET_ERROR, error);
@@ -52,7 +52,7 @@ const actions = {
       return;
     }
     try {
-      const foo = await api.addFoo(state.name);
+      const foo = await foosClient.addFoo(state.name);
       commit(types.ADD_FOO, foo);
       commit(types.UPDATE_FOO_NAME, '');
       commit(types.RESET_ERROR);

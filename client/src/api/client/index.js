@@ -1,21 +1,18 @@
 import axios from 'axios';
 import { onFulfilled, onRejected } from './handlers';
 
-const createClient = () => {
-  const options = {
-    baseURL: process.env.VUE_APP_API_URL,
-  };
-
-  const client = axios.create(options);
-
-  client.interceptors.response.use(onFulfilled, onRejected);
-
-  return client;
+const options = {
+  baseURL: process.env.VUE_APP_API_URL,
 };
 
+const client = axios.create(options);
+client.interceptors.response.use(onFulfilled, onRejected);
+
+export default client;
+
 class ApiClient {
-  constructor() {
-    this.client = createClient();
+  constructor(httpClient) {
+    this.client = httpClient;
   }
 
   get(url, config = {}) {
@@ -49,4 +46,4 @@ class ApiClient {
 
 export { ApiClient };
 
-export default createClient;
+export const createClient = () => new ApiClient(client);

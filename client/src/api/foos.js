@@ -1,6 +1,6 @@
-import { ApiClient } from './client';
+import { createClient } from './client';
 
-const client = new ApiClient();
+const client = createClient();
 
 export default {
   /**

@@ -1,4 +1,4 @@
-import { onFulfilled, onRejected } from '@/api/handlers';
+import { onFulfilled, onRejected } from '@/api/client/handlers';
 
 describe('API handlers', () => {
   test('`onFulfilled` should returns its parameter', () => {

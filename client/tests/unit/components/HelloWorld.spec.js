@@ -4,7 +4,7 @@ import factory from '../factory';
 describe('HelloWorld.vue', () => {
   test('renders props.msg when passed', () => {
     const msg = 'new message';
-    const wrapper = factory(HelloWorld, { msg });
+    const wrapper = factory(HelloWorld, {}, { msg });
     expect(wrapper.find('h1').text()).toBe(msg);
   });
 

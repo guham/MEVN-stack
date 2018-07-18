@@ -4,14 +4,14 @@ exports[`App.vue has the expected html structure 1`] = `
 <div id="app">
   <div class="w-full">
     <div id="nav" class="inline-block w-4/5">
-      <router-link-stub to="/"></router-link-stub> |
-      <router-link-stub to="/test"></router-link-stub> |
-      <router-link-stub to="/foo"></router-link-stub>
+      <vuecomponent-stub to="/"></vuecomponent-stub> |
+      <vuecomponent-stub to="/test"></vuecomponent-stub> |
+      <vuecomponent-stub to="/foo"></vuecomponent-stub>
     </div>
     <div class="inline-block w-1/5">
       <googlesigninbutton-stub></googlesigninbutton-stub>
     </div>
   </div>
-  <router-view-stub></router-view-stub>
+  <vuecomponent-stub></vuecomponent-stub>
 </div>
 `;

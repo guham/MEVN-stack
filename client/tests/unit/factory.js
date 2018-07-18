@@ -10,7 +10,7 @@ const router = new VueRouter({
   mode: 'history',
 });
 
-export default (component, propsData = {}, data = {}, stubs = [], store = {}) =>
+export default (component, store = {}, propsData = {}, data = {}, stubs = []) =>
   shallowMount(component, {
     propsData: { ...propsData },
     data: () => ({ ...data }),

@@ -36,7 +36,7 @@ axios.get.mockImplementation(() => Promise.resolve({
 
 describe('FooPanel.vue', () => {
   test('when the view is initialized, there are no foos', () => {
-    const wrapper = factory(FooPanel, {}, {}, [], store);
+    const wrapper = factory(FooPanel, store);
     expect(wrapper.find('p').text()).toBe('Count: 0');
   });
 
@@ -45,25 +45,25 @@ describe('FooPanel.vue', () => {
   });
 
   test('once created, an API call is done', async () => {
-    const wrapper = factory(FooPanel, {}, {}, [], store);
+    const wrapper = factory(FooPanel, store);
     await wrapper.vm.fetchFoos();
     expect(axios.get).toBeCalled();
   });
 
   test('API endpoint should be called with "/api/foo"', async () => {
-    const wrapper = factory(FooPanel, {}, {}, [], store);
+    const wrapper = factory(FooPanel, store);
     await wrapper.vm.fetchFoos();
     expect(axios.get).toHaveBeenCalledWith('/api/foo', {});
   });
 
   test('once created, renders foos count value', async () => {
-    const wrapper = factory(FooPanel, {}, {}, [], store);
+    const wrapper = factory(FooPanel, store);
     await wrapper.vm.fetchFoos();
     expect(wrapper.find('p').text()).toBe('Count: 2');
   });
 
   test('has the expected html structure', () => {
-    const wrapper = factory(FooPanel, {}, {}, [], store);
+    const wrapper = factory(FooPanel, store);
     const template = wrapper.html();
     expect(template).toMatchSnapshot();
   });

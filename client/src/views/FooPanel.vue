@@ -21,9 +21,7 @@ export default {
   components: {
     AddFoo,
   },
-  data() {
-    return {};
-  },
+  data: () => ({}),
 
   computed: {
     ...mapGetters([

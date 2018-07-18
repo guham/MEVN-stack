@@ -13,7 +13,7 @@ const router = new VueRouter({
 export default (component, propsData = {}, data = {}, stubs = [], store = {}) =>
   shallowMount(component, {
     propsData: { ...propsData },
-    data: { ...data },
+    data: () => ({ ...data }),
     stubs,
     localVue,
     store,

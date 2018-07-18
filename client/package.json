@@ -29,10 +29,5 @@
     "geckodriver": "^1.11.0",
     "tailwindcss": "^0.5.2",
     "vue-template-compiler": "^2.5.16"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  }
 }

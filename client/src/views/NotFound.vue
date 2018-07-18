@@ -5,8 +5,6 @@
 <script>
 export default {
   name: 'NotFound',
-  data() {
-    return {};
-  },
+  data: () => ({}),
 };
 </script>

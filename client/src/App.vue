@@ -23,9 +23,7 @@ export default {
   components: {
     GoogleSignInButton,
   },
-  data() {
-    return {};
-  },
+  data: () => ({}),
 };
 </script>
 

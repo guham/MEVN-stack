@@ -10,11 +10,9 @@ import testClient from '@/api/test';
 
 export default {
   name: 'Test',
-  data() {
-    return {
-      value: 'Waiting for value...',
-    };
-  },
+  data: () => ({
+    value: 'Waiting for value...',
+  }),
   mounted() {
     this.fetchValueFromServer();
   },

@@ -68,9 +68,7 @@ export default {
       default: '',
     },
   },
-  data() {
-    return {};
-  },
+  data: () => ({}),
 };
 </script>
 

@@ -1,10 +1,10 @@
-const request = require('supertest');
+const request = require('./supertest');
 const app = require('../app');
 const db = require('../db');
 
 beforeAll(async () => {
   // wait for DB connection to be up
-  await request(app).get('/api/foo');
+  await request(app).get('/api/foo').authenticate();
 });
 
 afterAll(done => db.disconnect(done));

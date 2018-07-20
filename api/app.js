@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const db = require('./db');
 const { logger } = require('./components');
 const { errorHandler } = require('./middlewares/errorHandlers');
+const { authenticate } = require('./middlewares/authHandlers');
 
 // Routes
 const { defaultRoutes, apiRoutes, authRoutes } = require('./routes');
@@ -21,7 +22,7 @@ app.use(logger);
 
 app.use('/', defaultRoutes);
 app.use('/auth', authRoutes);
-app.use('/api', apiRoutes);
+app.use('/api', authenticate, apiRoutes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

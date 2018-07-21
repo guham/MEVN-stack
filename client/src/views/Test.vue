@@ -7,6 +7,7 @@
 
 <script>
 import testClient from '@/api/test';
+import _get from 'lodash/get';
 
 export default {
   name: 'Test',
@@ -22,7 +23,7 @@ export default {
         .then((response) => {
           this.value = response.data.data;
         }).catch((error) => {
-          this.value = error.message;
+          this.value = _get(error, 'data.message', _get(error, 'message', ''));
         });
     },
   },

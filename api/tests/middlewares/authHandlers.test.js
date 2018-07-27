@@ -6,34 +6,24 @@ let res;
 let next;
 
 beforeEach(() => {
-  jest.clearAllMocks();
   req = {};
-  res = {
-    body: null,
-    statusCode: null,
-    status(code) {
-      this.statusCode = code;
-      return this;
-    },
-    send(body) {
-      this.body = body;
-    },
-  };
+  res = {};
   next = jest.fn();
 });
 
 describe('Test middleware authentication handlers', () => {
   describe('authenticate middleware', () => {
     test('calls next() with an error object if the request does not have an authorization header', () => {
-      const error = new Error('Authorization header is required.');
+      const error = new Error('No authorization token was found');
       authenticate(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
       req.headers = {};
       authenticate(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
+      expect(next.mock.calls[0][0].status).toBe(401);
     });
 
-    test('calls next() with a valid JWT', () => {
+    test('sets the req.user attribute if the authorization header contains a valid JWT', (done) => {
       const userPayload = {
         sub: 123456,
       };
@@ -42,19 +32,30 @@ describe('Test middleware authentication handlers', () => {
       req.headers = {
         authorization: `Bearer ${token}`,
       };
+
+      next = (error) => {
+        expect(error).toBeFalsy();
+        expect(typeof req.user).toBe('object');
+        expect(req.user.uid).toBe(123456);
+        done();
+      };
+
       authenticate(req, res, next);
-      expect(next).toHaveBeenCalled();
     });
 
-    test('should respond with a 401 with an invalid auth header', () => {
+    test('calls next() with an error object if the request have an invalid authorization header', () => {
+      const error = new Error('Format is Authorization: Bearer [token]');
+
       req.headers = {
         authorization: 'invalid-auth-header',
       };
+
       authenticate(req, res, next);
-      expect(res.statusCode).toBe(401);
+      expect(next).toHaveBeenCalledWith(error);
+      expect(next.mock.calls[0][0].status).toBe(401);
     });
 
-    test('should respond with a 401 with an expirated JWT', () => {
+    test('throws an error if the authorization header contains an expirated JWT', (done) => {
       // { uid: '123456', iat: 1530490533, exp: 1530497733, iss: 'accounts.google.com' }
       // exp = iat + 2h
       // secret = process.env.JWT_SECRET_KEY
@@ -62,8 +63,16 @@ describe('Test middleware authentication handlers', () => {
       req.headers = {
         authorization: `Bearer ${token}`,
       };
+
+      next = (error) => {
+        expect(error).toBeTruthy();
+        expect(error.name).toBe('UnauthorizedError');
+        expect(error.message).toBe('jwt expired');
+        expect(error.status).toBe(401);
+        done();
+      };
+
       authenticate(req, res, next);
-      expect(res.statusCode).toBe(401);
     });
   });
 });

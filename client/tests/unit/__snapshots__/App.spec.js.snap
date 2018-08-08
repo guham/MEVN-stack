@@ -2,13 +2,13 @@
 
 exports[`App.vue has the expected html structure 1`] = `
 <div id="app">
-  <div class="w-full">
-    <div id="nav" class="inline-block w-4/5">
-      <vuecomponent-stub to="/"></vuecomponent-stub> |
-      <vuecomponent-stub to="/test"></vuecomponent-stub> |
-      <vuecomponent-stub to="/foo"></vuecomponent-stub>
+  <div class="flex items-center p-4">
+    <div class="flex-1"></div>
+    <div id="nav" class="flex-1">
+      <vuecomponent-stub to="/"></vuecomponent-stub>
+      <!---->
     </div>
-    <div class="inline-block w-1/5">
+    <div class="flex-1 text-right">
       <googlesigninbutton-stub></googlesigninbutton-stub>
     </div>
   </div>

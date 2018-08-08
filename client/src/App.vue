@@ -1,14 +1,17 @@
 <template>
   <div id="app">
-    <div class="w-full">
+    <div class="flex items-center p-4">
+      <div class="flex-1"/>
       <div
         id="nav"
-        class="inline-block w-4/5">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/test">Test</router-link> |
-        <router-link to="/foo">Foo</router-link>
+        class="flex-1">
+        <router-link to="/">Home</router-link>
+        <template v-if="isAuthenticated">
+          | <router-link to="/test">Test</router-link>
+          | <router-link to="/foo">Foo</router-link>
+        </template>
       </div>
-      <div class="inline-block w-1/5">
+      <div class="flex-1 text-right">
         <google-sign-in-button/>
       </div>
     </div>
@@ -17,13 +20,22 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton.vue';
+
+const { mapGetters } = createNamespacedHelpers('user');
 
 export default {
   components: {
     GoogleSignInButton,
   },
   data: () => ({}),
+
+  computed: {
+    ...mapGetters([
+      'isAuthenticated',
+    ]),
+  },
 };
 </script>
 
@@ -34,9 +46,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-#nav {
-  padding: 30px;
 }
 
 #nav a {

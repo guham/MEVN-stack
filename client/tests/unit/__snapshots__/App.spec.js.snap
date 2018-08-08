@@ -1,12 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App.vue has the expected html structure 1`] = `
+exports[`App.vue should display only "Home" link when the user is not authenticated 1`] = `
 <div id="app">
   <div class="flex items-center p-4">
     <div class="flex-1"></div>
     <div id="nav" class="flex-1">
       <vuecomponent-stub to="/"></vuecomponent-stub>
       <!---->
+    </div>
+    <div class="flex-1 text-right">
+      <googlesigninbutton-stub></googlesigninbutton-stub>
+    </div>
+  </div>
+  <vuecomponent-stub></vuecomponent-stub>
+</div>
+`;
+
+exports[`App.vue should display restricted links when the user is authenticated 1`] = `
+<div id="app">
+  <div class="flex items-center p-4">
+    <div class="flex-1"></div>
+    <div id="nav" class="flex-1">
+      <vuecomponent-stub to="/"></vuecomponent-stub>
+      |
+      <vuecomponent-stub to="/test"></vuecomponent-stub>
+      |
+      <vuecomponent-stub to="/foo"></vuecomponent-stub>
     </div>
     <div class="flex-1 text-right">
       <googlesigninbutton-stub></googlesigninbutton-stub>

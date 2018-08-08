@@ -141,6 +141,10 @@ client.node_modules: client/package.json client/yarn.lock
 	$(YARN_CLIENT) install
 	@touch -c client.node_modules
 
+tu-client-update-snapshot: ## Run unit tests & regenerate snapshots
+tu-client-update-snapshot: client.node_modules
+	$(YARN_CLIENT) test:unit --updateSnapshot
+
 ##
 ## DB (MongoDB)
 ## -------

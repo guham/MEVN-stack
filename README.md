@@ -6,10 +6,11 @@ WIP
 
 ## Todo
 
+- [ ] i18N
+- [ ] Nginx proxy, https
+- [ ] Perfs
+- [ ] Security
+- [ ] JWT: token storage
+- [ ] JWT: refresh token
 - [ ] Update browserslist
 - [ ] Write doc
-- [ ] Vue tests
-- [ ] Nginx proxy, https
-- [ ] JWT
-- [ ] Security
-- [ ] Perfs

@@ -6,7 +6,7 @@ exports[`FooPanel.vue has the expected html structure 1`] = `
   <p class="py-2">Count: 2</p>
   <div class="flex">
     <div class="sm:w-px lg:w-2/3"></div>
-    <addfoo-stub></addfoo-stub>
+    <addfoo-stub placeholder="Foo name"></addfoo-stub>
     <div class="sm:w-px lg:w-2/3"></div>
   </div>
 </div>

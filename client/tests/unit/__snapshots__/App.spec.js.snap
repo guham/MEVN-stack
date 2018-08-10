@@ -5,14 +5,14 @@ exports[`App.vue should display only "Home" link when the user is not authentica
   <div class="flex items-center p-4">
     <div class="flex-1"></div>
     <div id="nav" class="flex-1">
-      <vuecomponent-stub to="/"></vuecomponent-stub>
+      <router-link-stub to="/" tag="a" event="click">Home</router-link-stub>
       <!---->
     </div>
     <div class="flex-1 text-right">
       <googlesigninbutton-stub></googlesigninbutton-stub>
     </div>
   </div>
-  <vuecomponent-stub></vuecomponent-stub>
+  <router-view-stub name="default"></router-view-stub>
 </div>
 `;
 
@@ -21,16 +21,16 @@ exports[`App.vue should display restricted links when the user is authenticated 
   <div class="flex items-center p-4">
     <div class="flex-1"></div>
     <div id="nav" class="flex-1">
-      <vuecomponent-stub to="/"></vuecomponent-stub>
+      <router-link-stub to="/" tag="a" event="click">Home</router-link-stub>
       |
-      <vuecomponent-stub to="/test"></vuecomponent-stub>
+      <router-link-stub to="/test" tag="a" event="click">Test</router-link-stub>
       |
-      <vuecomponent-stub to="/foo"></vuecomponent-stub>
+      <router-link-stub to="/foo" tag="a" event="click">Foo</router-link-stub>
     </div>
     <div class="flex-1 text-right">
       <googlesigninbutton-stub></googlesigninbutton-stub>
     </div>
   </div>
-  <vuecomponent-stub></vuecomponent-stub>
+  <router-view-stub name="default"></router-view-stub>
 </div>
 `;

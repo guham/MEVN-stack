@@ -3,6 +3,6 @@
 exports[`Home.vue has the expected html structure 1`] = `
 <div class="home">
   <img src="../assets/logo.png">
-  <helloworld-stub></helloworld-stub>
+  <helloworld-stub msg="Welcome to Your Vue.js App"></helloworld-stub>
 </div>
 `;

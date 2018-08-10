@@ -2,14 +2,12 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/store';
 import Home from '@/views/Home.vue';
-import Test from '@/views/Test.vue';
-import FooPanel from '@/views/FooPanel.vue';
-import NotFound from '@/views/NotFound.vue';
 
 Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
+  base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
@@ -19,7 +17,7 @@ const router = new Router({
     {
       path: '/test',
       name: 'Test',
-      component: Test,
+      component: () => import(/* webpackChunkName: "test" */ '@/views/Test.vue'),
       meta: {
         requiresAuth: true,
       },
@@ -27,7 +25,7 @@ const router = new Router({
     {
       path: '/foo',
       name: 'FooPanel',
-      component: FooPanel,
+      component: () => import(/* webpackChunkName: "foo" */ '@/views/FooPanel.vue'),
       meta: {
         requiresAuth: true,
       },
@@ -35,7 +33,7 @@ const router = new Router({
     {
       path: '/404',
       name: 'NotFound',
-      component: NotFound,
+      component: () => import(/* webpackChunkName: "error" */ '@/views/NotFound.vue'),
     },
     {
       path: '*',

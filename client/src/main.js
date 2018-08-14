@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import VueI18n from 'vue-i18n';
 import client from '@/api/client';
 import App from '@/App.vue';
 import router from '@/router';
@@ -12,6 +13,13 @@ Vue.use(auth, {
     client_id: process.env.VUE_APP_GOOGLE_OAUTH_CLIENT_ID,
     ux_mode: 'popup', // @TODO: use "redirect"
   },
+});
+
+Vue.use(VueI18n);
+
+const i18n = new VueI18n({
+  locale: 'en',
+  fallbackLocale: 'en',
 });
 
 client.interceptors.request.use((config) => {
@@ -31,5 +39,6 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App),
 }).$mount('#app');

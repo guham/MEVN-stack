@@ -18,4 +18,7 @@ export default (component, store = {}, propsData = {}, data = {}, stubs = []) =>
     localVue,
     store,
     router,
+    mocks: {
+      $t: keypath => keypath,
+    },
   });

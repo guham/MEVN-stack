@@ -2,6 +2,6 @@
 
 exports[`GoogleSignInButton.vue has the expected html structure 1`] = `
 <button id="btn-signin" type="button" class="btn btn-green">
-  Sign In
+  signin
 </button>
 `;

@@ -12,6 +12,7 @@
         </template>
       </div>
       <div class="flex-1 text-right">
+        <locale-changer/>
         <google-sign-in-button/>
       </div>
     </div>
@@ -22,12 +23,14 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton.vue';
+import LocaleChanger from '@/components/LocaleChanger.vue';
 
 const { mapGetters } = createNamespacedHelpers('user');
 
 export default {
   components: {
     GoogleSignInButton,
+    LocaleChanger,
   },
   data: () => ({}),
 

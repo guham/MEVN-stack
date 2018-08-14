@@ -20,6 +20,12 @@
 .btn-grey:hover {
   @apply .bg-grey-dark .border-grey-dark;
 }
+.select-standard {
+  @apply .block .appearance-none .bg-white .border .border-grey-light .px-4 .py-2 .pr-8 .rounded .shadow .leading-tight;
+}
+.select-standard:hover {
+  @apply .border-grey;
+}
 
  @tailwind utilities;
 

@@ -5,7 +5,7 @@
     class="btn btn-grey"
     type="button"
     @click="signOutAndRedirect()">
-    Sign Out
+    {{ $t('signout') }}
   </button>
   <button
     v-else
@@ -13,9 +13,26 @@
     class="btn btn-green"
     type="button"
     @click="signIn()">
-    Sign In
+    {{ $t('signin') }}
   </button>
 </template>
+
+<i18n>
+{
+  "en": {
+    "signin": "Sign In",
+    "signout": "Sign Out"
+  },
+  "fr": {
+    "signin": "Se connecter",
+    "signout": "Déconnexion"
+  },
+  "es": {
+    "signin": "Iniciar sesión",
+    "signout": "Cerrar sesión"
+  }
+}
+</i18n>
 
 <script>
 import { createNamespacedHelpers } from 'vuex';

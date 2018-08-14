@@ -9,6 +9,7 @@ exports[`App.vue should display only "Home" link when the user is not authentica
       <!---->
     </div>
     <div class="flex-1 text-right">
+      <localechanger-stub></localechanger-stub>
       <googlesigninbutton-stub></googlesigninbutton-stub>
     </div>
   </div>
@@ -28,6 +29,7 @@ exports[`App.vue should display restricted links when the user is authenticated 
       <router-link-stub to="/foo" tag="a" event="click">Foo</router-link-stub>
     </div>
     <div class="flex-1 text-right">
+      <localechanger-stub></localechanger-stub>
       <googlesigninbutton-stub></googlesigninbutton-stub>
     </div>
   </div>

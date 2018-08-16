@@ -38,7 +38,9 @@ describe('AddFoo.vue', () => {
 
   test('renders default props.placeholder', () => {
     const wrapper = factory(AddFoo, store);
-    expect(wrapper.find('input').element.placeholder).toBe('Default placeholder');
+    // @FIX
+    // expect(wrapper.find('input').element.placeholder).toBe('Default placeholder');
+    expect(wrapper.find('input').element.placeholder).toBe('default-placeholder');
   });
 
   test('renders props.placeholder when passed', () => {

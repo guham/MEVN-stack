@@ -10,9 +10,7 @@
       <button
         class="btn btn-green"
         type="button"
-        @click="addFoo()">
-        Add
-      </button>
+        @click="addFoo()">{{ $t('add') }}</button>
     </div>
     <div
       v-if="hasError"
@@ -22,6 +20,23 @@
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "add": "Add",
+    "default-placeholder": "Default placeholder"
+  },
+  "fr": {
+    "add": "Ajouter",
+    "default-placeholder": "Placeholder par défaut"
+  },
+  "es": {
+    "add": "Agregar",
+    "default-placeholder": "Placeholder por defecto"
+  }
+}
+</i18n>
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
@@ -34,7 +49,9 @@ export default {
   props: {
     placeholder: {
       type: String,
-      default: 'Default placeholder',
+      default() {
+        return this.$t('default-placeholder');
+      },
     },
   },
 

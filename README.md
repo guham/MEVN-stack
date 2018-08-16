@@ -6,7 +6,7 @@ WIP
 
 ## Todo
 
-- [ ] i18N
+- [ ] i18N: fix tests
 - [ ] Nginx proxy, https
 - [ ] Perfs
 - [ ] Security

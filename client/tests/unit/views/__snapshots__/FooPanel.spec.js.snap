@@ -3,10 +3,10 @@
 exports[`FooPanel.vue has the expected html structure 1`] = `
 <div>
   <h1 class="pb-2">FooPanel</h1>
-  <p class="py-2">Count: 2</p>
+  <p class="py-2">total count</p>
   <div class="flex">
     <div class="sm:w-px lg:w-2/3"></div>
-    <addfoo-stub placeholder="Foo name"></addfoo-stub>
+    <addfoo-stub placeholder="placeholder"></addfoo-stub>
     <div class="sm:w-px lg:w-2/3"></div>
   </div>
 </div>

@@ -24,5 +24,6 @@ export default (component, store = {}, propsData = {}, data = {}, stubs = []) =>
     i18n,
     mocks: {
       $t: keypath => keypath,
+      $tc: keypath => keypath,
     },
   });

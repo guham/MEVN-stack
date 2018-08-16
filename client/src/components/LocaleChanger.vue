@@ -4,11 +4,9 @@
       v-model="$i18n.locale"
       class="select-standard w-full focus:outline-none focus:shadow-outline">
       <option
-        v-for="(lang, i) in langs"
+        v-for="(lang, i) in locales"
         :key="`Lang${i}`"
-        :value="lang">
-        {{ lang }}
-      </option>
+        :value="lang">{{ lang }}</option>
     </select>
     <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker">
       <svg
@@ -22,10 +20,12 @@
 </template>
 
 <script>
+import { locales } from '@/i18n';
+
 export default {
   name: 'LocaleChanger',
   data: () => ({
-    langs: ['en', 'fr', 'es'],
+    locales,
   }),
 };
 </script>

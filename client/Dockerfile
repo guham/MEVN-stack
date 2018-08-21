@@ -16,6 +16,8 @@ RUN set -xe \
 	&& rm /etc/apt/sources.list.d/google-chrome.list \
 	&& rm -rf /var/lib/apt/lists/* /var/cache/apt/* firefox.tar.bz2
 
+RUN yarn global add @vue/cli
+
 RUN mkdir -p /client
 
 COPY package.json yarn.lock /client/

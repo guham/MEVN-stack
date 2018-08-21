@@ -47,7 +47,7 @@ ps: ## List containers
 logs: ## Show all logs
 	$(DOCKER_COMPOSE) logs -f
 
-lint: ## Lint back & front files
+lint: ## Lint API & client files
 lint: lint-api lint-client
 
 test: ## Run all unit & functional tests
@@ -124,6 +124,10 @@ tu-client: ## Run unit tests
 tu-client: client.node_modules
 	$(YARN_CLIENT) test:unit
 
+tu-client-update-snapshot: ## Run unit tests & regenerate snapshots
+tu-client-update-snapshot: client.node_modules
+	$(YARN_CLIENT) test:unit --updateSnapshot
+
 tf-client: ## Run functional tests
 tf-client: client.node_modules
 	$(YARN_CLIENT) test:e2e
@@ -132,7 +136,11 @@ build-client: ## Produce a production-ready bundle
 build-client: client.node_modules
 	$(YARN_CLIENT) build
 
-.PHONY: logs-client lint-client upgrade-client test-client tu-client tf-client build-client
+ui: ## Start the vue-cli ui
+ui: client.node_modules
+	$(EXEC_CLIENT) vue ui -p 8081 --headless
+
+.PHONY: logs-client lint-client upgrade-client test-client tu-client tu-client-update-snapshot tf-client build-client ui
 
 clean-client:
 	rm -rf client/node_modules client/dist client/tests/coverage client/tests/e2e/reports client/yarn-error.log client/selenium-debug.log
@@ -140,10 +148,6 @@ clean-client:
 client.node_modules: client/package.json client/yarn.lock
 	$(YARN_CLIENT) install
 	@touch -c client.node_modules
-
-tu-client-update-snapshot: ## Run unit tests & regenerate snapshots
-tu-client-update-snapshot: client.node_modules
-	$(YARN_CLIENT) test:unit --updateSnapshot
 
 ##
 ## DB (MongoDB)

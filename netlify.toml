@@ -10,4 +10,10 @@
 [build]
   base    = "client"
   publish = "client/dist"
-  command = "yarn build-netlify"
+  command = "yarn build"
+
+# https://www.netlify.com/docs/redirects/#history-pushstate-and-single-page-apps
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

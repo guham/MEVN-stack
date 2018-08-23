@@ -39,7 +39,7 @@ services:
     restart: always
     environment:
       - NODE_ENV=${NODE_ENV}
-      - VUE_APP_API_URL=${VUE_APP_API_URL}
+      - VUE_APP_API_URL=${API_URL}
       - VUE_APP_GOOGLE_OAUTH_CLIENT_ID=${GOOGLE_OAUTH_CLIENT_ID}
     ports:
       - "8080:8080"

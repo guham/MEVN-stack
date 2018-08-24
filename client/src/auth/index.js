@@ -7,12 +7,10 @@ const { mapMutations } = createNamespacedHelpers('user');
 const auth = options => new Vue({
   store: options.store,
   created() {
-    window.gapi.load('auth2', async () => {
-      const auth2 = await window.gapi.auth2.init(options.authOptions);
-      if (auth2.isSignedIn.get()) {
-        this[SET_USER_AUTHENTICATED]();
-      }
-    });
+    const auth2 = window.gapi.auth2.getAuthInstance();
+    if (auth2.isSignedIn.get()) {
+      this[SET_USER_AUTHENTICATED]();
+    }
   },
   methods: {
     ...mapMutations([
@@ -26,9 +24,6 @@ export default {
   install: (Vue, options = {}) => {
     if (!(options.store instanceof Store)) {
       throw new Error('A valid Vuex store is required.');
-    }
-    if (!options.authOptions || !(options.authOptions.client_id)) {
-      throw new Error('Google client ID is required.');
     }
     Vue.prototype.$auth = auth(options);
   },

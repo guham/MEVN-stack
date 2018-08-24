@@ -11,11 +11,11 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'import/extensions': ['error', 'never', { 'vue': 'always' }],
-    'no-shadow': ['error', { 'allow': ['state', 'payload', 'getters'] }],
-    'no-param-reassign': ['error', { 'props': true, 'ignorePropertyModificationsFor': ['state'] }]
+    'import/extensions': ['error', 'never', { vue: 'always' }],
+    'no-shadow': ['error', { allow: ['state', 'payload', 'getters'] }],
+    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
   },
   parserOptions: {
     parser: 'babel-eslint',
-  }
+  },
 };

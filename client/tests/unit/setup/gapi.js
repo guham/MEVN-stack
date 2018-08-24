@@ -9,13 +9,14 @@ const gapiMock = {
     init: jest.fn(function init() {
       return this;
     }),
-    getAuthInstance: jest.fn(() => ({
-      signIn: jest.fn(() => googleUser),
-      signOut: jest.fn(),
-    })),
+    getAuthInstance: jest.fn(function getAuthInstance() {
+      return this;
+    }),
     isSignedIn: {
       get: jest.fn(() => false),
     },
+    signIn: jest.fn(() => googleUser),
+    signOut: jest.fn(),
   },
   load: jest.fn((library, cb) => cb()),
 };

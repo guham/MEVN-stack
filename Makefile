@@ -13,6 +13,10 @@ DB_USER			= $(shell echo $$(grep MONGODB_USERNAME .env | xargs) | sed 's/.*=//')
 DB_PWD			= $(shell echo $$(grep MONGODB_PASSWORD .env | xargs) | sed 's/.*=//')
 DB_NAME			= $(shell echo $$(grep MONGO_INITDB_DATABASE .env | xargs) | sed 's/.*=//')
 
+NODE_ENV		= $(shell echo $$(grep NODE_ENV .env | xargs) | sed 's/.*=//')
+API_URL			= $(shell echo $$(grep API_URL .env | xargs) | sed 's/.*=//')
+GOOGLE_OAUTH_CLIENT_ID	= $(shell echo $$(grep GOOGLE_OAUTH_CLIENT_ID .env | xargs) | sed 's/.*=//')
+
 ##
 ## MEVN Project
 ## -------
@@ -140,7 +144,12 @@ ui: ## Start the vue-cli ui
 ui: client.node_modules
 	$(EXEC_CLIENT) vue ui -p 8081 --headless
 
-.PHONY: logs-client lint-client upgrade-client test-client tu-client tu-client-update-snapshot tf-client build-client ui
+production: ## Previewing production build
+production: build-client
+	docker build -t client-production -f client/Dockerfile-production .
+	docker run -it -p 8082:8082 --rm -v $(shell pwd)/client/dist:/dist -e NODE_ENV=$(NODE_ENV) -e VUE_APP_API_URL=$(API_URL) -e VUE_APP_GOOGLE_OAUTH_CLIENT_ID=$(GOOGLE_OAUTH_CLIENT_ID) --name client-production-1 client-production
+
+.PHONY: logs-client lint-client upgrade-client test-client tu-client tu-client-update-snapshot tf-client build-client ui production
 
 clean-client:
 	rm -rf client/node_modules client/dist client/tests/coverage client/tests/e2e/reports client/yarn-error.log client/selenium-debug.log

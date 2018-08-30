@@ -1,5 +1,19 @@
 FROM node:10-alpine
 
+RUN set -xe \
+	&& apk add --no-cache openssl
+
+RUN cp /etc/ssl/openssl.cnf /openssl.cnf
+RUN printf '[SAN]\nsubjectAltName=DNS:localhost' >> /openssl.cnf
+
+RUN openssl genrsa -des3 -passout pass:NotSecure -out /server.pass.key 2048
+RUN openssl rsa -passin pass:NotSecure -in /server.pass.key -out /key.pem
+RUN rm /server.pass.key
+RUN openssl req -new -passout pass:NotSecure -key /key.pem -out /server.csr \
+    -subj '/C=MX/ST=Mexico/L=Mexico/O=MEVN-STACK/CN=localhost' -config /openssl.cnf
+RUN openssl x509 -req -sha256 -days 365 -in /server.csr -signkey /key.pem \
+    -out /cert.pem -extensions SAN -extfile /openssl.cnf
+
 # install simple http server for serving static content
 RUN yarn global add http-server
 
@@ -7,4 +21,4 @@ RUN mkdir -p /dist
 
 EXPOSE 8082
 
-CMD [ "http-server", "/dist", "-p 8082", "--gzip" ]
+CMD [ "http-server", "/dist", "-p 8082", "--gzip", "--ssl" ]

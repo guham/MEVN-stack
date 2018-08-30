@@ -145,7 +145,7 @@ ui: client.node_modules
 	$(EXEC_CLIENT) vue ui -p 8081 --headless
 
 production: ## Previewing production build
-production: build-client
+production: build-client-production
 	docker build -t client-production -f client/Dockerfile-production .
 	docker run -it -p 8082:8082 --rm -v $(shell pwd)/client/dist:/dist -e NODE_ENV=$(NODE_ENV) -e VUE_APP_API_URL=$(API_URL) -e VUE_APP_GOOGLE_OAUTH_CLIENT_ID=$(GOOGLE_OAUTH_CLIENT_ID) --name client-production-1 client-production
 
@@ -157,6 +157,9 @@ clean-client:
 client.node_modules: client/package.json client/yarn.lock
 	$(YARN_CLIENT) install
 	@touch -c client.node_modules
+
+build-client-production: client.node_modules
+	$(YARN_CLIENT) build-production
 
 ##
 ## DB (MongoDB)

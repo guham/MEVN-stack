@@ -28,35 +28,10 @@ describe('Auth plugin', () => {
     }
   });
 
-  test('throws an error if the plugin option authOptions object does not contain `client_id` key', () => {
-    const localVue = createLocalVue();
-    try {
-      localVue.use(auth, {
-        store,
-      });
-    } catch (error) {
-      expect(error.message).toBe('Google client ID is required.');
-    }
-
-    try {
-      localVue.use(auth, {
-        store,
-        authOptions: {
-          id: 'client_id',
-        },
-      });
-    } catch (error) {
-      expect(error.message).toBe('Google client ID is required.');
-    }
-  });
-
   test('adds an $auth Vue instance to the Vue prototype', () => {
     const localVue = createLocalVue();
     localVue.use(auth, {
       store,
-      authOptions: {
-        client_id: 'a_google_client_id',
-      },
     });
     expect(localVue.prototype.$auth instanceof Vue).toBeTruthy();
     expect(localVue.prototype.$auth.$options.store).toBeDefined();
@@ -80,9 +55,6 @@ describe('Auth plugin', () => {
     const localVue = createLocalVue();
     localVue.use(auth, {
       store: authStore,
-      authOptions: {
-        client_id: 'a_google_client_id',
-      },
     });
 
     localVue.prototype.$auth.$nextTick(() => {

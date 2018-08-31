@@ -8,6 +8,19 @@ module.exports = {
         devtool: 'source-map',
       };
     }
+    if (process.env.COMPRESSION_ALGORITHM === 'gzip') {
+      /* eslint-disable-next-line global-require, import/no-extraneous-dependencies */
+      const CompressionPlugin = require('compression-webpack-plugin');
+      return {
+        plugins: [
+          new CompressionPlugin({
+            asset: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: /\.js$|\.css$|\.html$/,
+          }),
+        ],
+      };
+    }
     return {};
   },
   chainWebpack: (config) => {

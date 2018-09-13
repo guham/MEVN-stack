@@ -23,10 +23,8 @@ exports[`App.vue should display restricted links when the user is authenticated 
     <div class="flex-1"></div>
     <div id="nav" class="flex-1">
       <router-link-stub to="/" tag="a" event="click">Home</router-link-stub>
-      |
-      <router-link-stub to="/test" tag="a" event="click">Test</router-link-stub>
-      |
-      <router-link-stub to="/foo" tag="a" event="click">Foo</router-link-stub>
+      | <router-link-stub to="/test" tag="a" event="click">Test</router-link-stub>
+      | <router-link-stub to="/foo" tag="a" event="click">Foo</router-link-stub>
     </div>
     <div class="flex-1 text-right">
       <localechanger-stub></localechanger-stub>

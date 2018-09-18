@@ -1,12 +1,13 @@
 <template>
   <div class="inline-block relative w-24 mr-2 ">
     <select
+      id="locale-changer"
       v-model="$i18n.locale"
       class="select-standard w-full focus:outline-none focus:shadow-outline">
       <option
         v-for="(lang, i) in locales"
         :key="`Lang${i}`"
-        :value="lang">{{ lang }}</option>
+        :value="lang">{{ lang.toUpperCase() }}</option>
     </select>
     <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker">
       <svg

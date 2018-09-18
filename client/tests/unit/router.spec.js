@@ -52,9 +52,16 @@ describe('Router', () => {
     expect(component.default.name).toBe('NotFound');
   });
 
+  test('should declare Parameters route', async () => {
+    expect(routes[4].path).toEqual('/parameters');
+    expect(routes[4].name).toEqual('Parameters');
+    const component = await routes[4].component();
+    expect(component.default.name).toBe('Parameters');
+  });
+
   test('should declare redirect to 404 route', () => {
-    expect(routes[4].path).toEqual('*');
-    expect(routes[4].redirect).toEqual('/404');
+    expect(routes[5].path).toEqual('*');
+    expect(routes[5].redirect).toEqual('/404');
   });
 
   test('should be able to navigate to unprotected page without authentication', async () => {

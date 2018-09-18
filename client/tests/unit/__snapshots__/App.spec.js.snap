@@ -2,35 +2,57 @@
 
 exports[`App.vue should display only "Home" link when the user is not authenticated 1`] = `
 <div id="app">
-  <div class="flex items-center p-4">
-    <div class="flex-1"></div>
-    <div id="nav" class="flex-1">
-      <router-link-stub to="/" tag="a" event="click">Home</router-link-stub>
-      <!---->
+  <nav class="flex items-center bg-white border-b border-grey-lighter justify-between flex-wrap p-6 fixed pin-t pin-x z-10">
+    <div class="flex items-center flex-no-shrink text-white mr-6"><img src="./assets/logo.png" alt="Client logo" class="h-8 w-8 mr-2">
+      <router-link-stub to="/" tag="a" event="click" class="font-semibold text-xl tracking-tight text-grey-darker">Client</router-link-stub>
     </div>
-    <div class="flex-1 text-right">
-      <localechanger-stub></localechanger-stub>
-      <googlesigninbutton-stub></googlesigninbutton-stub>
+    <div class="flex block lg:hidden">
+      <div id="menu-open"><button class="flex items-center px-3 py-2 border rounded text-green border-green hover:text-green-lighter hover:border-green-light"><svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="fill-current h-3 w-3">
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+          </svg></button></div>
     </div>
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden">
+      <div class="text-sm lg:flex-grow text-left lg:text-center px-8">
+        <router-link-stub to="/" tag="a" event="click" class="link">home</router-link-stub>
+        <!---->
+      </div>
+      <div class="text-sm text-left lg:text-center px-8 lg:px-0">
+        <router-link-stub to="/parameters" tag="a" event="click" class="link">parameters</router-link-stub>
+        <googlesigninbutton-stub class="ml-2 lg:ml-0 mt-4 lg:mt-0"></googlesigninbutton-stub>
+      </div>
+    </div>
+  </nav>
+  <div class="pt-24 p-6">
+    <router-view-stub name="default"></router-view-stub>
   </div>
-  <router-view-stub name="default"></router-view-stub>
 </div>
 `;
 
 exports[`App.vue should display restricted links when the user is authenticated 1`] = `
 <div id="app">
-  <div class="flex items-center p-4">
-    <div class="flex-1"></div>
-    <div id="nav" class="flex-1">
-      <router-link-stub to="/" tag="a" event="click">Home</router-link-stub>
-      | <router-link-stub to="/test" tag="a" event="click">Test</router-link-stub>
-      | <router-link-stub to="/foo" tag="a" event="click">Foo</router-link-stub>
+  <nav class="flex items-center bg-white border-b border-grey-lighter justify-between flex-wrap p-6 fixed pin-t pin-x z-10">
+    <div class="flex items-center flex-no-shrink text-white mr-6"><img src="./assets/logo.png" alt="Client logo" class="h-8 w-8 mr-2">
+      <router-link-stub to="/" tag="a" event="click" class="font-semibold text-xl tracking-tight text-grey-darker">Client</router-link-stub>
     </div>
-    <div class="flex-1 text-right">
-      <localechanger-stub></localechanger-stub>
-      <googlesigninbutton-stub></googlesigninbutton-stub>
+    <div class="flex block lg:hidden">
+      <div id="menu-open"><button class="flex items-center px-3 py-2 border rounded text-green border-green hover:text-green-lighter hover:border-green-light"><svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="fill-current h-3 w-3">
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+          </svg></button></div>
     </div>
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden">
+      <div class="text-sm lg:flex-grow text-left lg:text-center px-8">
+        <router-link-stub to="/" tag="a" event="click" class="link">home</router-link-stub> <span class="hidden lg:inline">|</span>
+        <router-link-stub to="/test" tag="a" event="click" class="link">Test</router-link-stub> <span class="hidden lg:inline">|</span>
+        <router-link-stub to="/foo" tag="a" event="click" class="link">Foo</router-link-stub>
+      </div>
+      <div class="text-sm text-left lg:text-center px-8 lg:px-0">
+        <router-link-stub to="/parameters" tag="a" event="click" class="link">parameters</router-link-stub>
+        <googlesigninbutton-stub class="ml-2 lg:ml-0 mt-4 lg:mt-0"></googlesigninbutton-stub>
+      </div>
+    </div>
+  </nav>
+  <div class="pt-24 p-6">
+    <router-view-stub name="default"></router-view-stub>
   </div>
-  <router-view-stub name="default"></router-view-stub>
 </div>
 `;

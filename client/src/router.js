@@ -36,6 +36,11 @@ const router = new Router({
       component: () => import(/* webpackChunkName: "error" */ '@/views/NotFound.vue'),
     },
     {
+      path: '/parameters',
+      name: 'Parameters',
+      component: () => import(/* webpackChunkName: "parameters" */ '@/views/Parameters.vue'),
+    },
+    {
       path: '*',
       redirect: '/404',
     },

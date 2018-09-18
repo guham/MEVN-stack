@@ -26,6 +26,14 @@
 .select-standard:hover {
   @apply .border-grey;
 }
+.link {
+  @apply .block .mt-4 .font-bold .text-grey-darker mx-2;
+}
+@screen lg {
+  .link {
+    @apply .inline-block .mt-0;
+  }
+}
 
  @tailwind utilities;
 

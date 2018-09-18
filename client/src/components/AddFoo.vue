@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-1/3 border-b border-b-2 border-green py-2">
+  <div class="flex flex-col border-b border-b-2 border-green py-2 w-full">
     <div class="flex">
       <input
         v-model="name"
@@ -8,7 +8,7 @@
         type="text"
         @keyup.enter="addFoo()">
       <button
-        class="btn btn-green"
+        class="btn btn-green px-4"
         type="button"
         @click="addFoo()">{{ $t('add') }}</button>
     </div>

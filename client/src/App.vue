@@ -1,7 +1,7 @@
 <!-- eslint-disable max-len -->
 <template>
   <div id="app">
-    <nav class="flex items-center bg-white border-b border-grey-lighter justify-between flex-wrap p-6 fixed pin-t pin-x z-10">
+    <nav class="flex items-center bg-white border-b border-grey-lighter justify-between flex-wrap fixed pin-t pin-x z-10 p-3 lg:p-4">
       <div class="flex items-center flex-no-shrink text-white mr-6">
         <img
           src="./assets/logo.png"
@@ -34,7 +34,7 @@
       <div
         :class="{ hidden: !menuIsVisible }"
         class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div class="text-sm lg:flex-grow text-left lg:text-center px-8">
+        <div class="text-sm lg:flex-grow text-left lg:text-center px-2">
           <router-link
             to="/"
             class="link">{{ $t('home') }}</router-link>
@@ -49,7 +49,7 @@
               class="link">Foo</router-link>
           </template>
         </div>
-        <div class="text-sm text-left lg:text-center px-8 lg:px-0">
+        <div class="text-sm text-left lg:text-center px-2 lg:px-0">
           <router-link
             to="/parameters"
             class="link">{{ $t('parameters') }}</router-link>
@@ -102,6 +102,7 @@ export default {
 
   watch: {
     $route(to, from) {
+      console.log(from, to);
       if (from.name) {
         this.menuIsVisible = false;
       }

@@ -1,7 +1,9 @@
 <!-- eslint-disable max-len -->
 <template>
   <div id="app">
-    <nav class="flex items-center bg-white border-b border-grey-lighter justify-between flex-wrap fixed pin-t pin-x z-10 p-3 lg:p-4">
+    <nav
+      v-click-outside="closeMenu"
+      class="flex items-center bg-white border-b border-grey-lighter justify-between flex-wrap fixed pin-t pin-x z-10 p-3 lg:p-4">
       <div class="flex items-center flex-no-shrink text-white mr-6">
         <img
           src="./assets/logo.png"
@@ -102,16 +104,16 @@ export default {
 
   watch: {
     $route(to, from) {
-      console.log(from, to);
-      if (from.name) {
-        this.menuIsVisible = false;
-      }
+      from.name && this.closeMenu();
     },
   },
 
   methods: {
     toogleMenu() {
       this.menuIsVisible = !this.menuIsVisible;
+    },
+    closeMenu() {
+      this.menuIsVisible = false;
     },
   },
 };

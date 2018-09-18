@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-center">
     <h1>{{ $t('title') }}</h1>
     <p class="p-2"><span>>></span> {{ value }}</p>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="text-center">
     <img
       src="../assets/logo.png"
       alt="">

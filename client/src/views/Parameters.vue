@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-center">
     <h1 class="pb-2">{{ $t('parameters') }}</h1>
     <div class="flex justify-center pt-6">
       <form class="w-full max-w-xs">

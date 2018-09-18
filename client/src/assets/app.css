@@ -24,7 +24,10 @@
   @apply .block .appearance-none .bg-white .border .border-grey-light .px-4 .py-2 .pr-8 .rounded .shadow .leading-tight;
 }
 .select-standard:hover {
-  @apply .border-grey;
+  @apply .border-green;
+}
+.select-standard:focus {
+  @apply .outline-none .border-green;
 }
 .link {
   @apply .block .mt-4 .font-bold .text-grey-darker mx-2;

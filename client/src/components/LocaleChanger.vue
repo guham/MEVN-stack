@@ -3,7 +3,7 @@
     <select
       id="locale-changer"
       v-model="$i18n.locale"
-      class="select-standard w-full focus:outline-none focus:shadow-outline">
+      class="select-standard w-full">
       <option
         v-for="(lang, i) in locales"
         :key="`Lang${i}`"

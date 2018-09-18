@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LocaleChanger.vue has the expected html structure 1`] = `
-<div class="inline-block relative w-24 mr-2 "><select id="locale-changer" class="select-standard w-full focus:outline-none focus:shadow-outline">
+<div class="inline-block relative w-24 mr-2 "><select id="locale-changer" class="select-standard w-full">
     <option value="en">EN</option>
     <option value="fr">FR</option>
     <option value="es">ES</option>

@@ -6,42 +6,42 @@
  @tailwind components;
 
  .btn {
-   @apply .flex-no-shrink .text-sm .border-4 .py-1 .px-2 .rounded;
+   @apply flex-no-shrink text-sm border-4 py-1 px-2 rounded;
  }
  .btn-green {
-   @apply .text-white .bg-green .border-green;
+   @apply text-white bg-green border-green;
  }
  .btn-green:hover {
-  @apply .bg-green-dark .border-green-dark;
+  @apply bg-green-dark border-green-dark;
 }
 .btn-grey {
-  @apply .text-white .bg-grey .border-grey;
+  @apply text-white bg-grey border-grey;
 }
 .btn-grey:hover {
-  @apply .bg-grey-dark .border-grey-dark;
+  @apply bg-grey-dark border-grey-dark;
 }
 .select-standard {
-  @apply .block .appearance-none .bg-white .border .border-grey-light .px-4 .py-2 .pr-8 .rounded .shadow .leading-tight;
+  @apply block appearance-none bg-white border border-grey-light px-4 py-2 pr-8 rounded shadow leading-tight;
 }
 .select-standard:hover {
-  @apply .border-green;
+  @apply border-green;
 }
 .select-standard:focus {
-  @apply .outline-none .border-green;
+  @apply outline-none border-green;
 }
 .link {
-  @apply .block .mt-4 .font-bold .text-grey-darker mx-2;
+  @apply block mt-4 font-bold text-grey-darker mx-2;
 }
 @screen lg {
   .link {
-    @apply .inline-block .mt-0;
+    @apply inline-block mt-0;
   }
 }
 .input {
-  @apply .bg-grey-lighter .appearance-none .border-2 .border-grey-lighter .rounded .w-full .py-2 .px-4 .text-grey-darker .leading-tight;
+  @apply bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-full py-2 px-4 text-grey-darker leading-tight;
 }
 .input:focus {
-  @apply .outline-none .bg-white .border-green;
+  @apply outline-none bg-white border-green;
 }
 
  @tailwind utilities;

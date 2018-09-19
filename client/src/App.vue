@@ -59,7 +59,7 @@
         </div>
       </div>
     </nav>
-    <div class="pt-24 p-6">
+    <div class="min-h-screen pt-24 px-6 pb-6">
       <router-view/>
     </div>
   </div>

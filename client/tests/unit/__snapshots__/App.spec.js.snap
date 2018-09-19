@@ -22,7 +22,7 @@ exports[`App.vue should display only "Home" link when the user is not authentica
       </div>
     </div>
   </nav>
-  <div class="pt-24 p-6">
+  <div class="min-h-screen pt-24 px-6 pb-6">
     <router-view-stub name="default"></router-view-stub>
   </div>
 </div>
@@ -51,7 +51,7 @@ exports[`App.vue should display restricted links when the user is authenticated 
       </div>
     </div>
   </nav>
-  <div class="pt-24 p-6">
+  <div class="min-h-screen pt-24 px-6 pb-6">
     <router-view-stub name="default"></router-view-stub>
   </div>
 </div>

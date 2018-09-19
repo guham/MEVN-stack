@@ -13,6 +13,28 @@ localVue.use(vClickOutside);
 
 const router = new VueRouter({
   mode: 'history',
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+    },
+    {
+      path: '/test',
+      name: 'Test',
+    },
+    {
+      path: '/foo',
+      name: 'FooPanel',
+    },
+    {
+      path: '/404',
+      name: 'NotFound',
+    },
+    {
+      path: '/parameters',
+      name: 'Parameters',
+    },
+  ],
 });
 
 export default (component, store = {}, propsData = {}, data = {}, stubs = []) =>

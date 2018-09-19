@@ -88,7 +88,7 @@ describe('GoogleSignInButton.vue', () => {
     wrapper.vm.$nextTick(() => {
       expect(spySignOutAndRedirect).toHaveBeenCalled();
       expect(actions.signOut).toHaveBeenCalled();
-      expect(spyRouterReplace).toHaveBeenCalledWith({ name: 'Home' });
+      expect(spyRouterReplace).toHaveBeenCalledWith({ name: 'Home', params: {}, path: '' });
       done();
     });
   });

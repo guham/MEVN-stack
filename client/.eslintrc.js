@@ -14,7 +14,7 @@ module.exports = {
     'import/extensions': ['error', 'never', { vue: 'always' }],
     'no-shadow': ['error', { allow: ['state', 'payload', 'getters'] }],
     'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
-    'no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true }]
+    'no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true }],
   },
   parserOptions: {
     parser: 'babel-eslint',

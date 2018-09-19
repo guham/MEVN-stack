@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App.vue should display only "Home" link when the user is not authenticated 1`] = `
+exports[`App.vue should display "Home" and "Parameters" links when the user is not authenticated 1`] = `
 <div id="app">
   <nav class="flex items-center bg-white border-b border-grey-lighter justify-between flex-wrap fixed pin-t pin-x z-10 p-3 lg:p-4">
     <div class="flex items-center flex-no-shrink text-white mr-6"><img src="./assets/logo.png" alt="Client logo" class="h-8 w-8 mr-2">

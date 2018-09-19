@@ -7,7 +7,7 @@ exports[`App.vue should display "Home" and "Parameters" links when the user is n
       <router-link-stub to="/" tag="a" event="click" class="font-semibold text-xl tracking-tight text-grey-darker">Client</router-link-stub>
     </div>
     <div class="flex block lg:hidden">
-      <div id="menu-open"><button class="flex items-center px-3 py-2 border rounded text-green border-green hover:text-green-lighter hover:border-green-light"><svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="fill-current h-3 w-3">
+      <div id="menu-open"><button aria-label="Toggle navigation" class="flex items-center px-3 py-2 border rounded text-green border-green hover:text-green-lighter hover:border-green-light"><svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="fill-current h-3 w-3">
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
           </svg></button></div>
     </div>
@@ -35,7 +35,7 @@ exports[`App.vue should display restricted links when the user is authenticated 
       <router-link-stub to="/" tag="a" event="click" class="font-semibold text-xl tracking-tight text-grey-darker">Client</router-link-stub>
     </div>
     <div class="flex block lg:hidden">
-      <div id="menu-open"><button class="flex items-center px-3 py-2 border rounded text-green border-green hover:text-green-lighter hover:border-green-light"><svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="fill-current h-3 w-3">
+      <div id="menu-open"><button aria-label="Toggle navigation" class="flex items-center px-3 py-2 border rounded text-green border-green hover:text-green-lighter hover:border-green-light"><svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="fill-current h-3 w-3">
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
           </svg></button></div>
     </div>

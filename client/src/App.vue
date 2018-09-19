@@ -18,6 +18,7 @@
           :id="[ menuIsVisible ? 'menu-close' : 'menu-open' ]">
           <button
             class="flex items-center px-3 py-2 border rounded text-green border-green hover:text-green-lighter hover:border-green-light"
+            aria-label="Toggle navigation"
             @click="toogleMenu()">
             <svg
               class="fill-current h-3 w-3"

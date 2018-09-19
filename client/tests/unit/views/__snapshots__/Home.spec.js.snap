@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home.vue has the expected html structure 1`] = `
-<div class="home"><img src="../assets/logo.png">
+<div class="text-center"><img src="../assets/logo.png" alt="">
   <helloworld-stub msg="Welcome to Your Vue.js App"></helloworld-stub>
 </div>
 `;

@@ -5,6 +5,7 @@ import router from '@/router';
 import store from '@/store';
 import auth from '@/auth';
 import i18n from '@/i18n';
+import vClickOutside from 'v-click-outside';
 import './assets/app.css';
 
 Vue.config.productionTip = false;
@@ -36,6 +37,8 @@ window.gapi.load('auth2', async () => {
   Vue.use(auth, {
     store,
   });
+
+  Vue.use(vClickOutside);
 
   new Vue({
     router,

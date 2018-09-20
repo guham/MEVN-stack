@@ -34,6 +34,9 @@ const { mapGetters, mapActions } = createNamespacedHelpers('foos');
 
 export default {
   name: 'FooPanel',
+  metaInfo: {
+    title: 'Foo Panel',
+  },
   components: {
     AddFoo,
   },

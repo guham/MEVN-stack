@@ -5,6 +5,9 @@
 <script>
 export default {
   name: 'NotFound',
+  metaInfo: {
+    title: '404 Page not found',
+  },
   data: () => ({}),
 };
 </script>

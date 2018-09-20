@@ -40,6 +40,9 @@ import LocaleChanger from '@/components/LocaleChanger.vue';
 
 export default {
   name: 'Parameters',
+  metaInfo: {
+    title: 'Parameters',
+  },
   components: {
     LocaleChanger,
   },

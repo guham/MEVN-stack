@@ -12,6 +12,9 @@ import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
   name: 'Home',
+  metaInfo: {
+    title: 'Home',
+  },
   components: {
     HelloWorld,
   },

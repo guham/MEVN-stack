@@ -86,10 +86,24 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton.vue';
+/* eslint-disable-next-line */
+import logo from '@/assets/logo.png';
 
 const { mapGetters } = createNamespacedHelpers('user');
 
 export default {
+  metaInfo: {
+    titleTemplate: '%s - MEVN-stack',
+    title: 'Client',
+    meta: [
+      { name: 'Description', content: 'MEVN stack' },
+      { property: 'og:title', content: 'MEVN stack - client' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:image', content: `${process.env.VUE_APP_CLIENT_URL}${logo}` },
+      { property: 'og:url', content: process.env.VUE_APP_CLIENT_URL },
+      { property: 'og:description', content: 'MEVN stack' },
+    ],
+  },
   components: {
     GoogleSignInButton,
   },

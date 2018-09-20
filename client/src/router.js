@@ -1,9 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Meta from 'vue-meta';
 import store from '@/store';
 import Home from '@/views/Home.vue';
 
 Vue.use(Router);
+Vue.use(Meta, {
+  keyName: 'metaInfo',
+});
 
 const router = new Router({
   mode: 'history',

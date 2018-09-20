@@ -25,6 +25,9 @@ import _get from 'lodash/get';
 
 export default {
   name: 'Test',
+  metaInfo: {
+    title: 'Test',
+  },
   data: () => ({
     value: 'Waiting for value...',
   }),

@@ -56,7 +56,9 @@
           <router-link
             to="/parameters"
             class="link">{{ $t('parameters') }}</router-link>
-          <google-sign-in-button class="ml-2 lg:ml-0 mt-4 lg:mt-0"/>
+          <google-sign-in-button
+            class="ml-2 lg:ml-0 mt-4 lg:mt-0"
+            @signIn="closeMenu()"/>
         </div>
       </div>
     </nav>

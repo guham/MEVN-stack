@@ -12,7 +12,7 @@
     id="btn-signin"
     class="btn btn-green"
     type="button"
-    @click="signIn()">
+    @click="signInAction()">
     {{ $t('signin') }}
   </button>
 </template>
@@ -53,6 +53,10 @@ export default {
       'signIn',
       'signOut',
     ]),
+    async signInAction() {
+      await this.signIn();
+      this.$emit('signIn');
+    },
     async signOutAndRedirect() {
       await this.signOut();
       this.$router.replace({ name: 'Home' });

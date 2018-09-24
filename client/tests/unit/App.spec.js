@@ -1,5 +1,6 @@
 import Vuex from 'vuex';
 import App from '@/App.vue';
+import GoogleSignInButton from '@/components/auth/GoogleSignInButton.vue';
 import user from '@/store/modules/user';
 import factory from './factory';
 
@@ -77,6 +78,16 @@ describe('App.vue', () => {
     wrapper.vm.$router.push('/parameters');
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.menuIsVisible).toBeFalsy();
+      done();
+    });
+  });
+
+  test('calls `closeMenu()` when @signIn happens', (done) => {
+    const wrapper = factory(App, userUnauthenticatedStore);
+    const spyCloseMenu = jest.spyOn(wrapper.vm, 'closeMenu');
+    wrapper.find(GoogleSignInButton).vm.$emit('signIn');
+    wrapper.vm.$nextTick(() => {
+      expect(spyCloseMenu).toHaveBeenCalled();
       done();
     });
   });

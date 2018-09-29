@@ -2,6 +2,7 @@
 
 exports[`App.vue should display "Home" and "Parameters" links when the user is not authenticated 1`] = `
 <div id="app">
+  <loader-stub style="display: none;"></loader-stub>
   <nav class="flex items-center bg-white border-b border-grey-lighter justify-between flex-wrap fixed pin-t pin-x z-10 p-3 lg:p-4">
     <div class="flex items-center flex-no-shrink text-white mr-6"><img src="./assets/logo.png" alt="Client logo" class="h-8 w-8 mr-2">
       <router-link-stub to="/" tag="a" event="click" class="font-semibold text-xl tracking-tight text-grey-darker">Client</router-link-stub>
@@ -30,6 +31,7 @@ exports[`App.vue should display "Home" and "Parameters" links when the user is n
 
 exports[`App.vue should display restricted links when the user is authenticated 1`] = `
 <div id="app">
+  <loader-stub style="display: none;"></loader-stub>
   <nav class="flex items-center bg-white border-b border-grey-lighter justify-between flex-wrap fixed pin-t pin-x z-10 p-3 lg:p-4">
     <div class="flex items-center flex-no-shrink text-white mr-6"><img src="./assets/logo.png" alt="Client logo" class="h-8 w-8 mr-2">
       <router-link-stub to="/" tag="a" event="click" class="font-semibold text-xl tracking-tight text-grey-darker">Client</router-link-stub>

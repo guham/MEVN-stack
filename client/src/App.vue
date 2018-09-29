@@ -1,6 +1,7 @@
 <!-- eslint-disable max-len -->
 <template>
   <div id="app">
+    <loader v-show="userIsSigningIn"/>
     <nav
       v-click-outside="closeMenu"
       class="flex items-center bg-white border-b border-grey-lighter justify-between flex-wrap fixed pin-t pin-x z-10 p-3 lg:p-4">
@@ -88,6 +89,7 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton.vue';
+import Loader from '@/components/Loader.vue';
 /* eslint-disable-next-line */
 import logo from '@/assets/logo.png';
 
@@ -106,9 +108,12 @@ export default {
       { property: 'og:description', content: 'MEVN stack' },
     ],
   },
+
   components: {
     GoogleSignInButton,
+    Loader,
   },
+
   data: () => ({
     menuIsVisible: false,
   }),
@@ -116,6 +121,7 @@ export default {
   computed: {
     ...mapGetters([
       'isAuthenticated',
+      'userIsSigningIn',
     ]),
   },
 

@@ -10,6 +10,7 @@ const userUnauthenticatedStore = new Vuex.Store({
       namespaced: user.namespaced,
       getters: {
         isAuthenticated: () => false,
+        userIsSigningIn: () => false,
       },
     },
   },
@@ -21,6 +22,7 @@ const userAuthenticatedStore = new Vuex.Store({
       namespaced: user.namespaced,
       getters: {
         isAuthenticated: () => true,
+        userIsSigningIn: () => false,
       },
     },
   },

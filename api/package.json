@@ -1,5 +1,5 @@
 {
-  "name": "mevn-stack",
+  "name": "mevn-stack-api",
   "version": "1.0.0",
   "description": "MEVN stack",
   "license": "MIT",
@@ -14,11 +14,6 @@
     "dev": "nodemon --inspect=0.0.0.0:$NODE_DEBUG_PORT --nolazy --config nodemon.json server.js",
     "lint": "eslint --fix --color -f codeframe .",
     "test": "NODE_ENV=test jest --colors"
-  },
-  "now": {
-    "engines": {
-      "node": "10.x.x"
-    }
   },
   "dependencies": {
     "bluebird": "^3.5.1",

@@ -1,9 +1,9 @@
 {
+  "public": true,
   "name": "mevn-stack-api",
   "alias": "mevn-stack-api",
-  "public": true,
-  "features": {
-    "cloud": "v2"
+  "engines": {
+    "node": "10.x.x"
   },
   "env": {
     "NODE_ENV": "@mevn-stack-node-env",

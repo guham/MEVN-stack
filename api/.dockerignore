@@ -1,4 +1,9 @@
 *
+!app.js
+!db.js
+!server.js
+!package.json
+!yarn.lock
 !components
 !controllers
 !middlewares
@@ -6,8 +11,3 @@
 !parameters
 !routes
 !services
-!app.js
-!db.js
-!package.json
-!server.js
-!yarn.lock

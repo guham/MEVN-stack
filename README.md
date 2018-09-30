@@ -42,10 +42,11 @@ WIP
     ```
 3. Deploy the API:
     ```bash
-    make deploy-api-now-npm
+    make deploy-api-now type=[npm|docker] # default value = npm
     ```
 
-4. Optional: add an alias
+4. Optional: add a new alias
     ```bash
-    now alias app-wsehexxxxx.now.sh my-app-name.now.sh
+    # alias value is configured in now-npm.js or now-docker.js file
+    make now-alias type=[npm|docker] # default value = npm
     ```

@@ -1,0 +1,17 @@
+{
+  "public": true,
+  "name": "mevn-stack-api",
+  "alias": "mevn-stack-api",
+  "engines": {
+    "node": "10.x.x"
+  },
+  "env": {
+    "NODE_ENV": "@mevn-stack-node-env",
+    "HOST": "@mevn-stack-host",
+    "PORT": "@mevn-stack-port",
+    "MONGODB_URI": "@mevn-stack-mongodb-uri",
+    "GOOGLE_OAUTH_CLIENT_ID": "@mevn-stack-google-oauth-client-id",
+    "JWT_SECRET_KEY": "@mevn-stack-jwt-secret-key",
+    "JWT_ISSUER": "@mevn-stack-jwt-issuer"
+  }
+}

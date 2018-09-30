@@ -1,0 +1,13 @@
+*
+!app.js
+!db.js
+!server.js
+!package.json
+!yarn.lock
+!components
+!controllers
+!middlewares
+!models
+!parameters
+!routes
+!services

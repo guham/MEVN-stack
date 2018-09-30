@@ -13,6 +13,9 @@ DB_USER			= $(shell echo $$(grep MONGODB_USERNAME .env | xargs) | sed 's/.*=//')
 DB_PWD			= $(shell echo $$(grep MONGODB_PASSWORD .env | xargs) | sed 's/.*=//')
 DB_NAME			= $(shell echo $$(grep MONGO_INITDB_DATABASE .env | xargs) | sed 's/.*=//')
 
+# Now.sh deploy
+type?=npm
+
 ##
 ## MEVN Project
 ## -------
@@ -93,7 +96,21 @@ tu-api: ## Run unit tests
 tu-api: api.node_modules
 	$(YARN_API) test
 
-.PHONY: logs-api lint-api upgrade-api test-api tu-api
+deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|docker]
+	now --public --$(type) -A ../now-$(type).json \
+		-e NODE_ENV=@mevn-stack-node-env \
+		-e HOST=@mevn-stack-host \
+		-e PORT=@mevn-stack-port \
+		-e MONGODB_URI=@mevn-stack-mongodb-uri \
+		-e GOOGLE_OAUTH_CLIENT_ID=@mevn-stack-google-oauth-client-id \
+		-e JWT_SECRET_KEY=@mevn-stack-jwt-secret-key \
+		-e JWT_ISSUER=@mevn-stack-jwt-issuer \
+		./api
+
+now-alias: ## Add a new alias to the last deployment
+	now alias -A now-$(type).json
+
+.PHONY: logs-api lint-api upgrade-api test-api tu-api deploy-api-now now-alias
 
 clean-api:
 	rm -rf .env api/node_modules api/coverage api/yarn-error.log api/tests/access.log

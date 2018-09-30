@@ -93,15 +93,7 @@ tu-api: ## Run unit tests
 tu-api: api.node_modules
 	$(YARN_API) test
 
-deploy: ## Deploy on Now.sh
-	# install now then
-	# now secrets add mevn-stack-node-env "production"
-	# now secrets add mevn-stack-host "0.0.0.0"
-	# now secrets add mevn-stack-port "3000"
-	# now secrets add mevn-stack-mongodb-uri "mongodb://<user>:<pwd>@<host>/<db>"
-	# now secrets add mevn-stack-google-oauth-client-id "<CLIENT_ID>"
-	# now secrets add mevn-stack-jwt-secret-key "<!ChangeMe!>"
-	# now secrets add mevn-stack-jwt-issuer "accounts.google.com"
+deploy-api-now-npm: ## Deploy on Now.sh (as a Node.js deployment)
 	now --public --npm -A now.json \
 		-e NODE_ENV=@mevn-stack-node-env \
 		-e HOST=@mevn-stack-host \
@@ -112,7 +104,7 @@ deploy: ## Deploy on Now.sh
 		-e JWT_ISSUER=@mevn-stack-jwt-issuer \
 		./api
 
-.PHONY: logs-api lint-api upgrade-api test-api tu-api deploy
+.PHONY: logs-api lint-api upgrade-api test-api tu-api deploy-api-now-npm
 
 clean-api:
 	rm -rf .env api/node_modules api/coverage api/yarn-error.log api/tests/access.log

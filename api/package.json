@@ -15,6 +15,11 @@
     "lint": "eslint --fix --color -f codeframe .",
     "test": "NODE_ENV=test jest --colors"
   },
+  "now": {
+    "engines": {
+      "node": "10.x.x"
+    }
+  },
   "dependencies": {
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",

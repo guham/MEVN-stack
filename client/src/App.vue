@@ -2,9 +2,7 @@
 <template>
   <div id="app">
     <loader v-show="userIsSigningIn"/>
-    <nav
-      v-click-outside="closeMenu"
-      class="flex items-center bg-white border-b border-grey-lighter justify-between flex-wrap fixed pin-t pin-x z-10 p-3 lg:p-4">
+    <nav class="flex items-center bg-white border-b border-grey-lighter justify-between flex-wrap fixed pin-t pin-x z-10 p-3 lg:p-4">
       <div class="flex items-center flex-no-shrink text-white mr-6">
         <img
           src="./assets/logo.png"
@@ -37,7 +35,7 @@
       </div>
       <div
         :class="{ hidden: !menuIsVisible }"
-        class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        class="w-full block flex-grow lg:flex lg:items-center lg:w-auto min-h-screen lg:min-h-full">
         <div class="text-sm lg:flex-grow text-left lg:text-center px-2">
           <router-link
             to="/"

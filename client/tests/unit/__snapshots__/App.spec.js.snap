@@ -12,7 +12,7 @@ exports[`App.vue should display "Home" and "Parameters" links when the user is n
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
           </svg></button></div>
     </div>
-    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden">
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto min-h-screen lg:min-h-full hidden">
       <div class="text-sm lg:flex-grow text-left lg:text-center px-2">
         <router-link-stub to="/" tag="a" event="click" class="link">home</router-link-stub>
         <!---->
@@ -41,7 +41,7 @@ exports[`App.vue should display restricted links when the user is authenticated 
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
           </svg></button></div>
     </div>
-    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden">
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto min-h-screen lg:min-h-full hidden">
       <div class="text-sm lg:flex-grow text-left lg:text-center px-2">
         <router-link-stub to="/" tag="a" event="click" class="link">home</router-link-stub> <span class="hidden lg:inline">|</span>
         <router-link-stub to="/test" tag="a" event="click" class="link">Test</router-link-stub> <span class="hidden lg:inline">|</span>

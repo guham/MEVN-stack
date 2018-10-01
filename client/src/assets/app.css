@@ -1,17 +1,20 @@
- /**
+/**
  * https://tailwindcss.com/docs/installation#3-use-tailwind-in-your-css
  */
- @tailwind preflight;
+@tailwind preflight;
 
- @tailwind components;
+@tailwind components;
 
- .btn {
-   @apply flex-no-shrink text-sm border-4 py-1 px-2 rounded;
- }
- .btn-green {
-   @apply text-white bg-green border-green;
- }
- .btn-green:hover {
+.btn {
+  @apply flex-no-shrink text-sm border-4 py-1 px-2 rounded;
+}
+.btn:focus {
+  @apply outline-none;
+}
+.btn-green {
+  @apply text-white bg-green border-green;
+}
+.btn-green:hover {
   @apply bg-green-dark border-green-dark;
 }
 .btn-grey {
@@ -30,11 +33,11 @@
   @apply outline-none border-green;
 }
 .link {
-  @apply block mt-4 font-bold text-grey-darker mx-2;
+  @apply block font-bold text-grey-darker mx-2 py-4 leading-normal;
 }
 @screen lg {
   .link {
-    @apply inline-block mt-0;
+    @apply inline-block py-0;
   }
 }
 .input {
@@ -44,8 +47,12 @@
   @apply outline-none bg-white border-green;
 }
 
- @tailwind utilities;
+@tailwind utilities;
 
- a {
-   text-decoration: none;
- }
+a {
+  text-decoration: none;
+}
+button:focus,
+select:focus {
+  outline: none;
+}

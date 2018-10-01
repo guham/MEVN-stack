@@ -35,11 +35,14 @@
       </div>
       <div
         :class="{ hidden: !menuIsVisible }"
-        class="w-full block flex-grow lg:flex lg:items-center lg:w-auto min-h-screen lg:min-h-full">
+        class="w-full block flex-grow lg:flex lg:items-center lg:w-auto min-h-screen lg:min-h-full pt-6 lg:pt-0">
         <div class="text-sm lg:flex-grow text-left lg:text-center px-2">
           <router-link
             to="/"
             class="link">{{ $t('home') }}</router-link>
+          <hr
+            v-show="menuIsVisible"
+            class="border-t border-solid border-grey-light my-4">
           <template v-if="isAuthenticated">
             <span class="hidden lg:inline">|</span>
             <router-link
@@ -49,6 +52,9 @@
             <router-link
               to="/foo"
               class="link">Foo</router-link>
+            <hr
+              v-show="menuIsVisible"
+              class="border-t border-solid border-grey-light my-4">
           </template>
         </div>
         <div class="text-sm text-left lg:text-center px-2 lg:px-0">
@@ -61,7 +67,9 @@
         </div>
       </div>
     </nav>
-    <div class="min-h-screen pt-24 px-6 pb-6">
+    <div
+      :class="{ 'overflow-hidden max-h-screen': menuIsVisible }"
+      class="min-h-screen pt-24 px-6 pb-6">
       <router-view/>
     </div>
   </div>

@@ -8,9 +8,10 @@
           src="./assets/logo.png"
           class="h-8 w-8 mr-2"
           alt="Client logo">
-        <router-link
-          to="/"
-          class="font-semibold text-xl tracking-tight text-grey-darker">Client</router-link>
+        <router-link-wrapper
+          :label="'Client'"
+          :classes="'font-semibold text-xl tracking-tight text-grey-darker'"
+          to="/"/>
       </div>
       <div class="flex block lg:hidden">
         <div
@@ -37,30 +38,26 @@
         :class="{ hidden: !menuIsVisible }"
         class="w-full block flex-grow lg:flex lg:items-center lg:w-auto min-h-screen lg:min-h-full pt-6 lg:pt-0">
         <div class="text-sm lg:flex-grow text-left lg:text-center px-2">
-          <router-link
-            to="/"
-            class="link">{{ $t('home') }}</router-link>
-          <hr
-            v-show="menuIsVisible"
-            class="border-t border-solid border-grey-light my-4">
+          <router-link-wrapper
+            :label="$t('home')"
+            to="/"/>
+          <separator v-show="menuIsVisible"/>
           <template v-if="isAuthenticated">
             <span class="hidden lg:inline">|</span>
-            <router-link
-              to="/test"
-              class="link">Test</router-link>
+            <router-link-wrapper
+              :label="'Test'"
+              to="/test"/>
             <span class="hidden lg:inline">|</span>
-            <router-link
-              to="/foo"
-              class="link">Foo</router-link>
-            <hr
-              v-show="menuIsVisible"
-              class="border-t border-solid border-grey-light my-4">
+            <router-link-wrapper
+              :label="'Foo'"
+              to="/foo"/>
+            <separator v-show="menuIsVisible"/>
           </template>
         </div>
         <div class="text-sm text-left lg:text-center px-2 lg:px-0">
-          <router-link
-            to="/parameters"
-            class="link">{{ $t('parameters') }}</router-link>
+          <router-link-wrapper
+            :label="$t('parameters')"
+            to="/parameters"/>
           <google-sign-in-button
             class="ml-2 lg:ml-0 mt-4 lg:mt-0"
             @signIn="closeMenu()"/>
@@ -96,6 +93,8 @@
 import { createNamespacedHelpers } from 'vuex';
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton.vue';
 import Loader from '@/components/Loader.vue';
+import RouterLinkWrapper from '@/components/RouterLinkWrapper.vue';
+import Separator from '@/components/Separator.vue';
 /* eslint-disable-next-line */
 import logo from '@/assets/logo.png';
 
@@ -118,6 +117,8 @@ export default {
   components: {
     GoogleSignInButton,
     Loader,
+    RouterLinkWrapper,
+    Separator,
   },
 
   data: () => ({

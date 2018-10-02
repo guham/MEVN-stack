@@ -33,11 +33,11 @@
   @apply outline-none border-green;
 }
 .link {
-  @apply block font-bold text-grey-darker mx-2 py-4 leading-normal;
+  @apply inline-block font-bold text-grey-darker mx-2 py-4 leading-normal;
 }
 @screen lg {
   .link {
-    @apply inline-block py-0;
+    @apply py-0;
   }
 }
 .input {
@@ -49,6 +49,10 @@
 
 @tailwind utilities;
 
+html {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+}
 a {
   text-decoration: none;
 }

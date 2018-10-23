@@ -22,11 +22,18 @@
 
 <script>
 import { locales } from '@/i18n';
+import { setLocaleCookie } from '@/services/cookies';
 
 export default {
   name: 'LocaleChanger',
   data: () => ({
     locales,
   }),
+
+  watch: {
+    '$i18n.locale': function change(locale) {
+      setLocaleCookie(locale);
+    },
+  },
 };
 </script>

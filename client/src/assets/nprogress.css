@@ -1,0 +1,11 @@
+.progress-bar {
+  height: 2px;
+}
+/* Fancy blur effect */
+.progress-bar .peg {
+  width: 100px;
+  box-shadow: 0 0 10px #1f9d55, 0 0 5px #1f9d55;
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}

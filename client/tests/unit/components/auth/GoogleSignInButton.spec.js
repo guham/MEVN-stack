@@ -65,6 +65,17 @@ describe('GoogleSignInButton.vue', () => {
     expect(actions.signIn).toHaveBeenCalled();
   });
 
+  test('emit `signIn` event when Sign In button is clicked', (done) => {
+    const wrapper = factory(GoogleSignInButton, store);
+    wrapper.find('#btn-signin').trigger('click');
+    wrapper.vm.$nextTick(() => {
+      expect(wrapper.emitted('signIn')).toBeTruthy();
+      expect(wrapper.emitted('signIn').length).toBe(1);
+      expect(wrapper.emitted('signIn')[0]).toEqual([]);
+      done();
+    });
+  });
+
   test('calls store action `signOut` when Sign Out button is clicked', (done) => {
     store = new Vuex.Store({
       modules: {

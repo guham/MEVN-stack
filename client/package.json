@@ -11,6 +11,7 @@
     "test:e2e": "vue-cli-service test:e2e --env chrome,firefox"
   },
   "dependencies": {
+    "animejs": "^2.2.0",
     "axios": "^0.18.0",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.10",

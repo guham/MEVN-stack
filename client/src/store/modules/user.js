@@ -1,5 +1,6 @@
 import authClient from '@/api/auth';
 import * as types from '@/store/mutation-types';
+import Notification from '@/models/notification';
 
 const state = {
   isAuthenticated: false,
@@ -43,10 +44,11 @@ const mutations = {
 };
 
 const actions = {
-  async signIn({ commit }) {
+  async signIn({ dispatch, commit }) {
     commit(types.SET_USER_IS_SIGNING_IN, true);
-    const auth2 = window.gapi.auth2.getAuthInstance();
+
     try {
+      const auth2 = window.gapi.auth2.getAuthInstance();
       const googleUser = await auth2.signIn();
       const idToken = googleUser.getAuthResponse().id_token;
       const response = await authClient.sendIdToken(idToken);
@@ -54,7 +56,11 @@ const actions = {
       commit(types.SET_JWT, response.token);
       commit(types.SET_JWT_EXPIRATION, response.tokenExpiration);
     } catch (error) {
-      commit(types.SET_USER_UNAUTHENTICATED);
+      // display only connection errors
+      if (error.data) {
+        dispatch('addThenRemoveNotification', new Notification('error', '%SOMETHING_WENT_WRONG%'), { root: true });
+      }
+      await dispatch('signOut');
     }
     commit(types.SET_USER_IS_SIGNING_IN, false);
   },

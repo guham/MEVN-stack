@@ -69,6 +69,12 @@
       class="min-h-screen pt-24 px-6 pb-6">
       <router-view/>
     </div>
+    <transition-slide-up :duration="400">
+      <notification
+        v-show="hasNotification"
+        :notification="notification"
+        @removeNotification="removeNotification()"/>
+    </transition-slide-up>
   </div>
 </template>
 
@@ -95,10 +101,17 @@ import GoogleSignInButton from '@/components/auth/GoogleSignInButton.vue';
 import Loader from '@/components/Loader.vue';
 import RouterLinkWrapper from '@/components/RouterLinkWrapper.vue';
 import Separator from '@/components/Separator.vue';
+import TransitionSlideUp from '@/components/TransitionSlideUp.vue';
+import Notification from '@/components/Notification.vue';
 /* eslint-disable-next-line */
 import logo from '@/assets/logo.png';
 
-const { mapGetters } = createNamespacedHelpers('user');
+const { mapGetters: userMapGetters } = createNamespacedHelpers('user');
+const {
+  mapGetters: notificationsMapGetters,
+  mapState: notificationsMapState,
+  mapActions: notificationsMapActions,
+} = createNamespacedHelpers('notifications');
 
 export default {
   metaInfo: {
@@ -119,6 +132,8 @@ export default {
     Loader,
     RouterLinkWrapper,
     Separator,
+    TransitionSlideUp,
+    Notification,
   },
 
   data: () => ({
@@ -126,9 +141,15 @@ export default {
   }),
 
   computed: {
-    ...mapGetters([
+    ...userMapGetters([
       'isAuthenticated',
       'userIsSigningIn',
+    ]),
+    ...notificationsMapGetters([
+      'hasNotification',
+    ]),
+    ...notificationsMapState([
+      'notification',
     ]),
   },
 
@@ -145,6 +166,9 @@ export default {
     closeMenu() {
       this.menuIsVisible = false;
     },
+    ...notificationsMapActions([
+      'removeNotification',
+    ]),
   },
 };
 </script>

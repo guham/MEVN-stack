@@ -163,7 +163,7 @@ describe('Foos store', () => {
 
       testAction(foosStore.actions.fetchFoos, null, {}, {}, [
         { type: 'FETCH_FOOS', payload: foos },
-      ], done);
+      ], [], done);
     });
 
     test('fetchFoos - calls SET_ERROR mutation if error', (done) => {
@@ -171,7 +171,7 @@ describe('Foos store', () => {
 
       testAction(foosStore.actions.fetchFoos, null, {}, {}, [
         { type: 'SET_ERROR', payload: error },
-      ], done);
+      ], [], done);
     });
 
     test('addFoo - add a valid foo', (done) => {
@@ -183,11 +183,11 @@ describe('Foos store', () => {
         { type: 'ADD_FOO', payload: foo },
         { type: 'UPDATE_FOO_NAME', payload: '' },
         { type: 'RESET_ERROR' },
-      ], done);
+      ], [], done);
     });
 
     test('addFoo - add an unvalid foo', (done) => {
-      testAction(foosStore.actions.addFoo, null, { name: '' }, { isValidName: false }, [], done);
+      testAction(foosStore.actions.addFoo, null, { name: '' }, { isValidName: false }, [], [], done);
     });
 
     test('addFoo - error from API', (done) => {
@@ -195,7 +195,7 @@ describe('Foos store', () => {
 
       testAction(foosStore.actions.addFoo, null, { name: 'valid foo name but already exist in DB' }, { isValidName: true }, [
         { type: 'SET_ERROR', payload: error },
-      ], done);
+      ], [], done);
     });
   });
 });

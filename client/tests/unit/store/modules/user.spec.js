@@ -1,5 +1,6 @@
 import axios from 'axios';
 import userStore from '@/store/modules/user';
+import Notification from '@/models/notification';
 import testAction from '../../test-action';
 
 beforeEach(() => {
@@ -112,25 +113,41 @@ describe('User store', () => {
         { type: 'SET_JWT', payload: data.token },
         { type: 'SET_JWT_EXPIRATION', payload: data.tokenExpiration },
         { type: 'SET_USER_IS_SIGNING_IN', payload: false },
-      ], done);
+      ], [], done);
 
       expect(window.gapi.auth2.getAuthInstance).toHaveBeenCalledTimes(1);
     });
 
-    test('signIn - calls SET_USER_UNAUTHENTICATED mutation if error', (done) => {
+    test('signIn - push notification & deauthenticate the user if problems occur during Sign-In workflow or when fetching JWT from the API', (done) => {
       axios.post.mockImplementation(() => Promise.reject(error));
 
       testAction(userStore.actions.signIn, null, {}, {}, [
         { type: 'SET_USER_IS_SIGNING_IN', payload: true },
-        { type: 'SET_USER_UNAUTHENTICATED' },
         { type: 'SET_USER_IS_SIGNING_IN', payload: false },
+      ], [
+        { type: 'addThenRemoveNotification', payload: new Notification('error', '%SOMETHING_WENT_WRONG%') },
+        { type: 'signOut' },
+      ], done);
+    });
+
+    test('signIn - deauthenticate the user if the Google Sign-In connection worflow is cancelled', (done) => {
+      const userError = {
+        error: 'For exemple when the user decide to close the Google Sign-In window',
+      };
+      axios.post.mockImplementation(() => Promise.reject(userError));
+
+      testAction(userStore.actions.signIn, null, {}, {}, [
+        { type: 'SET_USER_IS_SIGNING_IN', payload: true },
+        { type: 'SET_USER_IS_SIGNING_IN', payload: false },
+      ], [
+        { type: 'signOut' },
       ], done);
     });
 
     test('signOut', (done) => {
       testAction(userStore.actions.signOut, null, {}, {}, [
         { type: 'SET_USER_UNAUTHENTICATED' },
-      ], done);
+      ], [], done);
 
       expect(window.gapi.auth2.getAuthInstance).toHaveBeenCalledTimes(1);
     });

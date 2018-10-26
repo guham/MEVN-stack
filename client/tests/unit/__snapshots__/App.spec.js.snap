@@ -27,6 +27,9 @@ exports[`App.vue should display "Home" and "Parameters" links when the user is n
   <div class="min-h-screen pt-24 px-6 pb-6">
     <router-view-stub name="default"></router-view-stub>
   </div>
+  <transitionslideup-stub duration="400">
+    <notification-stub notification="[object Object]" style="display: none;"></notification-stub>
+  </transitionslideup-stub>
 </div>
 `;
 
@@ -59,5 +62,8 @@ exports[`App.vue should display restricted links when the user is authenticated 
   <div class="min-h-screen pt-24 px-6 pb-6">
     <router-view-stub name="default"></router-view-stub>
   </div>
+  <transitionslideup-stub duration="400">
+    <notification-stub notification="[object Object]" style="display: none;"></notification-stub>
+  </transitionslideup-stub>
 </div>
 `;

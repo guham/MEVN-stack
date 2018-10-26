@@ -144,10 +144,22 @@ describe('User store', () => {
       ], done);
     });
 
-    test('signOut', (done) => {
+    test('signOut - deauthenticate the user', (done) => {
+      window.gapi.auth2.signOut.mockImplementation(() => Promise.resolve());
       testAction(userStore.actions.signOut, null, {}, {}, [
         { type: 'SET_USER_UNAUTHENTICATED' },
       ], [], done);
+
+      expect(window.gapi.auth2.getAuthInstance).toHaveBeenCalledTimes(1);
+    });
+
+    test('signOut - deauthenticate the user and push notification if an error happened', (done) => {
+      window.gapi.auth2.signOut.mockImplementation(() => Promise.reject(new Error('Google Sign-in error')));
+      testAction(userStore.actions.signOut, null, {}, {}, [
+        { type: 'SET_USER_UNAUTHENTICATED' },
+      ], [
+        { type: 'addThenRemoveNotification', payload: new Notification('error', '%SOMETHING_WENT_WRONG%') },
+      ], done);
 
       expect(window.gapi.auth2.getAuthInstance).toHaveBeenCalledTimes(1);
     });

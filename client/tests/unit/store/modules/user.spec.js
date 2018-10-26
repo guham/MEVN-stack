@@ -130,9 +130,9 @@ describe('User store', () => {
       ], done);
     });
 
-    test('signIn - deauthenticate the user if the Google Sign-In connection worflow is cancelled', (done) => {
+    test('signIn - deauthenticate the user if the Google Sign-In connection workflow is cancelled', (done) => {
       const userError = {
-        error: 'For exemple when the user decide to close the Google Sign-In window',
+        error: 'For exemple when the user closed the popup before finishing the consent flow',
       };
       axios.post.mockImplementation(() => Promise.reject(userError));
 

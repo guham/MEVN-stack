@@ -55,18 +55,21 @@ const actions = {
       commit(types.SET_USER_AUTHENTICATED);
       commit(types.SET_JWT, response.token);
       commit(types.SET_JWT_EXPIRATION, response.tokenExpiration);
-    } catch (error) {
-      // display only connection errors
-      if (error.data) {
+    } catch (e) {
+      // display a notification only when error happened with the API
+      // auth2.signIn() will returns an object containing an *error* property if an error happened
+      if (!e.error) {
         dispatch('addThenRemoveNotification', new Notification('error', '%SOMETHING_WENT_WRONG%'), { root: true });
       }
       await dispatch('signOut');
     }
     commit(types.SET_USER_IS_SIGNING_IN, false);
   },
-  async signOut({ commit }) {
+  async signOut({ dispatch, commit }) {
     const auth2 = window.gapi.auth2.getAuthInstance();
-    await auth2.signOut();
+    await auth2.signOut().catch(() => {
+      dispatch('addThenRemoveNotification', new Notification('error', '%SOMETHING_WENT_WRONG%'), { root: true });
+    });
     commit(types.SET_USER_UNAUTHENTICATED);
   },
 };

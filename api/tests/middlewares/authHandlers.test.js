@@ -1,5 +1,5 @@
 const { authenticate } = require('../../middlewares/authHandlers');
-const { generateJwt } = require('../../services/auth');
+const { accessToken } = require('../../services');
 
 let req;
 let res;
@@ -27,7 +27,7 @@ describe('Test middleware authentication handlers', () => {
       const userPayload = {
         sub: 123456,
       };
-      const token = generateJwt(userPayload);
+      const token = accessToken(userPayload);
 
       req.headers = {
         authorization: `Bearer ${token}`,
@@ -58,7 +58,7 @@ describe('Test middleware authentication handlers', () => {
     test('throws an error if the authorization header contains an expirated JWT', (done) => {
       // { uid: '123456', iat: 1530490533, exp: 1530497733, iss: 'accounts.google.com' }
       // exp = iat + 2h
-      // secret = process.env.JWT_SECRET_KEY
+      // secret = process.env.ACCESS_TOKEN_SECRET_KEY
       const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIxMjM0NTYiLCJpYXQiOjE1MzA0OTA1MzMsImV4cCI6MTUzMDQ5NzczMywiaXNzIjoiYWNjb3VudHMuZ29vZ2xlLmNvbSJ9.u3yLEHFhWnHZsV-nYx8b6SdW09IuVzMKQIDC2R9Uvf0';
       req.headers = {
         authorization: `Bearer ${token}`,

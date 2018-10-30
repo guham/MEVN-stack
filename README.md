@@ -37,7 +37,10 @@ WIP
     now secrets add mevn-stack-port "3000"
     now secrets add mevn-stack-mongodb-uri "mongodb://DB_USER:DB_PWD@dsxxxxxx.mlab.com:xxxxx/DB_NAME"
     now secrets add mevn-stack-google-oauth-client-id "CLIENT_ID.apps.googleusercontent.com"
-    now secrets add mevn-stack-jwt-secret-key "!ChangeMe!"
+    now secrets add mevn-stack-access-token-secret-key "!ChangeMe!"
+    now secrets add mevn-stack-access-token-expires-in "15m"
+    now secrets add mevn-stack-refresh-token-secret-key "!ChangeMe!"
+    now secrets add mevn-stack-refresh-token-expires-in "24h"
     now secrets add mevn-stack-jwt-issuer "accounts.google.com"
     ```
 3. Deploy the API:

@@ -1,21 +1,28 @@
 const express = require('express');
 const { errorHandlers } = require('../../middlewares');
-const { verifyIdToken, generateJwt, verifyJwt } = require('../../services/auth');
+const {
+  auth,
+  accessToken: generateAccessToken,
+  refreshToken: generateRefreshToken,
+} = require('../../services');
 
 const router = express.Router();
 
 /**
  * Validate the authenticity of the Google ID token
- * then provide the client the own signed JWT
+ * then provide the client the own signed access and refresh tokens
  */
 router.post('/token', errorHandlers.asyncMiddleware(async (req, res, next) => {
   const { idToken } = req.body;
-  const payload = await verifyIdToken(idToken);
-  const token = generateJwt(payload);
-  const tokenExpiration = verifyJwt(token).exp;
+  const payload = await auth.verifyIdToken(idToken);
+  const accessToken = generateAccessToken(payload);
+  const refreshToken = generateRefreshToken(payload);
+  const expirationDate = auth.verifyJwt(accessToken).exp;
+
   res.json({
-    token,
-    tokenExpiration,
+    accessToken,
+    refreshToken,
+    expirationDate,
   });
 }));
 

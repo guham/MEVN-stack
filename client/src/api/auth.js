@@ -5,7 +5,7 @@ const client = createClient();
 export default {
   /**
    * @param {string} idToken
-   * @returns {{token: string, tokenExpiration: number}} auth object
+   * @returns {{accessToken: string, refreshToken: string, expirationDate: number}} auth object
    */
   async sendIdToken(idToken) {
     const response = await client.post('/auth/token', { idToken });

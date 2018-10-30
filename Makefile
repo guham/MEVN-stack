@@ -103,7 +103,10 @@ deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|d
 		-e PORT=@mevn-stack-port \
 		-e MONGODB_URI=@mevn-stack-mongodb-uri \
 		-e GOOGLE_OAUTH_CLIENT_ID=@mevn-stack-google-oauth-client-id \
-		-e JWT_SECRET_KEY=@mevn-stack-jwt-secret-key \
+		-e ACCESS_TOKEN_SECRET_KEY=@mevn-stack-access-token-secret-key \
+		-e ACCESS_TOKEN_EXPIRES_IN=@mevn-stack-access-token-expires-in \
+		-e REFRESH_TOKEN_SECRET_KEY=@mevn-stack-refresh-token-secret-key \
+		-e REFRESH_TOKEN_EXPIRES_IN=@mevn-stack-refresh-token-expires-in \
 		-e JWT_ISSUER=@mevn-stack-jwt-issuer \
 		./api
 

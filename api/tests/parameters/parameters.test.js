@@ -22,10 +22,20 @@ describe('Test API parameters', () => {
   });
 
   test('`auth` property', () => {
-    expect(Object.keys(parameters.auth).sort()).toEqual(['clientId', 'jwtSecretKey', 'jwtIssuer'].sort());
+    expect(Object.keys(parameters.auth).sort()).toEqual([
+      'clientId',
+      'accessTokenSecretKey',
+      'accessTokenExpiresIn',
+      'refreshTokenSecretKey',
+      'refreshTokenExpiresIn',
+      'jwtIssuer',
+    ].sort());
     // "auth" object properties
     expect(parameters.auth.clientId).toBe(process.env.GOOGLE_OAUTH_CLIENT_ID);
-    expect(parameters.auth.jwtSecretKey).toBe(process.env.JWT_SECRET_KEY);
+    expect(parameters.auth.accessTokenSecretKey).toBe(process.env.ACCESS_TOKEN_SECRET_KEY);
+    expect(parameters.auth.accessTokenExpiresIn).toBe(process.env.ACCESS_TOKEN_EXPIRES_IN);
+    expect(parameters.auth.refreshTokenSecretKey).toBe(process.env.REFRESH_TOKEN_SECRET_KEY);
+    expect(parameters.auth.refreshTokenExpiresIn).toBe(process.env.REFRESH_TOKEN_EXPIRES_IN);
     expect(parameters.auth.jwtIssuer).toBe(process.env.JWT_ISSUER);
   });
 

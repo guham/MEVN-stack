@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { generateJwt } = require('../services/auth');
+const { accessToken } = require('../services');
 
 const { Test } = request;
 
@@ -7,7 +7,7 @@ Test.prototype.authenticate = function authenticate() {
   const userPayload = {
     sub: 123456,
   };
-  const token = generateJwt(userPayload);
+  const token = accessToken(userPayload);
 
   return this.set('Authorization', `Bearer ${token}`);
 };

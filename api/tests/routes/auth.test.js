@@ -18,7 +18,7 @@ OAuth2Client.prototype.verifyIdToken = jest.fn(() => Promise.resolve(({
 
 describe('Test authentication routes', () => {
   describe('Test "/auth/token" path', () => {
-    test('Should respond a JSON containing the JWT and the expiration date with status 200', async () => {
+    test('Should respond a JSON containing the access token, a refresh token and the expiration date with status 200', async () => {
       const idToken = 'google-id-token';
       const verifyIdTokenOptions = {
         idToken,
@@ -27,9 +27,10 @@ describe('Test authentication routes', () => {
 
       const response = await request(app).post('/auth/token').send({ idToken });
       expect(response.statusCode).toBe(200);
-      expect(Object.keys(response.body)).toEqual(['token', 'tokenExpiration']);
-      expect(response.body.token).not.toBeNull();
-      expect(response.body.tokenExpiration).not.toBeNull();
+      expect(Object.keys(response.body)).toEqual(['accessToken', 'refreshToken', 'expirationDate']);
+      expect(response.body.accessToken).toBeDefined();
+      expect(response.body.refreshToken).toBeDefined();
+      expect(response.body.expirationDate).toBeDefined();
       expect(OAuth2Client.prototype.verifyIdToken).toHaveBeenCalledWith(verifyIdTokenOptions);
     });
   });

@@ -15,7 +15,10 @@ const parameters = {
   },
   auth: {
     clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
-    jwtSecretKey: process.env.JWT_SECRET_KEY,
+    accessTokenSecretKey: process.env.ACCESS_TOKEN_SECRET_KEY,
+    accessTokenExpiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
+    refreshTokenSecretKey: process.env.REFRESH_TOKEN_SECRET_KEY,
+    refreshTokenExpiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN,
     jwtIssuer: process.env.JWT_ISSUER,
   },
 };

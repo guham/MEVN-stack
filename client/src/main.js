@@ -19,7 +19,7 @@ client.interceptors.request.use((config) => {
 
   if (store.getters['user/isAuthenticated']) {
     defaultConfig.headers = {
-      Authorization: `Bearer ${store.getters['user/token']}`,
+      Authorization: `Bearer ${store.getters['user/accessToken']}`,
     };
   }
 

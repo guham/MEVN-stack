@@ -13,19 +13,10 @@ exports.verifyIdToken = async (idToken) => {
   return payload;
 };
 
-exports.generateJwt = (userPayload) => {
-  const options = {
-    issuer: parameters.auth.jwtIssuer,
-    expiresIn: '2h',
-  };
-
-  return jwt.sign({ uid: userPayload.sub }, parameters.auth.jwtSecretKey, options);
-};
-
 exports.verifyJwt = (token) => {
   const options = {
     issuer: parameters.auth.jwtIssuer,
   };
 
-  return jwt.verify(token, parameters.auth.jwtSecretKey, options);
+  return jwt.verify(token, parameters.auth.accessTokenSecretKey, options);
 };

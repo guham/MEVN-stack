@@ -24,11 +24,6 @@ describe('Test app', () => {
     expect(corsMiddleware).toBeDefined();
   });
 
-  test('Should use cookie parser', () => {
-    const cookieParser = getLayerByName('cookieParser');
-    expect(cookieParser).toBeDefined();
-  });
-
   test('Should use logger', () => {
     const logger = getLayerByName('logger');
     expect(logger).toBeDefined();

@@ -2,7 +2,6 @@ const createError = require('http-errors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
 const db = require('./db');
 const { logger } = require('./components');
 const { errorHandler } = require('./middlewares/errorHandlers');
@@ -17,7 +16,6 @@ db.connect();
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use(cookieParser());
 app.use(logger);
 
 app.use('/', defaultRoutes);

@@ -19,7 +19,8 @@ module.exports = {
       files: [ '*.test.js' ],
       rules: {
         'global-require': 'off',
-        'no-underscore-dangle': 'off'
+        'no-underscore-dangle': 'off',
+        'max-len': 'off',
       }
     }
   ]

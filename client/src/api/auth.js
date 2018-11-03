@@ -8,7 +8,7 @@ export default {
    * @returns {{accessToken: string, refreshToken: string, expirationDate: number}} auth object
    */
   async sendIdToken(idToken) {
-    const response = await client.post('/auth/token', { idToken });
+    const response = await client.post('/auth/tokens', { idToken });
     return response.data;
   },
 };

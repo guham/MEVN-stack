@@ -1,5 +1,5 @@
 const { authenticate } = require('../../middlewares/authHandlers');
-const { accessToken } = require('../../services');
+const { getValidAccessToken, getExpiredAccessToken } = require('../utils/tokens');
 
 let req;
 let res;
@@ -13,7 +13,7 @@ beforeEach(() => {
 
 describe('Test middleware authentication handlers', () => {
   describe('authenticate middleware', () => {
-    test('calls next() with an error object if the request does not have an authorization header', () => {
+    test('calls next() with an error object if the request doesn\'t have an authorization header', () => {
       const error = new Error('No authorization token was found');
       authenticate(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
@@ -23,12 +23,8 @@ describe('Test middleware authentication handlers', () => {
       expect(next.mock.calls[0][0].status).toBe(401);
     });
 
-    test('sets the req.user attribute if the authorization header contains a valid JWT', (done) => {
-      const userPayload = {
-        sub: 123456,
-      };
-      const token = accessToken(userPayload);
-
+    test('sets the req.user attribute if the authorization header contains a valid access token', (done) => {
+      const token = getValidAccessToken();
       req.headers = {
         authorization: `Bearer ${token}`,
       };
@@ -36,14 +32,14 @@ describe('Test middleware authentication handlers', () => {
       next = (error) => {
         expect(error).toBeFalsy();
         expect(typeof req.user).toBe('object');
-        expect(req.user.uid).toBe(123456);
+        expect(req.user.uid).toBe('123456');
         done();
       };
 
       authenticate(req, res, next);
     });
 
-    test('calls next() with an error object if the request have an invalid authorization header', () => {
+    test('calls next() with an error object if the request has an invalid authorization header', () => {
       const error = new Error('Format is Authorization: Bearer [token]');
 
       req.headers = {
@@ -55,11 +51,8 @@ describe('Test middleware authentication handlers', () => {
       expect(next.mock.calls[0][0].status).toBe(401);
     });
 
-    test('throws an error if the authorization header contains an expirated JWT', (done) => {
-      // { uid: '123456', iat: 1530490533, exp: 1530497733, iss: 'accounts.google.com' }
-      // exp = iat + 2h
-      // secret = process.env.ACCESS_TOKEN_SECRET_KEY
-      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIxMjM0NTYiLCJpYXQiOjE1MzA0OTA1MzMsImV4cCI6MTUzMDQ5NzczMywiaXNzIjoiYWNjb3VudHMuZ29vZ2xlLmNvbSJ9.u3yLEHFhWnHZsV-nYx8b6SdW09IuVzMKQIDC2R9Uvf0';
+    test('throws an error if the authorization header contains an expired access token', (done) => {
+      const token = getExpiredAccessToken();
       req.headers = {
         authorization: `Bearer ${token}`,
       };

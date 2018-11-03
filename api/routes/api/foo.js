@@ -2,8 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-const { fooController } = require('../controllers');
-const { asyncMiddleware } = require('../middlewares/errorHandlers');
+const { fooController } = require('../../controllers');
+const { asyncMiddleware } = require('../../middlewares/errorHandlers');
 
 router.get('/', asyncMiddleware(fooController.index));
 

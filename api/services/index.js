@@ -1,9 +1,9 @@
 const auth = require('./auth');
-const accessToken = require('./accessToken');
-const refreshToken = require('./refreshToken');
+const accessTokenService = require('./accessToken');
+const refreshTokenService = require('./refreshToken');
 
 module.exports = {
   auth,
-  accessToken,
-  refreshToken,
+  accessTokenService,
+  refreshTokenService,
 };

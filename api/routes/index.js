@@ -1,6 +1,6 @@
 const defaultRoutes = require('./default');
 const apiRoutes = require('./api');
-const authRoutes = require('./authentication/auth.js');
+const authRoutes = require('./authentication/auth');
 
 module.exports = {
   defaultRoutes,

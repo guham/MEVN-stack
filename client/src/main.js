@@ -11,7 +11,7 @@ Vue.config.productionTip = false;
 
 const authOptions = {
   client_id: process.env.VUE_APP_GOOGLE_OAUTH_CLIENT_ID,
-  ux_mode: 'popup', // @TODO: use "redirect"
+  ux_mode: 'popup', // @todo: use "redirect"
 };
 
 client.interceptors.request.use((config) => {

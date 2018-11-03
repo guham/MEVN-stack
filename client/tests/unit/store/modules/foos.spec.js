@@ -186,7 +186,7 @@ describe('Foos store', () => {
       ], [], done);
     });
 
-    test('addFoo - add an unvalid foo', (done) => {
+    test('addFoo - add an invalid foo', (done) => {
       testAction(foosStore.actions.addFoo, null, { name: '' }, { isValidName: false }, [], [], done);
     });
 

@@ -13,6 +13,6 @@ router.post('/tokens', errorHandlers.asyncMiddleware(authController.generateToke
 /**
  * Provide the client new access and refresh tokens
  */
-router.post('/refreshToken', errorHandlers.asyncMiddleware(authController.refreshTokens));
+router.post('/refreshTokens', errorHandlers.asyncMiddleware(authController.refreshTokens));
 
 module.exports = router;

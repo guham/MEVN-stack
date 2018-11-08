@@ -1,34 +1,14 @@
 const jwt = require('jsonwebtoken');
-const joi = require('joi');
+const auth = require('./auth');
 const {
   jwtIssuer,
   accessTokenSecretKey,
   accessTokenExpiresIn,
 } = require('../parameters').parameters.auth;
 
-const schema = joi.object().keys({
-  sub: joi.string().required(),
-}).unknown();
-
-const decodedAccessTokenSchema = joi.object().keys({
-  header: {
-    alg: joi.string().required(),
-    typ: joi.string().required(),
-  },
-  payload: {
-    uid: joi.string().required(),
-    iat: joi.number().required(),
-    exp: joi.number().required(),
-    iss: joi.string().required(),
-  },
-  signature: joi.string().required(),
-});
 
 exports.sign = (userPayload) => {
-  const { error } = joi.validate(userPayload, schema);
-  if (error) {
-    throw new Error('User identifier is missing');
-  }
+  auth.validateUserPayload(userPayload);
 
   const options = {
     issuer: jwtIssuer,
@@ -54,10 +34,7 @@ exports.validateAndReturnDecodedToken = (authorizationHeader) => {
     }
 
     const decodedAccessToken = jwt.decode(accessToken, { complete: true });
-    const { error } = joi.validate(decodedAccessToken, decodedAccessTokenSchema);
-    if (error) {
-      throw new Error('Invalid access token');
-    }
+    auth.validateTokenSchema(decodedAccessToken, 'Invalid access token');
 
     return decodedAccessToken;
   } catch (e) {

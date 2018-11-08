@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import axios from 'axios';
 import userStore from '@/store/modules/user';
 import Notification from '@/models/notification';
@@ -183,5 +184,32 @@ describe('User store', () => {
 
       expect(window.gapi.auth2.getAuthInstance).toHaveBeenCalledTimes(1);
     });
+
+    test('refreshTokens - retrieve new access & refresh tokens', (done) => {
+      axios.post.mockImplementation(() => Promise.resolve({
+        data,
+      }));
+
+      testAction(userStore.actions.refreshTokens, null, { refreshToken: 'valid-token' }, {}, [
+        { type: 'SET_ACCESS_TOKEN', payload: data.accessToken },
+        { type: 'SET_REFRESH_TOKEN', payload: data.refreshToken },
+        { type: 'SET_EXPIRATION_DATE', payload: data.expirationDate },
+      ], [], done);
+    });
+
+    /* test('refreshTokens - deauthenticate the user and push notification if an error happened', (done) => {
+      const unauthorizedError = {
+        type: 'UnauthorizedError',
+        message: 'Unauthorized',
+        error: { message: 'Unauthorized' },
+      };
+
+      axios.post.mockImplementation(() => Promise.reject(unauthorizedError));
+
+      testAction(userStore.actions.refreshTokens, null, { refreshToken: 'expired-token' }, {}, [], [
+        { type: 'signOut' },
+        { type: 'addThenRemoveNotification', payload: new Notification('error', '%SOMETHING_WENT_WRONG%') },
+      ], done);
+    }); */
   });
 });

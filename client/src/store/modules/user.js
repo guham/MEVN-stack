@@ -82,6 +82,19 @@ const actions = {
     });
     commit(types.SET_USER_UNAUTHENTICATED);
   },
+  async refreshTokens({ dispatch, commit, state }) {
+    return new Promise((resolve) => {
+      resolve(authClient.refreshTokens(state.refreshToken));
+    }).then((response) => {
+      commit(types.SET_ACCESS_TOKEN, response.accessToken);
+      commit(types.SET_REFRESH_TOKEN, response.refreshToken);
+      commit(types.SET_EXPIRATION_DATE, response.expirationDate);
+    }).catch((error) => {
+      dispatch('signOut');
+      dispatch('addThenRemoveNotification', new Notification('error', '%SOMETHING_WENT_WRONG%'), { root: true });
+      return Promise.reject(error);
+    });
+  },
 };
 
 export default {

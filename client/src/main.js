@@ -19,12 +19,41 @@ client.interceptors.request.use((config) => {
 
   if (store.getters['user/isAuthenticated']) {
     defaultConfig.headers = {
+      ...defaultConfig.headers,
       Authorization: `Bearer ${store.getters['user/accessToken']}`,
     };
   }
 
   return defaultConfig;
+}, error => Promise.reject(error));
+
+let unauthorizedInterceptor;
+const AddUnauthorizedInterceptor = () => client.interceptors.response.use(null, async (error) => {
+  const originalRequest = error.config;
+
+  const shouldRefreshToken = [401, 403].includes(error.status)
+    && originalRequest
+    && store.getters['user/isAuthenticated']
+    && store.getters['user/accessToken'] !== null;
+
+  if (shouldRefreshToken) {
+    client.interceptors.response.eject(unauthorizedInterceptor);
+    try {
+      await store.dispatch('user/refreshTokens');
+      originalRequest.headers = {
+        ...originalRequest.headers,
+        Authorization: `Bearer ${store.getters['user/accessToken']}`,
+      };
+      return Promise.resolve(client.request(originalRequest));
+    } catch (e) {
+      router.replace({ name: 'Home' });
+    } finally {
+      unauthorizedInterceptor = AddUnauthorizedInterceptor();
+    }
+  }
+  return Promise.reject(error);
 });
+unauthorizedInterceptor = AddUnauthorizedInterceptor();
 
 window.gapi.load('auth2', async () => {
   try {

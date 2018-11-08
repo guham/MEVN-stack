@@ -1,3 +1,4 @@
+const createError = require('http-errors');
 const { refreshTokenService } = require('../../services');
 const { getValidRefreshToken, getExpiredRefreshToken, getInvalidRefreshToken } = require('../utils/tokens');
 
@@ -17,6 +18,7 @@ describe('Test refreshToken service', () => {
 
   describe('validateAndReturnDecodedToken', () => {
     test('throws an error if the refresh token is not valid', () => {
+      const error = new createError.Unauthorized();
       const invalidRefreshTokens = [
         null,
         '',
@@ -27,7 +29,7 @@ describe('Test refreshToken service', () => {
       invalidRefreshTokens.forEach((token) => {
         expect(() => {
           refreshTokenService.validateAndReturnDecodedToken(token);
-        }).toThrow('Invalid refresh token');
+        }).toThrow(error);
       });
     });
 

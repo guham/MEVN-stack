@@ -49,7 +49,7 @@ export default (
 
   const fn = typeof action === 'object' && typeof action.handler === 'function' ? action.handler : action;
 
-  const result = fn(
+  const result = Promise.resolve(fn(
     {
       commit,
       state,
@@ -59,7 +59,7 @@ export default (
       rootGetters: state,
     },
     payload,
-  );
+  )).catch(error => error);
 
   return new Promise((resolve) => {
     setImmediate(resolve);

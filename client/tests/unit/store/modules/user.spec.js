@@ -197,7 +197,7 @@ describe('User store', () => {
       ], [], done);
     });
 
-    /* test('refreshTokens - deauthenticate the user and push notification if an error happened', (done) => {
+    test('refreshTokens - deauthenticate the user and push notification if an error happened', (done) => {
       const unauthorizedError = {
         type: 'UnauthorizedError',
         message: 'Unauthorized',
@@ -209,7 +209,7 @@ describe('User store', () => {
       testAction(userStore.actions.refreshTokens, null, { refreshToken: 'expired-token' }, {}, [], [
         { type: 'signOut' },
         { type: 'addThenRemoveNotification', payload: new Notification('error', '%SOMETHING_WENT_WRONG%') },
-      ], done);
-    }); */
+      ], done).then(e => expect(e).toEqual(unauthorizedError));
+    });
   });
 });

@@ -16,6 +16,9 @@ DB_NAME			= $(shell echo $$(grep MONGO_INITDB_DATABASE .env | xargs) | sed 's/.*
 # Now.sh deploy
 type?=npm
 
+# Client tests
+t?=.
+
 ##
 ## MEVN Project
 ## -------
@@ -140,9 +143,9 @@ upgrade-client: ## Upgrade dependencies
 test-client: ## Run unit & functional tests
 test-client: tu-client tf-client
 
-tu-client: ## Run unit tests
+tu-client: ## Run unit tests (option t=<regex> to run only tests with a name that matches the regex)
 tu-client: client.node_modules
-	$(YARN_CLIENT) test:unit
+	$(YARN_CLIENT) test:unit -t=$(t)
 
 tu-client-update-snapshot: ## Run unit tests & regenerate snapshots
 tu-client-update-snapshot: client.node_modules

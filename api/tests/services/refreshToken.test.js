@@ -16,7 +16,7 @@ describe('Test refreshToken service', () => {
     });
   });
 
-  describe('validateAndReturnDecodedToken', () => {
+  describe('validateAndVerifyRefreshToken', () => {
     test('throws an error if the refresh token is not valid', () => {
       const error = new createError.Unauthorized();
       const invalidRefreshTokens = [
@@ -28,13 +28,13 @@ describe('Test refreshToken service', () => {
       ];
       invalidRefreshTokens.forEach((token) => {
         expect(() => {
-          refreshTokenService.validateAndReturnDecodedToken(token);
+          refreshTokenService.validateAndVerifyRefreshToken(token);
         }).toThrow(error);
       });
     });
 
     test('should returns the decoded refresh token if it is valid', () => {
-      const decodedToken = refreshTokenService.validateAndReturnDecodedToken(validRefreshToken);
+      const decodedToken = refreshTokenService.validateAndVerifyRefreshToken(validRefreshToken);
       expect(typeof decodedToken).toBe('object');
       expect(Object.keys(decodedToken).sort()).toEqual([
         'exp',

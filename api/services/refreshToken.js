@@ -27,9 +27,13 @@ exports.verify = (token) => {
 };
 
 exports.validateAndReturnDecodedToken = (refreshToken) => {
+  const decodedRefreshToken = jwt.decode(refreshToken, { complete: true });
+  return auth.validateTokenSchema(decodedRefreshToken, 'Invalid refresh token');
+};
+
+exports.validateAndVerifyRefreshToken = (refreshToken) => {
   try {
-    const decodedRefreshToken = jwt.decode(refreshToken, { complete: true });
-    auth.validateTokenSchema(decodedRefreshToken);
+    exports.validateAndReturnDecodedToken(refreshToken);
     return exports.verify(refreshToken);
   } catch (error) {
     throw new createError.Unauthorized();

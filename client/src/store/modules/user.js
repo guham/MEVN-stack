@@ -75,11 +75,14 @@ const actions = {
     }
     commit(types.SET_USER_IS_SIGNING_IN, false);
   },
-  async signOut({ dispatch, commit }) {
+  async signOut({ dispatch, commit, state }) {
     const auth2 = window.gapi.auth2.getAuthInstance();
     await auth2.signOut().catch(() => {
       dispatch('addThenRemoveNotification', new Notification('error', '%SOMETHING_WENT_WRONG%'), { root: true });
     });
+    try {
+      await authClient.signOut(state.refreshToken);
+    } catch (error) {}
     commit(types.SET_USER_UNAUTHENTICATED);
   },
   async refreshTokens({ dispatch, commit, state }) {

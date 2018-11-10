@@ -15,4 +15,9 @@ router.post('/tokens', errorHandlers.asyncMiddleware(authController.generateToke
  */
 router.post('/refreshTokens', errorHandlers.asyncMiddleware(authController.refreshTokens));
 
+/**
+ * Remove user current refresh token when sign-out
+ */
+router.post('/signOut', errorHandlers.asyncMiddleware(authController.userSignOut));
+
 module.exports = router;

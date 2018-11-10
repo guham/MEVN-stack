@@ -1,3 +1,4 @@
+const createError = require('http-errors');
 const { authController } = require('../../controllers');
 const { getDefaultUserPayload } = require('../utils/tokens');
 const {
@@ -69,6 +70,43 @@ describe('Test authentication controller', () => {
 
       authController.refreshTokens(req, res, next);
       expect(res.json).toHaveBeenCalled();
+    });
+  });
+
+  describe('userSignOut', () => {
+    test('calls next() with an error object if the request doesn\'t have a valid access token', () => {
+      req.headers = {
+        authorization: 'invalid-auth-header',
+      };
+      authController.userSignOut(req, res, next);
+      expect(next).toHaveBeenCalled();
+      expect(next.mock.calls[0][0] instanceof Error).toBeTruthy();
+    });
+
+    test('calls next() with an error object if the request doesn\'t have a valid refresh token', () => {
+      req.headers = {
+        authorization: `Bearer ${getValidAccessToken()}`,
+      };
+      req.body = {
+        refreshToken: 'invalid-refresh-token',
+      };
+
+      authController.userSignOut(req, res, next);
+      expect(next).toHaveBeenCalled();
+      expect(next.mock.calls[0][0] instanceof Error).toBeTruthy();
+    });
+
+    test('calls next() with an error 401 if the refresh token\'s user is not equal to the access token\'s user ', () => {
+      req.headers = {
+        authorization: `Bearer ${getValidAccessToken()}`,
+      };
+      req.body = {
+        refreshToken: getValidRefreshToken({ sub: '12' }), // valid or not refresh token
+      };
+
+      authController.userSignOut(req, res, next);
+      expect(next).toHaveBeenCalled();
+      expect(next.mock.calls[0][0] instanceof createError.Unauthorized).toBeTruthy();
     });
   });
 });

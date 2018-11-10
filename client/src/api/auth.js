@@ -20,4 +20,13 @@ export default {
     const response = await client.post('/auth/refreshTokens', { refreshToken });
     return response.data;
   },
+
+  /**
+   * @param {string} refreshToken
+   * @returns {object}
+   */
+  async signOut(refreshToken) {
+    const response = await client.post('/auth/signOut', { refreshToken });
+    return response.data;
+  },
 };

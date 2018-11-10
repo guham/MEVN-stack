@@ -167,7 +167,10 @@ describe('User store', () => {
 
     test('signOut - deauthenticate the user', (done) => {
       window.gapi.auth2.signOut.mockImplementation(() => Promise.resolve());
-      testAction(userStore.actions.signOut, null, {}, {}, [
+      axios.post.mockImplementation(() => Promise.resolve({}));
+      const state = { refreshToken: 'valid-or-not-refresh-token' };
+
+      testAction(userStore.actions.signOut, null, state, {}, [
         { type: 'SET_USER_UNAUTHENTICATED' },
       ], [], done);
 

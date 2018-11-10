@@ -16,7 +16,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: [ '*.test.js' ],
+      files: [ 'tests/**/*.js' ],
       rules: {
         'global-require': 'off',
         'no-underscore-dangle': 'off',

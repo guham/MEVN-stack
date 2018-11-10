@@ -12,11 +12,11 @@ const defaultUserPayload = {
 
 const getDefaultUserPayload = () => defaultUserPayload;
 
-const getValidAccessToken = () => accessTokenService.sign(defaultUserPayload);
+const getValidAccessToken = customUserPayload => accessTokenService.sign({ ...defaultUserPayload, ...customUserPayload });
 const getExpiredAccessToken = () => token;
 const getInvalidAccessToken = () => invalidToken;
 
-const getValidRefreshToken = () => refreshTokenService.sign(defaultUserPayload);
+const getValidRefreshToken = customUserPayload => refreshTokenService.sign({ ...defaultUserPayload, ...customUserPayload });
 const getExpiredRefreshToken = () => token;
 const getInvalidRefreshToken = () => invalidToken;
 

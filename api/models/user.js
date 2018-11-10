@@ -2,10 +2,15 @@ const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema(
   {
-    name: {
+    sub: {
       type: String,
       required: true,
       unique: true,
+    },
+    refreshTokens: {
+      type: Map,
+      of: String,
+      default: {},
     },
   },
   {
@@ -13,4 +18,4 @@ const schema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('Foo', schema);
+module.exports = mongoose.model('User', schema);

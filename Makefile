@@ -95,9 +95,9 @@ upgrade-api: ## Upgrade dependencies
 test-api: ## Run tests
 test-api: tu-api
 
-tu-api: ## Run unit tests
+tu-api: ## Run unit tests (option t=<regex> to run only tests with a name that matches the regex)
 tu-api: api.node_modules
-	$(YARN_API) test
+	$(YARN_API) test -t=$(t)
 
 deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|docker]
 	now --public --$(type) -A ../now-$(type).json \

@@ -1,5 +1,6 @@
-const { accessTokenService, refreshTokenService } = require('../../services');
+const AuthenticationService = require('../../components/authentication/AuthenticationService');
 
+const authenticationService = new AuthenticationService();
 // { uid: '123456', iat: 1530490533, exp: 1530497733, iss: 'accounts.google.com' }
 // exp = iat + 2h
 // secret = process.env.ACCESS_TOKEN_SECRET_KEY
@@ -12,11 +13,11 @@ const defaultUserPayload = {
 
 const getDefaultUserPayload = () => defaultUserPayload;
 
-const getValidAccessToken = customUserPayload => accessTokenService.sign({ ...defaultUserPayload, ...customUserPayload });
+const getValidAccessToken = async customUserPayload => authenticationService.signAccessToken({ ...defaultUserPayload, ...customUserPayload });
 const getExpiredAccessToken = () => token;
 const getInvalidAccessToken = () => invalidToken;
 
-const getValidRefreshToken = customUserPayload => refreshTokenService.sign({ ...defaultUserPayload, ...customUserPayload });
+const getValidRefreshToken = async customUserPayload => authenticationService.signRefreshToken({ ...defaultUserPayload, ...customUserPayload });
 const getExpiredRefreshToken = () => token;
 const getInvalidRefreshToken = () => invalidToken;
 

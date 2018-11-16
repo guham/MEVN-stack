@@ -1,26 +1,34 @@
-const createError = require('http-errors');
 const express = require('express');
+const createError = require('http-errors');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { scopePerRequest } = require('awilix-express');
+const { asValue } = require('awilix');
+
 const db = require('./db');
+const router = require('./router');
+const container = require('./container');
 const { logger } = require('./components');
 const { errorHandler } = require('./middlewares/errorHandlers');
-const { authenticate } = require('./middlewares/authHandlers');
-
-// Routes
-const { defaultRoutes, apiRoutes, authRoutes } = require('./routes');
 
 const app = express();
 
 db.connect();
 
+app.use(scopePerRequest(container));
+app.use((req, res, next) => {
+  req.container.register({
+    currentUser: asValue(req.user),
+  });
+
+  return next();
+});
+
 app.use(bodyParser.json());
 app.use(cors());
 app.use(logger);
 
-app.use('/', defaultRoutes);
-app.use('/auth', authRoutes);
-app.use('/api', authenticate, apiRoutes);
+app.use(router);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -23,8 +23,8 @@ describe('Test middleware authentication handlers', () => {
       expect(next.mock.calls[0][0].status).toBe(401);
     });
 
-    test('sets the req.user attribute if the authorization header contains a valid access token', (done) => {
-      const token = getValidAccessToken();
+    test('sets the req.user attribute if the authorization header contains a valid access token', async (done) => {
+      const token = await getValidAccessToken();
       req.headers = {
         authorization: `Bearer ${token}`,
       };

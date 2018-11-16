@@ -1,5 +1,11 @@
 const db = require('../db');
-const models = require('../models');
+const UserModel = require('../components/users/UserModel');
+const FooModel = require('../models/foo');
+
+const models = {
+  UserModel,
+  FooModel,
+};
 
 /**
  * clean DB before running tests

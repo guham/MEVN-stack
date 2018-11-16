@@ -3,8 +3,8 @@ const { getValidAccessToken } = require('./utils/tokens');
 
 const { Test } = request;
 
-Test.prototype.authenticate = function authenticate() {
-  const token = getValidAccessToken();
+Test.prototype.authenticate = async function authenticate() {
+  const token = await getValidAccessToken();
 
   return this.set('Authorization', `Bearer ${token}`);
 };

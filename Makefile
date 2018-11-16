@@ -119,7 +119,7 @@ now-alias: ## Add a new alias to the last deployment
 .PHONY: logs-api lint-api upgrade-api test-api tu-api deploy-api-now now-alias
 
 clean-api:
-	rm -rf .env api/node_modules api/coverage api/yarn-error.log api/tests/access.log
+	rm -rf .env api/node_modules api/yarn-error.log api/tests/coverage api/tests/access.log
 
 api.node_modules: api/package.json api/yarn.lock
 	$(YARN_API) install

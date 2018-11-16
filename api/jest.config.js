@@ -9,8 +9,9 @@ module.exports = {
     '<rootDir>/tests/**/*.test.js',
   ],
   collectCoverage: true,
+  coverageDirectory: '<rootDir>/tests/coverage',
   coveragePathIgnorePatterns: [
-    '<rootDir>/(node_modules|coverage|tests)/',
+    '<rootDir>/(node_modules|tests)/',
     '<rootDir>/(server|jest.config|.eslintrc).js',
   ],
   collectCoverageFrom: [

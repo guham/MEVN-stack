@@ -7,8 +7,8 @@ class UsersRepository {
     return this.UserModel.findOne(conditions).exec();
   }
 
-  async add(documents = {}) {
-    return this.UserModel.create(documents);
+  async add(documents) {
+    return this.UserModel.create(...documents);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -20,7 +20,7 @@ class UsersRepository {
   async findOrCreate(userSub) {
     let user = await this.findOne({ sub: userSub });
     if (!user) {
-      user = this.add({ sub: userSub });
+      user = this.add([{ sub: userSub }]);
     }
     return user;
   }

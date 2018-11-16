@@ -7,7 +7,7 @@ export default {
    * @returns {Array<Object>} array of foos
    */
   async fetchFoos() {
-    const response = await client.get('/api/foo');
+    const response = await client.get('/api/foos');
     return response.data;
   },
   /**
@@ -15,7 +15,7 @@ export default {
    * @returns {Object} added foo
    */
   async addFoo(name) {
-    const response = await client.post('/api/foo/add', { name });
+    const response = await client.post('/api/foos/add', { name });
     return response.data;
   },
 };

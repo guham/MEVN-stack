@@ -7,6 +7,6 @@ export default {
    * @returns {Promise<Object>}
    */
   fetchValueFromServer() {
-    return client.get('/api/foo/test');
+    return client.get('/api/foos/test');
   },
 };

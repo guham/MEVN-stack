@@ -50,7 +50,7 @@
             <span class="hidden lg:inline">|</span>
             <router-link-wrapper
               :label="'Foo'"
-              to="/foo"/>
+              to="/foos"/>
             <separator v-show="menuIsVisible"/>
           </template>
         </div>

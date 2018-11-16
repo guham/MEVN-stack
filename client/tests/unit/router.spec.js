@@ -38,7 +38,7 @@ describe('Router', () => {
   });
 
   test('should declare FooPanel route', async () => {
-    expect(routes[2].path).toEqual('/foo');
+    expect(routes[2].path).toEqual('/foos');
     expect(routes[2].name).toEqual('FooPanel');
     const component = await routes[2].component();
     expect(component.default.name).toBe('FooPanel');
@@ -83,9 +83,9 @@ describe('Router', () => {
     Object.defineProperty(store.getters, 'user/isAuthenticated', {
       get: jest.fn(() => true),
     });
-    router.push('/foo');
-    await router.getMatchedComponents('/foo')[0]();
-    expect(router.history.current.path).toBe('/foo');
+    router.push('/foos');
+    await router.getMatchedComponents('/foos')[0]();
+    expect(router.history.current.path).toBe('/foos');
   });
 
   test('should be able to navigate to unprotected page when authenticated', () => {

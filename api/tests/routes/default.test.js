@@ -9,7 +9,7 @@ describe('Test default routes', () => {
     test('Should respond "Home" with a 200', async () => {
       const response = await request(app).get('/');
       expect(response.statusCode).toBe(200);
-      expect(response.text).toContain('Home');
+      expect(response.body).toEqual({});
     });
   });
 

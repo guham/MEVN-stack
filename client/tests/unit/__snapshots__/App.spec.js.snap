@@ -50,7 +50,7 @@ exports[`App.vue should display restricted links when the user is authenticated 
         <routerlinkwrapper-stub to="/" label="home" classes="link"></routerlinkwrapper-stub>
         <separator-stub style="display: none;"></separator-stub> <span class="hidden lg:inline">|</span>
         <routerlinkwrapper-stub to="/test" label="Test" classes="link"></routerlinkwrapper-stub> <span class="hidden lg:inline">|</span>
-        <routerlinkwrapper-stub to="/foo" label="Foo" classes="link"></routerlinkwrapper-stub>
+        <routerlinkwrapper-stub to="/foos" label="Foo" classes="link"></routerlinkwrapper-stub>
         <separator-stub style="display: none;"></separator-stub>
       </div>
       <div class="text-sm text-left lg:text-center px-2 lg:px-0">

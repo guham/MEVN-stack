@@ -62,7 +62,7 @@ describe('App.vue', () => {
     const template = wrapper.html();
     const links = wrapper.findAll('routerlinkwrapper-stub');
     expect(links.filter(link => link.props().to === '/test').isVisible()).toBeTruthy();
-    expect(links.filter(link => link.props().to === '/foo').isVisible()).toBeTruthy();
+    expect(links.filter(link => link.props().to === '/foos').isVisible()).toBeTruthy();
     expect(template).toMatchSnapshot();
   });
 

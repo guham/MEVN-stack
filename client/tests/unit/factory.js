@@ -21,7 +21,7 @@ const router = new VueRouter({
       name: 'Test',
     },
     {
-      path: '/foo',
+      path: '/foos',
       name: 'FooPanel',
     },
     {

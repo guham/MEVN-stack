@@ -10,11 +10,6 @@ const store = new Vuex.Store({
   },
 });
 
-beforeEach(() => {
-  jest.resetModules();
-  jest.clearAllMocks();
-});
-
 axios.get.mockImplementation(() => Promise.resolve({
   data: [
     {

@@ -3,11 +3,6 @@ import GoogleSignInButton from '@/components/auth/GoogleSignInButton.vue';
 import user from '@/store/modules/user';
 import factory from '../../factory';
 
-beforeEach(() => {
-  jest.resetModules();
-  jest.clearAllMocks();
-});
-
 describe('GoogleSignInButton.vue', () => {
   let store;
   let actions;

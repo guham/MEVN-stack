@@ -2,11 +2,6 @@ import axios from 'axios';
 import foosStore from '@/store/modules/foos';
 import testAction from '../../test-action';
 
-beforeEach(() => {
-  jest.resetModules();
-  jest.clearAllMocks();
-});
-
 const foo = {
   _id: '5afa40240b166302e57ca0a0',
   name: 'new foo',

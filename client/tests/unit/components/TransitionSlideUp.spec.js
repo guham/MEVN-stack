@@ -6,11 +6,6 @@ import ExtendedTransitionStub from '../stubs/ExtendedTransitionStub';
 // https://github.com/vuejs/vue-test-utils/issues/890#issuecomment-412817945
 config.stubs.transition = ExtendedTransitionStub;
 
-beforeEach(() => {
-  jest.resetModules();
-  jest.clearAllMocks();
-});
-
 describe('TransitionSlideUp.vue', () => {
   test('has the expected html structure', () => {
     const duration = 300;

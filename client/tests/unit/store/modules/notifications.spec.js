@@ -2,11 +2,6 @@ import notifications from '@/store/modules/notifications';
 import Notification from '@/models/notification';
 import testAction from '../../test-action';
 
-beforeEach(() => {
-  jest.resetModules();
-  jest.clearAllMocks();
-});
-
 describe('Notifications store', () => {
   describe('getters', () => {
     test('`hasNotification` returns false if state.notification is an empty object', () => {

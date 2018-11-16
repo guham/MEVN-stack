@@ -33,4 +33,5 @@ module.exports = {
     '<rootDir>/tests/unit/setup/gapi.js',
   ],
   timers: 'fake',
+  clearMocks: true,
 };

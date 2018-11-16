@@ -2,11 +2,6 @@ import NotificationComponent from '@/components/Notification.vue';
 import Notification from '@/models/notification';
 import factory from '../factory';
 
-beforeEach(() => {
-  jest.resetModules();
-  jest.clearAllMocks();
-});
-
 describe('Notification.vue', () => {
   test('has the expected html structure', () => {
     const notification = new Notification();

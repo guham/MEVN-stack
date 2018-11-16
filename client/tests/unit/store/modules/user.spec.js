@@ -4,11 +4,6 @@ import userStore from '@/store/modules/user';
 import Notification from '@/models/notification';
 import testAction from '../../test-action';
 
-beforeEach(() => {
-  jest.resetModules();
-  jest.clearAllMocks();
-});
-
 const data = {
   accessToken: 'accessToken',
   refreshToken: 'refreshToken',

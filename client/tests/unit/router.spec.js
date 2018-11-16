@@ -2,11 +2,6 @@ import router from '@/router';
 import store from '@/store';
 import Home from '@/views/Home.vue';
 
-beforeEach(() => {
-  jest.resetModules();
-  jest.clearAllMocks();
-});
-
 jest.mock('@/store', () => ({
   default: jest.fn(),
   getters: {

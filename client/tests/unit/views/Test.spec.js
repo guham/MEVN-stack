@@ -2,11 +2,6 @@ import axios from 'axios';
 import Test from '@/views/Test.vue';
 import factory from '../factory';
 
-beforeEach(() => {
-  jest.resetModules();
-  jest.clearAllMocks();
-});
-
 axios.get.mockImplementation(() => Promise.resolve({ data: { data: 'message from the API' } }));
 
 describe('Test.vue', () => {

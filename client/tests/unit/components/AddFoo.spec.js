@@ -4,11 +4,6 @@ import foos from '@/store/modules/foos';
 import * as types from '@/store/mutation-types';
 import factory from '../factory';
 
-beforeEach(() => {
-  jest.resetModules();
-  jest.clearAllMocks();
-});
-
 describe('AddFoo.vue', () => {
   let store;
   let actions;

@@ -6,4 +6,4 @@ COPY package.json yarn.lock /api/
 RUN yarn install --production && yarn cache clean
 COPY . .
 ENV NODE_ENV="production"
-CMD ["node", "server.js"]
+CMD ["node", "src/server.js"]

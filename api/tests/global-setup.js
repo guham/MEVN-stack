@@ -1,6 +1,6 @@
-const db = require('../db');
-const UserModel = require('../components/users/UserModel');
-const FooModel = require('../components/foos/FooModel');
+const db = require('../src/db');
+const UserModel = require('../src/components/users/UserModel');
+const FooModel = require('../src/components/foos/FooModel');
 
 const models = {
   UserModel,

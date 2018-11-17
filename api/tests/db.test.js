@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 let db;
 
 beforeEach(() => {
-  db = require('../db');
+  db = require('../src/db');
 });
 
 afterEach(done => db.disconnect(done));
@@ -21,7 +21,7 @@ describe('Test database connection', () => {
     const env = process.env.MONGODB_URI_TEST;
     process.env.MONGODB_URI_TEST = 'mongodb://unknownuser:123456@db:27017/unknowndb';
     jest.resetModules();
-    db = require('../db');
+    db = require('../src/db');
     const error = await db.connect();
     expect(error.name).toBe('MongoError');
     expect(error.message).toBe('Authentication failed.');
@@ -45,7 +45,7 @@ describe('Test database connection', () => {
     beforeAll(() => {
       process.env.NODE_ENV = 'development';
       jest.resetModules();
-      db = require('../db');
+      db = require('../src/db');
     });
 
     test('The name of the database should be equal to "MONGO_INITDB_DATABASE" env variable', async () => {
@@ -64,7 +64,7 @@ describe('Test database connection', () => {
     beforeAll(() => {
       process.env.NODE_ENV = 'production';
       jest.resetModules();
-      db = require('../db');
+      db = require('../src/db');
     });
 
     test('The name of the database should be equal to "MONGO_INITDB_DATABASE" env variable', async () => {

@@ -1,5 +1,5 @@
 const createError = require('http-errors');
-const authenticationController = require('../../../components/authentication/AuthenticationController');
+const authenticationController = require('../../../src/components/authentication/AuthenticationController');
 const {
   getValidAccessToken,
   getInvalidRefreshToken,

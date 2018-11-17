@@ -93,10 +93,10 @@ upgrade-api: ## Upgrade dependencies
 	$(YARN_API) upgrade
 
 test-api: ## Run tests
-test-api: tu-api
+test-api: ut-api
 
-tu-api: ## Run unit tests (option t=<regex> to run only tests with a name that matches the regex)
-tu-api: api.node_modules
+ut-api: ## Run unit tests (option t=<regex> to run only tests with a name that matches the regex)
+ut-api: api.node_modules
 	$(YARN_API) test -t=$(t)
 
 deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|docker]
@@ -116,7 +116,7 @@ deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|d
 now-alias: ## Add a new alias to the last deployment
 	now alias -A now-$(type).json
 
-.PHONY: logs-api lint-api upgrade-api test-api tu-api deploy-api-now now-alias
+.PHONY: logs-api lint-api upgrade-api test-api ut-api deploy-api-now now-alias
 
 clean-api:
 	rm -rf .env api/node_modules api/yarn-error.log api/tests/coverage api/tests/access.log
@@ -141,18 +141,18 @@ upgrade-client: ## Upgrade dependencies
 	$(YARN_CLIENT) upgrade
 
 test-client: ## Run unit & functional tests
-test-client: tu-client tf-client
+test-client: ut-client ft-client
 
-tu-client: ## Run unit tests (option t=<regex> to run only tests with a name that matches the regex)
-tu-client: client.node_modules
+ut-client: ## Run unit tests (option t=<regex> to run only tests with a name that matches the regex)
+ut-client: client.node_modules
 	$(YARN_CLIENT) test:unit -t=$(t)
 
-tu-client-update-snapshot: ## Run unit tests & regenerate snapshots
-tu-client-update-snapshot: client.node_modules
+ut-client-update-snapshot: ## Run unit tests & regenerate snapshots
+ut-client-update-snapshot: client.node_modules
 	$(YARN_CLIENT) test:unit --updateSnapshot
 
-tf-client: ## Run functional tests
-tf-client: client.node_modules
+ft-client: ## Run functional tests
+ft-client: client.node_modules
 	$(YARN_CLIENT) test:e2e
 
 build-client: ## Produce a production-ready bundle
@@ -168,7 +168,7 @@ production: build-client-production
 	docker build -t client-production -f client/Dockerfile-production .
 	docker run -it -p 8082:8082 --rm -v $(shell pwd)/client/dist:/dist --name client-production-1 client-production
 
-.PHONY: logs-client lint-client upgrade-client test-client tu-client tu-client-update-snapshot tf-client build-client ui production
+.PHONY: logs-client lint-client upgrade-client test-client ut-client ut-client-update-snapshot ft-client build-client ui production
 
 clean-client:
 	rm -rf client/node_modules client/dist client/tests/coverage client/tests/e2e/reports client/yarn-error.log client/selenium-debug.log

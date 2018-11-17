@@ -1,4 +1,4 @@
-const AuthenticationService = require('../../components/authentication/AuthenticationService');
+const AuthenticationService = require('../../src/components/authentication/AuthenticationService');
 
 const authenticationService = new AuthenticationService();
 // { uid: '123456', iat: 1530490533, exp: 1530497733, iss: 'accounts.google.com' }

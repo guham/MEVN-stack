@@ -1,4 +1,4 @@
-const { authenticate } = require('../../middlewares/authHandlers');
+const { authenticate } = require('../../src/middlewares/authHandlers');
 const { getValidAccessToken, getExpiredAccessToken } = require('../utils/tokens');
 
 let req;

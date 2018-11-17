@@ -1,4 +1,4 @@
-let { parameters } = require('../../parameters');
+let { parameters } = require('../../src/parameters');
 
 describe('Test API parameters', () => {
   test('Parameters module should be an object', () => {
@@ -53,7 +53,7 @@ describe('Test API parameters', () => {
     test('Database URI property should be equal to "MONGODB_URI" env variable', () => {
       process.env.NODE_ENV = 'development';
       jest.resetModules();
-      ({ parameters } = require('../../parameters'));
+      ({ parameters } = require('../../src/parameters'));
       expect(parameters.db.uri).toBe(process.env.MONGODB_URI);
     });
 
@@ -66,7 +66,7 @@ describe('Test API parameters', () => {
     test('Database URI property should be equal to "MONGODB_URI" env variable', () => {
       process.env.NODE_ENV = 'production';
       jest.resetModules();
-      ({ parameters } = require('../../parameters'));
+      ({ parameters } = require('../../src/parameters'));
       expect(parameters.db.uri).toBe(process.env.MONGODB_URI);
     });
 

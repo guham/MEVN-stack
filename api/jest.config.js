@@ -12,10 +12,11 @@ module.exports = {
   coverageDirectory: '<rootDir>/tests/coverage',
   coveragePathIgnorePatterns: [
     '<rootDir>/(node_modules|tests)/',
-    '<rootDir>/(server|jest.config|.eslintrc).js',
+    '<rootDir>/(jest.config|.eslintrc).js',
+    '<rootDir>/src/server.js',
   ],
   collectCoverageFrom: [
-    '<rootDir>/**/*.js',
+    '<rootDir>/src/**/*.js',
   ],
   globalSetup: '<rootDir>/tests/global-setup.js',
 };

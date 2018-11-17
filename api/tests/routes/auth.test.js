@@ -1,6 +1,6 @@
 const request = require('../supertest');
-const app = require('../../app');
-const db = require('../../db');
+const app = require('../../src/app');
+const db = require('../../src/db');
 const { OAuth2Client } = require('google-auth-library');
 
 beforeAll(async () => {

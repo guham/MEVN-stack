@@ -5,15 +5,12 @@ const cors = require('cors');
 const { scopePerRequest } = require('awilix-express');
 const { asValue } = require('awilix');
 
-const db = require('./db');
 const router = require('./router');
 const container = require('./container');
 const { logger } = require('./components');
 const { errorHandler } = require('./middlewares/errorHandlers');
 
 const app = express();
-
-db.connect();
 
 app.use(scopePerRequest(container));
 app.use((req, res, next) => {

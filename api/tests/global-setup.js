@@ -1,6 +1,8 @@
-const db = require('../src/db');
-const UserModel = require('../src/components/users/UserModel');
-const FooModel = require('../src/components/foos/FooModel');
+const containter = require('../src/container');
+
+const db = containter.resolve('db');
+const UserModel = containter.resolve('UserModel');
+const FooModel = containter.resolve('FooModel');
 
 const models = {
   UserModel,
@@ -8,13 +10,13 @@ const models = {
 };
 
 /**
- * clean DB before running tests
+ * Clean the DB before running tests
  * then recreate all collections with indexes
  */
 module.exports = async function setup() {
   await db.connect();
-  const collections = await db.mongoose.connection.db.collections();
+  const collections = await db.connection.db.collections();
   await Promise.all(collections.map(collection => collection.drop()));
   await Promise.all(Object.values(models).map(model => model.ensureIndexes()));
-  return db.disconnect();
+  await db.disconnect();
 };

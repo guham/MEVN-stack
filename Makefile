@@ -92,11 +92,8 @@ lint-api: api.node_modules
 upgrade-api: ## Upgrade dependencies
 	$(YARN_API) upgrade
 
-test-api: ## Run tests
-test-api: ut-api
-
-ut-api: ## Run unit tests (option t=<regex> to run only tests with a name that matches the regex)
-ut-api: api.node_modules
+test-api: ## Run unit & integration tests (option t=<regex> to run only tests with a name that matches the regex)
+test-api: api.node_modules
 	$(YARN_API) test -t=$(t)
 
 deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|docker]

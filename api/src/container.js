@@ -1,6 +1,12 @@
-const { createContainer, asClass, asValue } = require('awilix');
+const {
+  createContainer, asClass, asValue,
+} = require('awilix');
 
 const container = createContainer();
+
+const db = require('./db');
+const { parameters } = require('./parameters');
+const debug = require('./components/debug');
 
 const AuthenticationService = require('./components/authentication/AuthenticationService');
 
@@ -11,6 +17,13 @@ const UsersService = require('./components/users/UsersService');
 const FooModel = require('./components/foos/FooModel');
 const FoosRepository = require('./components/foos/FoosRepository');
 const FoosService = require('./components/foos/FoosService');
+
+// App
+container.register({
+  db: asClass(db),
+  parameters: asValue(parameters),
+  debug: asValue(debug),
+});
 
 // Models
 container.register({

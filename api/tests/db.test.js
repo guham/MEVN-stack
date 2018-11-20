@@ -1,81 +1,93 @@
-const mongoose = require('mongoose');
-
+let mongoose;
+let container;
 let db;
 
-beforeEach(() => {
-  db = require('../src/db');
-});
+const connect = async (env = 'test') => {
+  process.env.NODE_ENV = env;
+  jest.resetModules();
+  mongoose = require('mongoose');
+  container = require('../src/container');
+  db = container.resolve('db');
+  await db.connect();
+};
 
-afterEach(done => db.disconnect(done));
+const disconnect = async (done) => {
+  await db.disconnect(done);
+};
+
+afterAll(async done => disconnect(done));
 
 describe('Test database connection', () => {
-  test('Successful DB connection should return DB instance', async () => {
-    const database = await db.connect();
-    expect(database instanceof mongoose.Mongoose).toBeTruthy();
-    expect(db.mongoose.connection.readyState).toBeTruthy();
-    expect(db.mongoose.connection.db).toBeDefined();
-    expect(db.mongoose.connection.config).toHaveProperty('autoIndex');
+  test('DB instance is available on successful DB connection', async (done) => {
+    await connect();
+    expect(db.instance instanceof mongoose.Mongoose).toBeTruthy();
+    expect(db.instance.connection.readyState).toBeTruthy();
+    expect(db.instance.connection.db).toBeDefined();
+    expect(db.instance.connection.config).toHaveProperty('autoIndex');
+    await disconnect(done);
   });
 
-  test('Failed DB connection should return error object', async () => {
-    const env = process.env.MONGODB_URI_TEST;
-    process.env.MONGODB_URI_TEST = 'mongodb://unknownuser:123456@db:27017/unknowndb';
-    jest.resetModules();
-    db = require('../src/db');
-    const error = await db.connect();
-    expect(error.name).toBe('MongoError');
-    expect(error.message).toBe('Authentication failed.');
-    process.env.MONGODB_URI_TEST = env;
-    jest.resetModules();
+  test('Failed DB connection should throw an error', async (done) => {
+    const oldDbUri = process.env.MONGODB_URI_TEST;
+    process.env.MONGODB_URI_TEST = 'mongodb://unknown_user:123456@db:27017/unknown_db';
+    try {
+      await connect();
+    } catch (error) {
+      expect(error.name).toBe('MongoError');
+      expect(error.message).toBe('Authentication failed.');
+    }
+
+    process.env.MONGODB_URI_TEST = oldDbUri;
+    await disconnect(done);
   });
 
   describe('In test mode', () => {
-    test('The name of the database should be "test"', async () => {
-      await db.connect();
-      expect(db.mongoose.connection.name).toBe('test');
+    beforeAll(async () => {
+      await connect('test');
     });
 
-    test('Option "autoIndex" should be true', async () => {
-      await db.connect();
-      expect(db.mongoose.connection.config.autoIndex).toBeTruthy();
+    afterAll(async done => disconnect(done));
+
+    test('The name of the database should be `test`', async () => {
+      expect(db.instance.connection.name).toBe('test');
+    });
+
+    test('Option `autoIndex` should be true', async () => {
+      expect(db.instance.connection.config.autoIndex).toBeTruthy();
     });
   });
 
   describe('In development mode', () => {
-    beforeAll(() => {
-      process.env.NODE_ENV = 'development';
-      jest.resetModules();
-      db = require('../src/db');
+    beforeAll(async () => {
+      await connect('development');
     });
 
-    test('The name of the database should be equal to "MONGO_INITDB_DATABASE" env variable', async () => {
+    afterAll(async done => disconnect(done));
+
+    test('The name of the database should be equal to `MONGO_INITDB_DATABASE` env variable', async () => {
       const name = process.env.MONGO_INITDB_DATABASE;
-      await db.connect();
-      expect(db.mongoose.connection.name).toBe(name);
+      expect(db.instance.connection.name).toBe(name);
     });
 
-    test('Option "autoIndex" should be true', async () => {
-      await db.connect();
-      expect(db.mongoose.connection.config.autoIndex).toBeTruthy();
+    test('Option `autoIndex` should be true', async () => {
+      expect(db.instance.connection.config.autoIndex).toBeTruthy();
     });
   });
 
   describe('In production mode', () => {
-    beforeAll(() => {
-      process.env.NODE_ENV = 'production';
-      jest.resetModules();
-      db = require('../src/db');
+    beforeAll(async () => {
+      await connect('production');
     });
 
-    test('The name of the database should be equal to "MONGO_INITDB_DATABASE" env variable', async () => {
+    afterAll(async done => disconnect(done));
+
+    test('The name of the database should be equal to `MONGO_INITDB_DATABASE` env variable', async () => {
       const name = process.env.MONGO_INITDB_DATABASE;
-      await db.connect();
-      expect(db.mongoose.connection.name).toBe(name);
+      expect(db.instance.connection.name).toBe(name);
     });
 
-    test('Option "autoIndex" should be false', async () => {
-      await db.connect();
-      expect(db.mongoose.connection.config.autoIndex).toBeFalsy();
+    test('Option `autoIndex` should be false', async () => {
+      expect(db.instance.connection.config.autoIndex).toBeFalsy();
     });
   });
 });

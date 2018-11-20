@@ -1,7 +1,14 @@
 const request = require('../../supertest');
-const db = require('../../../src/db');
+const containter = require('../../../src/container');
 
-afterAll(done => db.disconnect(done));
+const db = containter.resolve('db');
+
+beforeAll(async () => {
+  // wait for DB connection to be up
+  await db.connect();
+});
+
+afterAll(async done => db.disconnect(done));
 
 describe('Test default routes', () => {
   describe('Test "/" path', () => {

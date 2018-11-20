@@ -1,13 +1,12 @@
-const request = require('supertest');
-const app = require('../../src/app');
-const db = require('../../src/db');
+const request = require('../../supertest');
+const db = require('../../../src/db');
 
 afterAll(done => db.disconnect(done));
 
 describe('Test default routes', () => {
   describe('Test "/" path', () => {
     test('Should respond "Home" with a 200', async () => {
-      const response = await request(app).get('/');
+      const response = await request().get('/');
       expect(response.statusCode).toBe(200);
       expect(response.body).toEqual({});
     });
@@ -15,7 +14,7 @@ describe('Test default routes', () => {
 
   describe('Test "/undefined" path', () => {
     test('Should respond with a 404', async () => {
-      const response = await request(app).get('/undefined');
+      const response = await request().get('/undefined');
       expect(response.statusCode).toBe(404);
       expect(response.body).toEqual({
         type: 'NotFoundError',
@@ -27,7 +26,7 @@ describe('Test default routes', () => {
 
   describe('Test "/favicon.ico" path', () => {
     test('Should respond with a 204', async () => {
-      const response = await request(app).get('/favicon.ico');
+      const response = await request().get('/favicon.ico');
       expect(response.statusCode).toBe(204);
     });
   });

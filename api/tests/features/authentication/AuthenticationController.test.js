@@ -1,11 +1,10 @@
-const request = require('../supertest');
-const app = require('../../src/app');
-const db = require('../../src/db');
+const request = require('../../supertest');
+const db = require('../../../src/db');
 const { OAuth2Client } = require('google-auth-library');
 
 beforeAll(async () => {
   // wait for DB connection to be up
-  await request(app).get('/api/foo').authenticate();
+  await request().get('/api/foo').authenticate();
 });
 
 afterAll(done => db.disconnect(done));
@@ -25,7 +24,7 @@ describe('Test authentication routes', () => {
         audience: process.env.GOOGLE_OAUTH_CLIENT_ID,
       };
 
-      const response = await request(app).post('/auth/tokens').send({ idToken });
+      const response = await request().post('/auth/tokens').send({ idToken });
       expect(response.statusCode).toBe(200);
       expect(Object.keys(response.body)).toEqual(['accessToken', 'refreshToken', 'expirationDate']);
       expect(response.body.accessToken).toBeDefined();

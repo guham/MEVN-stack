@@ -1,4 +1,5 @@
 const request = require('supertest');
+const app = require('../src/app');
 const { getValidAccessToken } = require('./utils/tokens');
 
 const { Test } = request;
@@ -9,4 +10,4 @@ Test.prototype.authenticate = async function authenticate() {
   return this.set('Authorization', `Bearer ${token}`);
 };
 
-module.exports = request;
+module.exports = () => request(app);

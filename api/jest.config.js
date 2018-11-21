@@ -11,8 +11,6 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: '<rootDir>/tests/coverage',
   coveragePathIgnorePatterns: [
-    '<rootDir>/(node_modules|tests)/',
-    '<rootDir>/(jest.config|.eslintrc).js',
     '<rootDir>/src/server.js',
   ],
   collectCoverageFrom: [

@@ -1,11 +1,12 @@
 *
-!src/app.js
-!src/container.js
-!src/db.js
-!src/router.js
-!src/server.js
 !package.json
 !yarn.lock
+!src/app.js
+!src/container.js
+!src/Db.js
+!src/router.js
+!src/server.js
 !src/components
 !src/middlewares
 !src/parameters
+!src/utils

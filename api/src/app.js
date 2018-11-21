@@ -7,8 +7,7 @@ const { asValue } = require('awilix');
 
 const router = require('./router');
 const container = require('./container');
-const { logger } = require('./components');
-const { errorHandler } = require('./middlewares/errorHandlers');
+const { errorHandler, logger } = require('./middlewares');
 
 const app = express();
 

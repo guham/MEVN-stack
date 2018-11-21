@@ -1,4 +1,4 @@
-const { authenticate } = require('../../src/middlewares/authHandlers');
+const { authenticateHandler } = require('../../src/middlewares');
 const { getValidAccessToken, getExpiredAccessToken } = require('../utils/tokens');
 
 let req;
@@ -11,14 +11,14 @@ beforeEach(() => {
   next = jest.fn();
 });
 
-describe('Test middleware authentication handlers', () => {
+describe('Test authentication handler middleware', () => {
   describe('authenticate middleware', () => {
     test('calls next() with an error object if the request doesn\'t have an authorization header', () => {
       const error = new Error('No authorization token was found');
-      authenticate(req, res, next);
+      authenticateHandler(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
       req.headers = {};
-      authenticate(req, res, next);
+      authenticateHandler(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
       expect(next.mock.calls[0][0].status).toBe(401);
     });
@@ -36,7 +36,7 @@ describe('Test middleware authentication handlers', () => {
         done();
       };
 
-      authenticate(req, res, next);
+      authenticateHandler(req, res, next);
     });
 
     test('calls next() with an error object if the request has an invalid authorization header', () => {
@@ -46,7 +46,7 @@ describe('Test middleware authentication handlers', () => {
         authorization: 'invalid-auth-header',
       };
 
-      authenticate(req, res, next);
+      authenticateHandler(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
       expect(next.mock.calls[0][0].status).toBe(401);
     });
@@ -65,7 +65,7 @@ describe('Test middleware authentication handlers', () => {
         done();
       };
 
-      authenticate(req, res, next);
+      authenticateHandler(req, res, next);
     });
   });
 });

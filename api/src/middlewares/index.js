@@ -1,7 +1,11 @@
-const errorHandlers = require('./errorHandlers');
-const authHandlers = require('./authHandlers');
+const asyncHandler = require('./asyncHandler');
+const authenticateHandler = require('./authenticateHandler');
+const errorHandler = require('./errorHandler');
+const logger = require('./logger');
 
 module.exports = {
-  errorHandlers,
-  authHandlers,
+  asyncHandler,
+  authenticateHandler,
+  errorHandler,
+  logger,
 };

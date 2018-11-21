@@ -5,14 +5,14 @@ function initErrorHandler(mode) {
   env = process.env.NODE_ENV;
   jest.resetModules();
   process.env.NODE_ENV = mode;
-  ({ errorHandler } = require('../../src/middlewares/errorHandlers'));
+  ({ errorHandler } = require('../../src/middlewares'));
 }
 
 afterEach(() => {
   process.env.NODE_ENV = env;
 });
 
-describe('Test middleware error handlers', () => {
+describe('Test error handler middleware', () => {
   // mocks
   const req = {};
   const res = {

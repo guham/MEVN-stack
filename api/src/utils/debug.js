@@ -1,7 +1,7 @@
 const debug = require('debug');
-const { parameters } = require('../parameters');
+const { app } = require('../parameters').parameters;
 
-if (parameters.app.isInEnv('test')) {
+if (app.isInEnv('test')) {
   debug.disable();
 }
 

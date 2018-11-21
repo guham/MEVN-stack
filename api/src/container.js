@@ -4,9 +4,9 @@ const {
 
 const container = createContainer();
 
-const db = require('./db');
+const db = require('./Db');
 const { parameters } = require('./parameters');
-const debug = require('./components/debug');
+const debug = require('./utils/debug');
 
 const AuthenticationService = require('./components/authentication/AuthenticationService');
 

@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../src/app');
-const { getValidAccessToken } = require('./utils/tokens');
+const { getValidAccessToken } = require('./tokens');
 
 const { Test } = request;
 

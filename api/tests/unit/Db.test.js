@@ -6,7 +6,7 @@ const connect = async (env = 'test') => {
   process.env.NODE_ENV = env;
   jest.resetModules();
   mongoose = require('mongoose');
-  container = require('../src/container');
+  container = require('../../src/container');
   db = container.resolve('db');
   await db.connect();
 };

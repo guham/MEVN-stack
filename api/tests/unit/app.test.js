@@ -1,4 +1,4 @@
-const app = require('../src/app');
+const app = require('../../src/app');
 
 function getLayerByName(name) {
   return app._router.stack.find(layer => layer.name === name);

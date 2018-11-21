@@ -4,7 +4,7 @@ let parameters;
 const init = (env = 'test') => {
   process.env.NODE_ENV = env;
   jest.resetModules();
-  container = require('../../src/container');
+  container = require('../../../src/container');
   parameters = container.resolve('parameters');
 };
 

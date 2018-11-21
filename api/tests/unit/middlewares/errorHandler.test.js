@@ -5,7 +5,7 @@ function initErrorHandler(mode) {
   env = process.env.NODE_ENV;
   jest.resetModules();
   process.env.NODE_ENV = mode;
-  ({ errorHandler } = require('../../src/middlewares'));
+  ({ errorHandler } = require('../../../src/middlewares'));
 }
 
 afterEach(() => {

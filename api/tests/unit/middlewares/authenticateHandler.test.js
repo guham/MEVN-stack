@@ -1,5 +1,5 @@
-const { authenticateHandler } = require('../../src/middlewares');
-const { getValidAccessToken, getExpiredAccessToken } = require('../utils/tokens');
+const { authenticateHandler } = require('../../../src/middlewares');
+const { getValidAccessToken, getExpiredAccessToken } = require('../../tokens');
 
 let req;
 let res;

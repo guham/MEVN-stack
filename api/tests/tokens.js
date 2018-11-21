@@ -1,4 +1,4 @@
-const container = require('../../src/container');
+const container = require('../src/container');
 
 const authenticationService = container.resolve('authenticationService');
 // { uid: '123456', iat: 1530490533, exp: 1530497733, iss: 'accounts.google.com' }

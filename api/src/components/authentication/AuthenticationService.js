@@ -2,20 +2,13 @@ const { OAuth2Client } = require('google-auth-library');
 const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 const joi = require('joi');
-const {
-  clientId,
-  jwtIssuer,
-  accessTokenSecretKey,
-  accessTokenExpiresIn,
-  refreshTokenSecretKey,
-  refreshTokenExpiresIn,
-} = require('../../parameters').parameters.auth;
 
 class AuthenticationService {
-  constructor() {
-    this.client = new OAuth2Client(clientId);
+  constructor({ parameters }) {
+    this.authParameters = parameters.auth;
+    this.client = new OAuth2Client(this.authParameters.clientId);
     this.options = {
-      issuer: jwtIssuer,
+      issuer: this.authParameters.jwtIssuer,
     };
     this.userPayloadSchema = joi.object().keys({
       sub: joi.string().required(),
@@ -38,7 +31,7 @@ class AuthenticationService {
   async verifyIdToken(idToken) {
     const ticket = await this.client.verifyIdToken({
       idToken,
-      audience: clientId,
+      audience: this.authParameters.clientId,
     });
     const payload = ticket.getPayload();
     return payload;
@@ -70,14 +63,14 @@ class AuthenticationService {
 
     const options = {
       ...this.options,
-      expiresIn: accessTokenExpiresIn,
+      expiresIn: this.authParameters.accessTokenExpiresIn,
     };
 
-    return jwt.sign({ uid: userPayload.sub }, accessTokenSecretKey, options);
+    return jwt.sign({ uid: userPayload.sub }, this.authParameters.accessTokenSecretKey, options);
   }
 
   verifyAccessToken(token) {
-    return jwt.verify(token, accessTokenSecretKey, this.options);
+    return jwt.verify(token, this.authParameters.accessTokenSecretKey, this.options);
   }
 
   /**
@@ -124,14 +117,14 @@ class AuthenticationService {
 
     const options = {
       ...this.options,
-      expiresIn: refreshTokenExpiresIn,
+      expiresIn: this.authParameters.refreshTokenExpiresIn,
     };
 
-    return jwt.sign({ uid: userPayload.sub }, refreshTokenSecretKey, options);
+    return jwt.sign({ uid: userPayload.sub }, this.authParameters.refreshTokenSecretKey, options);
   }
 
   verifyRefreshToken(token) {
-    return jwt.verify(token, refreshTokenSecretKey, this.options);
+    return jwt.verify(token, this.authParameters.refreshTokenSecretKey, this.options);
   }
 
   /**

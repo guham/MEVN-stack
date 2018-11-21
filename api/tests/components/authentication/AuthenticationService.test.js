@@ -1,5 +1,5 @@
 const createError = require('http-errors');
-const AuthenticationService = require('../../../src/components/authentication/AuthenticationService');
+const container = require('../../../src/container');
 const {
   getValidAccessToken,
   getInvalidAccessToken,
@@ -8,7 +8,7 @@ const {
   getInvalidRefreshToken,
 } = require('../../utils/tokens');
 
-const authenticationService = new AuthenticationService();
+const authenticationService = container.resolve('authenticationService');
 const validAccessToken = getValidAccessToken();
 const invalidAccessToken = getInvalidAccessToken();
 const validRefreshToken = getValidRefreshToken();

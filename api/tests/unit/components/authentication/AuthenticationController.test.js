@@ -12,6 +12,7 @@ let next;
 const usersService = {
   findOne: jest.fn(),
   removeUserRefreshToken: jest.fn(),
+  storeUserRefreshToken: jest.fn(),
 };
 const authenticationService = {
   retrieveDecodedAccessToken: jest.fn(),
@@ -67,13 +68,19 @@ describe('Test Authentication controller', () => {
           uid: '123456',
         },
       }));
-      authenticationService.validateAndVerifyRefreshToken.mockImplementation(() => Promise.resolve('refresh_token'));
+      authenticationService.validateAndVerifyRefreshToken.mockImplementation(() => Promise.resolve({
+        uid: '123456',
+      }));
       const tokens = {
         accessToken: 'access_token',
         refreshToken: 'refresh_token',
         expirationDate: 'expiration_date',
       };
+      const user = { sub: '123456' };
       authenticationService.createAndReturnTokens.mockImplementation(() => Promise.resolve(tokens));
+      usersService.findOne.mockImplementation(() => Promise.resolve(user));
+      usersService.removeUserRefreshToken.mockImplementation(() => Promise.resolve(true));
+      usersService.storeUserRefreshToken.mockImplementation(() => Promise.resolve(user));
 
       const controller = authenticationController({ usersService, authenticationService });
       req.headers = {

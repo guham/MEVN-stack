@@ -7,8 +7,11 @@ class UsersService {
     return this.usersRepository.findOne(conditions);
   }
 
-  async storeUserRefreshToken(userSub, refreshToken) {
-    const user = await this.usersRepository.findOrCreate(userSub);
+  async findOrCreate(userSub) {
+    return this.usersRepository.findOrCreate(userSub);
+  }
+
+  async storeUserRefreshToken(user, refreshToken) {
     const timestamp = new Date().getTime();
     user.refreshTokens.set(timestamp.toString(), refreshToken);
     return this.usersRepository.save(user);
@@ -27,7 +30,7 @@ class UsersService {
     }
 
     tokens.delete(entry[0]);
-    this.usersRepository.save(user);
+    await this.usersRepository.save(user);
     return true;
   }
 }

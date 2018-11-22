@@ -20,7 +20,7 @@ class UsersRepository {
   async findOrCreate(userSub) {
     let user = await this.findOne({ sub: userSub });
     if (!user) {
-      user = this.add([{ sub: userSub }]);
+      user = await this.add([{ sub: userSub }]);
     }
     return user;
   }

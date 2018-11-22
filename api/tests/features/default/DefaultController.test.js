@@ -1,4 +1,4 @@
-const request = require('../../supertest');
+const request = require('../../request');
 const containter = require('../../../src/container');
 
 const db = containter.resolve('db');

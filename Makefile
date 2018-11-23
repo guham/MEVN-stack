@@ -185,10 +185,13 @@ build-client-production: client.node_modules
 logs-db: ## Show logs
 	$(DOCKER_COMPOSE) logs -f db
 
-db-terminal: ## Open terminal
+db-shell: ## Open MongoDB shell
 	$(EXEC_DB) mongo $(DB_NAME) -u $(DB_USER) -p $(DB_PWD)
 
-.PHONY: logs-db
+db-test-shell: ## Open MongoDB shell on test database
+	$(EXEC_DB) mongo test -u $(DB_USER) -p $(DB_PWD)
+
+.PHONY: logs-db db-shell db-test-shell
 
 .DEFAULT_GOAL := help
 help:

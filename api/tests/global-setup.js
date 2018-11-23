@@ -1,13 +1,7 @@
 const containter = require('../src/container');
+const models = require('./models');
 
 const db = containter.resolve('db');
-const UserModel = containter.resolve('UserModel');
-const FooModel = containter.resolve('FooModel');
-
-const models = {
-  UserModel,
-  FooModel,
-};
 
 /**
  * Clean the DB before running tests

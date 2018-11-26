@@ -6,7 +6,7 @@ module.exports = {
     'json',
   ],
   testMatch: [
-    '<rootDir>/tests/**/*.test.js',
+    '<rootDir>/tests/**/*.test.js', // @todo: should be <rootDir>/tests/unit/**/*.test.js
   ],
   collectCoverage: true,
   coverageDirectory: '<rootDir>/tests/coverage',

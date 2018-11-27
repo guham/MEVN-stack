@@ -134,8 +134,11 @@ lint-client: ## Lint (ESLint)
 lint-client: client.node_modules
 	$(YARN_CLIENT) lint
 
-upgrade-client: ## Upgrade dependencies
+upgrade-dependencies:
 	$(YARN_CLIENT) upgrade
+
+upgrade-client: ## Upgrade dependencies
+upgrade-client: upgrade-dependencies update-tailwind
 
 test-client: ## Run unit & functional tests
 test-client: ut-client ft-client
@@ -165,7 +168,10 @@ production: build-client-production
 	docker build -t client-production -f client/Dockerfile-production .
 	docker run -it -p 8082:8082 --rm -v $(shell pwd)/client/dist:/dist --name client-production-1 client-production
 
-.PHONY: logs-client lint-client upgrade-client test-client ut-client ut-client-update-snapshot ft-client build-client ui production
+update-tailwind: ## Update Tailwind configuration
+	$(EXEC_CLIENT) bash -c "rm -f /tmp/tailwind.js && ./node_modules/.bin/tailwind init /tmp/tailwind.js && cat /tmp/tailwind.js > tailwind.js"
+
+.PHONY: logs-client lint-client upgrade-client test-client ut-client ut-client-update-snapshot ft-client build-client ui production update-tailwind
 
 clean-client:
 	rm -rf client/node_modules client/dist client/tests/coverage client/tests/e2e/reports client/yarn-error.log client/selenium-debug.log

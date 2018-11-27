@@ -9,8 +9,7 @@ const db = containter.resolve('db');
  */
 module.exports = async function setup() {
   await db.connect();
-  const collections = await db.connection.db.collections();
-  await Promise.all(collections.map(collection => collection.drop()));
+  await db.connection.dropDatabase();
   await Promise.all(Object.values(models).map(model => model.ensureIndexes()));
   await db.disconnect();
 };

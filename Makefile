@@ -113,7 +113,7 @@ deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|d
 now-alias: ## Add a new alias to the last deployment
 	now alias -A now-$(type).json
 
-.PHONY: logs-api lint-api upgrade-api test-api ut-api deploy-api-now now-alias
+.PHONY: logs-api lint-api upgrade-api test-api deploy-api-now now-alias
 
 clean-api:
 	rm -rf .env api/node_modules api/yarn-error.log api/tests/coverage api/tests/access.log

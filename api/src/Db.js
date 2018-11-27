@@ -20,6 +20,8 @@ class Db {
         reconnectTries: 60,
         reconnectInterval: 1000,
         autoIndex: !this.parameters.app.isInEnv('production'),
+        useCreateIndex: true,
+        useNewUrlParser: true,
       });
       this.debug(`MongoDB running on ${uri}`);
     } catch (error) {

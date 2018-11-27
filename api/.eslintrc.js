@@ -1,18 +1,18 @@
 module.exports = {
   root: true,
-  extends: [
-    'airbnb-base'
-  ],
-  parserOptions: {
-    ecmaVersion: 8
-  },
   env: {
     es6: true,
     node: true,
-    jest: true
+    jest: true,
   },
+  extends: [
+    'airbnb-base',
+  ],
   rules: {
-    'no-unused-vars': ['error', { 'argsIgnorePattern': 'next' }]
+    'no-unused-vars': ['error', { 'argsIgnorePattern': 'next' }],
+  },
+  parserOptions: {
+    ecmaVersion: 9,
   },
   overrides: [
     {
@@ -23,5 +23,5 @@ module.exports = {
         'max-len': 'off',
       }
     }
-  ]
+  ],
 };

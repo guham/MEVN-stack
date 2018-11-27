@@ -25,7 +25,7 @@ exports[`App.vue should display "Home" and "Parameters" links when the user is n
     </div>
   </nav>
   <div class="min-h-screen pt-24 px-6 pb-6">
-    <router-view-stub name="default"></router-view-stub>
+    <routerview-stub name="default"></routerview-stub>
   </div>
   <transitionslideup-stub duration="400">
     <notification-stub notification="[object Object]" style="display: none;"></notification-stub>
@@ -48,8 +48,12 @@ exports[`App.vue should display restricted links when the user is authenticated 
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto min-h-screen lg:min-h-full pt-6 lg:pt-0 hidden">
       <div class="text-sm lg:flex-grow text-left lg:text-center px-2">
         <routerlinkwrapper-stub to="/" label="home" classes="link"></routerlinkwrapper-stub>
-        <separator-stub style="display: none;"></separator-stub> <span class="hidden lg:inline">|</span>
-        <routerlinkwrapper-stub to="/test" label="Test" classes="link"></routerlinkwrapper-stub> <span class="hidden lg:inline">|</span>
+        <separator-stub style="display: none;"></separator-stub> <span class="hidden lg:inline">
+            |
+          </span>
+        <routerlinkwrapper-stub to="/test" label="Test" classes="link"></routerlinkwrapper-stub> <span class="hidden lg:inline">
+            |
+          </span>
         <routerlinkwrapper-stub to="/foos" label="Foo" classes="link"></routerlinkwrapper-stub>
         <separator-stub style="display: none;"></separator-stub>
       </div>
@@ -60,7 +64,7 @@ exports[`App.vue should display restricted links when the user is authenticated 
     </div>
   </nav>
   <div class="min-h-screen pt-24 px-6 pb-6">
-    <router-view-stub name="default"></router-view-stub>
+    <routerview-stub name="default"></routerview-stub>
   </div>
   <transitionslideup-stub duration="400">
     <notification-stub notification="[object Object]" style="display: none;"></notification-stub>

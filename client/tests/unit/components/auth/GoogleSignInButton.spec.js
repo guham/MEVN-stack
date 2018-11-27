@@ -1,4 +1,5 @@
 import Vuex from 'vuex';
+import flushPromises from 'flush-promises';
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton.vue';
 import user from '@/store/modules/user';
 import factory from '../../factory';
@@ -60,18 +61,16 @@ describe('GoogleSignInButton.vue', () => {
     expect(actions.signIn).toHaveBeenCalled();
   });
 
-  test('emit `signIn` event when Sign In button is clicked', (done) => {
+  test('emit `signIn` event when Sign In button is clicked', async () => {
     const wrapper = factory(GoogleSignInButton, store);
     wrapper.find('#btn-signin').trigger('click');
-    wrapper.vm.$nextTick(() => {
-      expect(wrapper.emitted('signIn')).toBeTruthy();
-      expect(wrapper.emitted('signIn').length).toBe(1);
-      expect(wrapper.emitted('signIn')[0]).toEqual([]);
-      done();
-    });
+    await flushPromises();
+    expect(wrapper.emitted('signIn')).toBeTruthy();
+    expect(wrapper.emitted('signIn').length).toBe(1);
+    expect(wrapper.emitted('signIn')[0]).toEqual([]);
   });
 
-  test('calls store action `signOut` when Sign Out button is clicked', (done) => {
+  test('calls store action `signOut` when Sign Out button is clicked', async () => {
     store = new Vuex.Store({
       modules: {
         user: {
@@ -91,12 +90,10 @@ describe('GoogleSignInButton.vue', () => {
     const spyRouterReplace = jest.spyOn(wrapper.vm.$router, 'replace');
 
     wrapper.find('#btn-signout').trigger('click');
-    wrapper.vm.$nextTick(() => {
-      expect(spySignOutAndRedirect).toHaveBeenCalled();
-      expect(actions.signOut).toHaveBeenCalled();
-      expect(spyRouterReplace).toHaveBeenCalledWith({ name: 'Home', params: {}, path: '' });
-      done();
-    });
+    await flushPromises();
+    expect(spySignOutAndRedirect).toHaveBeenCalled();
+    expect(actions.signOut).toHaveBeenCalled();
+    expect(spyRouterReplace).toHaveBeenCalledWith({ name: 'Home', params: {}, path: '' });
   });
 
   test('has the expected html structure', () => {

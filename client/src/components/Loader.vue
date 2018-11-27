@@ -2,7 +2,7 @@
   <div class="overlay absolute pin z-20">
     <div class="flex items-center justify-center w-full h-full">
       <div class="progress-square w-12 h-12 relative border-solid border-4 border-green-light">
-        <div class="loader w-full inline-block align-top bg-green-light opacity-100"/>
+        <div class="loader w-full inline-block align-top bg-green-light opacity-100" />
       </div>
     </div>
   </div>

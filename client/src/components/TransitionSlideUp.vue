@@ -1,12 +1,12 @@
 <template>
-  <transition
+  <Transition
     :css="false"
     @before-enter="beforeEnter"
     @enter="enter"
     @leave="leave"
   >
-    <slot/>
-  </transition>
+    <slot />
+  </Transition>
 </template>
 
 <script>

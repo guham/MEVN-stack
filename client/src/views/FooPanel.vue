@@ -1,8 +1,12 @@
 <template>
   <div>
-    <h1 class="pb-2 text-center">FooPanel</h1>
-    <p class="py-2 text-center">{{ $t('total') }} {{ $tc('count', count, { count: count }) }}</p>
-    <add-foo :placeholder="$t('placeholder')"/>
+    <h1 class="pb-2 text-center">
+      FooPanel
+    </h1>
+    <p class="py-2 text-center">
+      {{ $t('total') }} {{ $tc('count', count, { count: count }) }}
+    </p>
+    <AddFoo :placeholder="$t('placeholder')" />
   </div>
 </template>
 

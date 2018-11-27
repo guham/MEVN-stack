@@ -144,9 +144,9 @@ ut-client: ## Run unit tests (option t=<regex> to run only tests with a name tha
 ut-client: client.node_modules
 	$(YARN_CLIENT) test:unit -t=$(t)
 
-ut-client-update-snapshot: ## Run unit tests & regenerate snapshots
+ut-client-update-snapshot: ## Run unit tests & regenerate snapshots (option t=<regex> to run only tests with a name that matches the regex)
 ut-client-update-snapshot: client.node_modules
-	$(YARN_CLIENT) test:unit --updateSnapshot
+	$(YARN_CLIENT) test:unit -t=$(t) --updateSnapshot
 
 ft-client: ## Run functional tests
 ft-client: client.node_modules

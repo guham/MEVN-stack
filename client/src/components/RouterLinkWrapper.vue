@@ -1,8 +1,11 @@
 <template>
   <div class="block lg:inline-block">
-    <router-link
+    <RouterLink
       :to="to"
-      :class="classes">{{ label }}</router-link>
+      :class="classes"
+    >
+      {{ label }}
+    </RouterLink>
   </div>
 </template>
 

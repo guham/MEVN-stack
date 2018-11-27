@@ -2,8 +2,12 @@
 
 exports[`FooPanel.vue has the expected html structure 1`] = `
 <div>
-  <h1 class="pb-2 text-center">FooPanel</h1>
-  <p class="py-2 text-center">total count</p>
+  <h1 class="pb-2 text-center">
+    FooPanel
+  </h1>
+  <p class="py-2 text-center">
+    total count
+  </p>
   <addfoo-stub placeholder="placeholder"></addfoo-stub>
 </div>
 `;

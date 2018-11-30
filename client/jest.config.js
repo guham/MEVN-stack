@@ -18,7 +18,7 @@ module.exports = {
     'jest-serializer-vue',
   ],
   testMatch: [
-    '<rootDir>/(tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx))',
+    '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
   ],
   testURL: 'http://localhost/',
   collectCoverage: true,
@@ -32,4 +32,6 @@ module.exports = {
     '<rootDir>/tests/unit/setup/localStorage.js',
     '<rootDir>/tests/unit/setup/gapi.js',
   ],
+  timers: 'fake',
+  clearMocks: true,
 };

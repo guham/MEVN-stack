@@ -41,7 +41,7 @@ module.exports = {
     if (process.env.COMPRESSION_ALGORITHM === 'gzip') {
       const CompressionPlugin = require('compression-webpack-plugin');
       plugins.push(new CompressionPlugin({
-        asset: '[path].gz[query]',
+        filename: '[path].gz[query]',
         algorithm: 'gzip',
         test: /\.js$|\.css$|\.html$/,
       }));

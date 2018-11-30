@@ -5,10 +5,28 @@ const client = createClient();
 export default {
   /**
    * @param {string} idToken
-   * @returns {{token: string, tokenExpiration: number}} auth object
+   * @returns {{accessToken: string, refreshToken: string, expirationDate: number}} auth object
    */
   async sendIdToken(idToken) {
-    const response = await client.post('/auth/token', { idToken });
+    const response = await client.post('/auth/tokens', { idToken });
+    return response.data;
+  },
+
+  /**
+   * @param {string} refreshToken
+   * @returns {{accessToken: string, refreshToken: string, expirationDate: number}} auth object
+   */
+  async refreshTokens(refreshToken) {
+    const response = await client.post('/auth/refreshTokens', { refreshToken });
+    return response.data;
+  },
+
+  /**
+   * @param {string} refreshToken
+   * @returns {object}
+   */
+  async signOut(refreshToken) {
+    const response = await client.post('/auth/signOut', { refreshToken });
     return response.data;
   },
 };

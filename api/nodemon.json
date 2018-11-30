@@ -1,6 +1,6 @@
 {
   "verbose": false,
   "watch": ["./"],
-  "ignore": ["coverage/", "tests/"],
+  "ignore": ["tests/"],
   "ext": "js,json"
 }

@@ -1,8 +1,18 @@
 import Vuex from 'vuex';
 import App from '@/App.vue';
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton.vue';
+import NotificationComponent from '@/components/Notification.vue';
 import user from '@/store/modules/user';
+import notifications from '@/store/modules/notifications';
+import Notification from '@/models/notification';
 import factory from './factory';
+
+const notificationsModule = {
+  namespaced: notifications.namespaced,
+  state: notifications.state,
+  getters: notifications.getters,
+  actions: notifications.actions,
+};
 
 const userUnauthenticatedStore = new Vuex.Store({
   modules: {
@@ -13,6 +23,7 @@ const userUnauthenticatedStore = new Vuex.Store({
         userIsSigningIn: () => false,
       },
     },
+    notifications: notificationsModule,
   },
 });
 
@@ -25,6 +36,7 @@ const userAuthenticatedStore = new Vuex.Store({
         userIsSigningIn: () => false,
       },
     },
+    notifications: notificationsModule,
   },
 });
 
@@ -50,7 +62,7 @@ describe('App.vue', () => {
     const template = wrapper.html();
     const links = wrapper.findAll('routerlinkwrapper-stub');
     expect(links.filter(link => link.props().to === '/test').isVisible()).toBeTruthy();
-    expect(links.filter(link => link.props().to === '/foo').isVisible()).toBeTruthy();
+    expect(links.filter(link => link.props().to === '/foos').isVisible()).toBeTruthy();
     expect(template).toMatchSnapshot();
   });
 
@@ -87,6 +99,47 @@ describe('App.vue', () => {
     wrapper.find(GoogleSignInButton).vm.$emit('signIn');
     wrapper.vm.$nextTick(() => {
       expect(spyCloseMenu).toHaveBeenCalled();
+      done();
+    });
+  });
+
+  test('should display a notification when one is added to the Notifications store', (done) => {
+    const notificationStore = new Vuex.Store({
+      modules: {
+        user,
+        notifications: {
+          ...notificationsModule,
+          ...{ state: { notification: new Notification() } },
+        },
+      },
+    });
+
+    const wrapper = factory(App, notificationStore);
+    wrapper.vm.$nextTick(() => {
+      expect(wrapper.find(NotificationComponent).isVisible()).toBeTruthy();
+      done();
+    });
+  });
+
+  test('calls store action `removeNotification` when @removeNotification happens', (done) => {
+    const actions = {
+      removeNotification: jest.fn(),
+    };
+    const notificationStore = new Vuex.Store({
+      modules: {
+        user,
+        notifications: {
+          ...notificationsModule,
+          ...{ state: { notification: new Notification() } },
+          ...{ actions },
+        },
+      },
+    });
+
+    const wrapper = factory(App, notificationStore);
+    wrapper.find(NotificationComponent).vm.$emit('removeNotification');
+    wrapper.vm.$nextTick(() => {
+      expect(actions.removeNotification).toHaveBeenCalled();
       done();
     });
   });

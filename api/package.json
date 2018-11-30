@@ -8,32 +8,35 @@
     "type": "git",
     "url": "git+https://github.com/guham/MEVN-stack"
   },
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon --inspect=0.0.0.0:$NODE_DEBUG_PORT --nolazy --config nodemon.json server.js",
+    "start": "node ./src/server.js",
+    "dev": "nodemon --inspect=0.0.0.0:$NODE_DEBUG_PORT --nolazy --config nodemon.json ./src/server.js",
     "lint": "eslint --fix --color -f codeframe .",
     "test": "NODE_ENV=test jest --colors"
   },
   "dependencies": {
+    "awilix": "^4.0.0",
+    "awilix-express": "^1.1.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
-    "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
-    "debug": "^3.1.0",
+    "debug": "^4.1.0",
     "express": "^4.16.3",
     "express-jwt": "^5.3.1",
-    "google-auth-library": "^1.6.1",
+    "google-auth-library": "^2.0.1",
     "http-errors": "^1.6.3",
+    "joi": "^14.0.3",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.0.17",
     "morgan": "^1.9.0"
   },
   "devDependencies": {
-    "eslint": "^4.9.0",
-    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.7.0",
-    "jest": "^22.4.3",
+    "factory-girl": "^5.0.4",
+    "faker": "^4.1.0",
+    "jest": "^23.6.0",
     "nodemon": "^1.17.3",
     "supertest": "^3.0.0"
   }

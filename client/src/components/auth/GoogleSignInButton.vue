@@ -4,7 +4,8 @@
     id="btn-signout"
     class="btn btn-grey"
     type="button"
-    @click="signOutAndRedirect()">
+    @click="signOutAndRedirect()"
+  >
     {{ $t('signout') }}
   </button>
   <button
@@ -12,7 +13,8 @@
     id="btn-signin"
     class="btn btn-green"
     type="button"
-    @click="signInAction()">
+    @click="signInAction()"
+  >
     {{ $t('signin') }}
   </button>
 </template>

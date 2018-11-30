@@ -16,6 +16,9 @@ DB_NAME			= $(shell echo $$(grep MONGO_INITDB_DATABASE .env | xargs) | sed 's/.*
 # Now.sh deploy
 type?=npm
 
+# Client tests
+t?=.
+
 ##
 ## MEVN Project
 ## -------
@@ -89,12 +92,9 @@ lint-api: api.node_modules
 upgrade-api: ## Upgrade dependencies
 	$(YARN_API) upgrade
 
-test-api: ## Run tests
-test-api: tu-api
-
-tu-api: ## Run unit tests
-tu-api: api.node_modules
-	$(YARN_API) test
+test-api: ## Run unit & integration tests (option t=<regex> to run only tests with a name that matches the regex)
+test-api: api.node_modules
+	$(YARN_API) test -t=$(t)
 
 deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|docker]
 	now --public --$(type) -A ../now-$(type).json \
@@ -103,17 +103,20 @@ deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|d
 		-e PORT=@mevn-stack-port \
 		-e MONGODB_URI=@mevn-stack-mongodb-uri \
 		-e GOOGLE_OAUTH_CLIENT_ID=@mevn-stack-google-oauth-client-id \
-		-e JWT_SECRET_KEY=@mevn-stack-jwt-secret-key \
+		-e ACCESS_TOKEN_SECRET_KEY=@mevn-stack-access-token-secret-key \
+		-e ACCESS_TOKEN_EXPIRES_IN=@mevn-stack-access-token-expires-in \
+		-e REFRESH_TOKEN_SECRET_KEY=@mevn-stack-refresh-token-secret-key \
+		-e REFRESH_TOKEN_EXPIRES_IN=@mevn-stack-refresh-token-expires-in \
 		-e JWT_ISSUER=@mevn-stack-jwt-issuer \
 		./api
 
 now-alias: ## Add a new alias to the last deployment
 	now alias -A now-$(type).json
 
-.PHONY: logs-api lint-api upgrade-api test-api tu-api deploy-api-now now-alias
+.PHONY: logs-api lint-api upgrade-api test-api deploy-api-now now-alias
 
 clean-api:
-	rm -rf .env api/node_modules api/coverage api/yarn-error.log api/tests/access.log
+	rm -rf .env api/node_modules api/yarn-error.log api/tests/coverage api/tests/access.log
 
 api.node_modules: api/package.json api/yarn.lock
 	$(YARN_API) install
@@ -131,22 +134,25 @@ lint-client: ## Lint (ESLint)
 lint-client: client.node_modules
 	$(YARN_CLIENT) lint
 
-upgrade-client: ## Upgrade dependencies
+upgrade-dependencies:
 	$(YARN_CLIENT) upgrade
 
+upgrade-client: ## Upgrade dependencies
+upgrade-client: upgrade-dependencies update-tailwind
+
 test-client: ## Run unit & functional tests
-test-client: tu-client tf-client
+test-client: ut-client ft-client
 
-tu-client: ## Run unit tests
-tu-client: client.node_modules
-	$(YARN_CLIENT) test:unit
+ut-client: ## Run unit tests (option t=<regex> to run only tests with a name that matches the regex)
+ut-client: client.node_modules
+	$(YARN_CLIENT) test:unit -t=$(t)
 
-tu-client-update-snapshot: ## Run unit tests & regenerate snapshots
-tu-client-update-snapshot: client.node_modules
-	$(YARN_CLIENT) test:unit --updateSnapshot
+ut-client-update-snapshot: ## Run unit tests & regenerate snapshots (option t=<regex> to run only tests with a name that matches the regex)
+ut-client-update-snapshot: client.node_modules
+	$(YARN_CLIENT) test:unit -t=$(t) --updateSnapshot
 
-tf-client: ## Run functional tests
-tf-client: client.node_modules
+ft-client: ## Run functional tests
+ft-client: client.node_modules
 	$(YARN_CLIENT) test:e2e
 
 build-client: ## Produce a production-ready bundle
@@ -162,7 +168,10 @@ production: build-client-production
 	docker build -t client-production -f client/Dockerfile-production .
 	docker run -it -p 8082:8082 --rm -v $(shell pwd)/client/dist:/dist --name client-production-1 client-production
 
-.PHONY: logs-client lint-client upgrade-client test-client tu-client tu-client-update-snapshot tf-client build-client ui production
+update-tailwind: ## Update Tailwind configuration
+	$(EXEC_CLIENT) bash -c "rm -f /tmp/tailwind.js && ./node_modules/.bin/tailwind init /tmp/tailwind.js && cat /tmp/tailwind.js > tailwind.js"
+
+.PHONY: logs-client lint-client upgrade-client test-client ut-client ut-client-update-snapshot ft-client build-client ui production update-tailwind
 
 clean-client:
 	rm -rf client/node_modules client/dist client/tests/coverage client/tests/e2e/reports client/yarn-error.log client/selenium-debug.log
@@ -182,10 +191,13 @@ build-client-production: client.node_modules
 logs-db: ## Show logs
 	$(DOCKER_COMPOSE) logs -f db
 
-db-terminal: ## Open terminal
+db-shell: ## Open MongoDB shell
 	$(EXEC_DB) mongo $(DB_NAME) -u $(DB_USER) -p $(DB_PWD)
 
-.PHONY: logs-db
+db-test-shell: ## Open MongoDB shell on test database
+	$(EXEC_DB) mongo test -u $(DB_USER) -p $(DB_PWD)
+
+.PHONY: logs-db db-shell db-test-shell
 
 .DEFAULT_GOAL := help
 help:

@@ -37,7 +37,7 @@ const router = new Router({
       },
     },
     {
-      path: '/foo',
+      path: '/foos',
       name: 'FooPanel',
       component: () => import(/* webpackChunkName: "foo" */ '@/views/FooPanel.vue'),
       meta: {

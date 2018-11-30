@@ -1,5 +1,6 @@
 {
-  "public": true,
+  "version": 1,
+  "public": false,
   "name": "mevn-stack-api",
   "alias": "mevn-stack-api",
   "features": {
@@ -11,7 +12,10 @@
     "PORT": "@mevn-stack-port",
     "MONGODB_URI": "@mevn-stack-mongodb-uri",
     "GOOGLE_OAUTH_CLIENT_ID": "@mevn-stack-google-oauth-client-id",
-    "JWT_SECRET_KEY": "@mevn-stack-jwt-secret-key",
+    "ACCESS_TOKEN_SECRET_KEY": "@mevn-stack-access-token-secret-key",
+    "ACCESS_TOKEN_EXPIRES_IN": "@mevn-stack-access-token-expires-in",
+    "REFRESH_TOKEN_SECRET_KEY": "@mevn-stack-refresh-token-secret-key",
+    "REFRESH_TOKEN_EXPIRES_IN": "@mevn-stack-refresh-token-expires-in",
     "JWT_ISSUER": "@mevn-stack-jwt-issuer"
   }
 }

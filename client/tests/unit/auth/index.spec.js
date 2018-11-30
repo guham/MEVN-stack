@@ -5,11 +5,6 @@ import store from '@/store';
 import userStore from '@/store/modules/user';
 import Vuex from 'vuex';
 
-beforeEach(() => {
-  jest.resetModules();
-  jest.clearAllMocks();
-});
-
 describe('Auth plugin', () => {
   test('throws an error if a Vuex store is not passed as plugin option', () => {
     const localVue = createLocalVue();

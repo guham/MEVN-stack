@@ -2,11 +2,6 @@ import axios from 'axios';
 import Test from '@/views/Test.vue';
 import factory from '../factory';
 
-beforeEach(() => {
-  jest.resetModules();
-  jest.clearAllMocks();
-});
-
 axios.get.mockImplementation(() => Promise.resolve({ data: { data: 'message from the API' } }));
 
 describe('Test.vue', () => {
@@ -31,10 +26,10 @@ describe('Test.vue', () => {
     expect(wrapper.find('p').text()).toBe('>> message from the API');
   });
 
-  test('API endpoint should be called with "/api/foo/test"', async () => {
+  test('API endpoint should be called with "/api/foos/test"', async () => {
     const wrapper = factory(Test);
     await wrapper.vm.fetchValueFromServer();
-    expect(axios.get).toHaveBeenCalledWith('/api/foo/test', {});
+    expect(axios.get).toHaveBeenCalledWith('/api/foos/test', {});
   });
 
   test("renders error's message when an error occurs", async () => {

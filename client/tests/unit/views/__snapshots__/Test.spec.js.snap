@@ -3,6 +3,7 @@
 exports[`Test.vue has the expected html structure 1`] = `
 <div class="text-center">
   <h1>title</h1>
-  <p class="p-2"><span>&gt;&gt;</span> Waiting for value...</p>
+  <p class="p-2"><span>&gt;&gt;</span> Waiting for value...
+  </p>
 </div>
 `;

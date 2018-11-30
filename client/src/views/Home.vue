@@ -2,8 +2,9 @@
   <div class="text-center">
     <img
       src="../assets/logo.png"
-      alt="">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      alt=""
+    >
+    <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 

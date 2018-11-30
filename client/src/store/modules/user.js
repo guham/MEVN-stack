@@ -1,17 +1,20 @@
 import authClient from '@/api/auth';
 import * as types from '@/store/mutation-types';
+import Notification from '@/models/notification';
 
 const state = {
   isAuthenticated: false,
   userIsSigningIn: false,
-  jwt: localStorage.getItem('token'),
-  jwtExpiration: parseInt(localStorage.getItem('tokenExpiration'), 10) || null,
+  accessToken: localStorage.getItem('accessToken'),
+  refreshToken: localStorage.getItem('refreshToken'),
+  expirationDate: parseInt(localStorage.getItem('expirationDate'), 10) || null,
 };
 
 const getters = {
   isAuthenticated: state => state.isAuthenticated,
   userIsSigningIn: state => state.userIsSigningIn,
-  token: state => state.jwt,
+  accessToken: state => state.accessToken,
+  refreshToken: state => state.refreshToken,
 };
 
 const mutations = {
@@ -25,43 +28,75 @@ const mutations = {
 
   [types.SET_USER_UNAUTHENTICATED](state) {
     state.isAuthenticated = false;
-    state.jwt = null;
-    state.jwtExpiration = null;
-    localStorage.removeItem('token');
-    localStorage.removeItem('tokenExpiration');
+    state.accessToken = null;
+    state.refreshToken = null;
+    state.expirationDate = null;
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('expirationDate');
   },
 
-  [types.SET_JWT](state, token) {
-    state.jwt = token;
-    localStorage.setItem('token', token);
+  [types.SET_ACCESS_TOKEN](state, token) {
+    state.accessToken = token;
+    localStorage.setItem('accessToken', token);
   },
 
-  [types.SET_JWT_EXPIRATION](state, tokenExpiration) {
-    state.jwtExpiration = tokenExpiration;
-    localStorage.setItem('tokenExpiration', tokenExpiration);
+  [types.SET_REFRESH_TOKEN](state, token) {
+    state.refreshToken = token;
+    localStorage.setItem('refreshToken', token);
+  },
+
+  [types.SET_EXPIRATION_DATE](state, expirationDate) {
+    state.expirationDate = expirationDate;
+    localStorage.setItem('expirationDate', expirationDate);
   },
 };
 
 const actions = {
-  async signIn({ commit }) {
+  async signIn({ dispatch, commit }) {
     commit(types.SET_USER_IS_SIGNING_IN, true);
-    const auth2 = window.gapi.auth2.getAuthInstance();
+
     try {
+      const auth2 = window.gapi.auth2.getAuthInstance();
       const googleUser = await auth2.signIn();
       const idToken = googleUser.getAuthResponse().id_token;
       const response = await authClient.sendIdToken(idToken);
       commit(types.SET_USER_AUTHENTICATED);
-      commit(types.SET_JWT, response.token);
-      commit(types.SET_JWT_EXPIRATION, response.tokenExpiration);
-    } catch (error) {
-      commit(types.SET_USER_UNAUTHENTICATED);
+      commit(types.SET_ACCESS_TOKEN, response.accessToken);
+      commit(types.SET_REFRESH_TOKEN, response.refreshToken);
+      commit(types.SET_EXPIRATION_DATE, response.expirationDate);
+    } catch (e) {
+      // display a notification only when error happened with the API
+      // auth2.signIn() will returns an object containing an *error* property if an error happened
+      if (!e.error) {
+        dispatch('addThenRemoveNotification', new Notification('error', '%SOMETHING_WENT_WRONG%'), { root: true });
+      }
+      await dispatch('signOut');
     }
     commit(types.SET_USER_IS_SIGNING_IN, false);
   },
-  async signOut({ commit }) {
+  async signOut({ dispatch, commit, state }) {
     const auth2 = window.gapi.auth2.getAuthInstance();
-    await auth2.signOut();
+    await auth2.signOut().catch(() => {
+      dispatch('addThenRemoveNotification', new Notification('error', '%SOMETHING_WENT_WRONG%'), { root: true });
+    });
+    try {
+      await authClient.signOut(state.refreshToken);
+    } catch (error) {}
     commit(types.SET_USER_UNAUTHENTICATED);
+  },
+  async refreshTokens({ dispatch, commit, state }) {
+    return new Promise((resolve) => {
+      resolve(authClient.refreshTokens(state.refreshToken));
+    }).then((response) => {
+      commit(types.SET_ACCESS_TOKEN, response.accessToken);
+      commit(types.SET_REFRESH_TOKEN, response.refreshToken);
+      commit(types.SET_EXPIRATION_DATE, response.expirationDate);
+    }).catch((error) => {
+      dispatch('signOut');
+      dispatch('addThenRemoveNotification', new Notification('error', '%SOMETHING_WENT_WRONG%'), { root: true });
+      return Promise.reject(error);
+    });
   },
 };
 

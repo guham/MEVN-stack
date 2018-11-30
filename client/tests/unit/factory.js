@@ -21,7 +21,7 @@ const router = new VueRouter({
       name: 'Test',
     },
     {
-      path: '/foo',
+      path: '/foos',
       name: 'FooPanel',
     },
     {
@@ -35,17 +35,22 @@ const router = new VueRouter({
   ],
 });
 
-export default (component, store = {}, propsData = {}, data = {}, stubs = []) =>
-  shallowMount(component, {
-    propsData: { ...propsData },
-    data: () => ({ ...data }),
-    stubs,
-    localVue,
-    store,
-    router,
-    i18n,
-    mocks: {
-      $t: keypath => keypath,
-      $tc: keypath => keypath,
-    },
-  });
+export default (
+  component,
+  store = {},
+  propsData = {},
+  data = {},
+  stubs = {},
+) => shallowMount(component, {
+  propsData: { ...propsData },
+  data: () => ({ ...data }),
+  stubs,
+  localVue,
+  store,
+  router,
+  i18n,
+  mocks: {
+    $t: keypath => keypath,
+    $tc: keypath => keypath,
+  },
+});

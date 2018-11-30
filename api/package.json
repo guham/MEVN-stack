@@ -8,7 +8,6 @@
     "type": "git",
     "url": "git+https://github.com/guham/MEVN-stack"
   },
-  "main": "server.js",
   "scripts": {
     "start": "node ./src/server.js",
     "dev": "nodemon --inspect=0.0.0.0:$NODE_DEBUG_PORT --nolazy --config nodemon.json ./src/server.js",

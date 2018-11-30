@@ -24,6 +24,7 @@ WIP
     # within the api container (docker-compose exec api sh)
     mongo dsxxxxxx.mlab.com:xxxxx/DB_NAME -u DB_USER -p DB_PWD
     db.foos.createIndex( { "name": 1 }, { unique: true }, { background: true } )
+    db.users.createIndex( { "sub": 1 }, { unique: true }, { background: true } )
     ```
 
 ## Deploy API on [Now.sh](https://zeit.co/now)

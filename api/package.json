@@ -12,7 +12,8 @@
     "start": "node ./src/server.js",
     "dev": "nodemon --inspect=0.0.0.0:$NODE_DEBUG_PORT --nolazy --config nodemon.json ./src/server.js",
     "lint": "eslint --fix --color -f codeframe .",
-    "test": "NODE_ENV=test jest --colors"
+    "test": "NODE_ENV=test jest --colors",
+    "test:mutation": "NODE_ENV=test ./node_modules/.bin/stryker run"
   },
   "dependencies": {
     "awilix": "^4.0.0",
@@ -38,6 +39,11 @@
     "faker": "^4.1.0",
     "jest": "^23.6.0",
     "nodemon": "^1.17.3",
+    "stryker": "^0.33.1",
+    "stryker-api": "^0.22.0",
+    "stryker-html-reporter": "^0.16.9",
+    "stryker-javascript-mutator": "^0.12.1",
+    "stryker-jest-runner": "^1.2.9",
     "supertest": "^3.0.0"
   }
 }

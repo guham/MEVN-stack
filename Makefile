@@ -96,6 +96,10 @@ test-api: ## Run unit & integration tests (option t=<regex> to run only tests wi
 test-api: api.node_modules
 	$(YARN_API) test -t=$(t)
 
+mt-api: ## Run mutation tests
+mt-api: api.node_modules
+	$(YARN_API) test:mutation
+
 deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|docker]
 	now --public --$(type) -A ../now-$(type).json \
 		-e NODE_ENV=@mevn-stack-node-env \
@@ -113,10 +117,10 @@ deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|d
 now-alias: ## Add a new alias to the last deployment
 	now alias -A now-$(type).json
 
-.PHONY: logs-api lint-api upgrade-api test-api deploy-api-now now-alias
+.PHONY: logs-api lint-api upgrade-api test-api mt-api deploy-api-now now-alias
 
 clean-api:
-	rm -rf .env api/node_modules api/yarn-error.log api/tests/coverage api/tests/access.log
+	rm -rf .env api/node_modules api/yarn-error.log api/tests/coverage api/tests/mutation api/tests/access.log
 
 api.node_modules: api/package.json api/yarn.lock
 	$(YARN_API) install

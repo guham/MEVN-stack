@@ -21,13 +21,14 @@ describe('Test API parameters', () => {
 
     test('`app` property', () => {
       // "app" property
-      expect(Object.keys(parameters.app).sort()).toEqual(['env', 'host', 'port', 'isInEnv', 'httpLogs'].sort());
+      expect(Object.keys(parameters.app).sort()).toEqual(['env', 'host', 'port', 'isInEnv', 'httpLogs', 'noDebug'].sort());
       // "app" object properties
       expect(parameters.app.env).toBe(process.env.NODE_ENV);
       expect(parameters.app.host).toBe(process.env.HOST);
       expect(parameters.app.port).toBe(process.env.PORT);
       expect(typeof parameters.app.isInEnv).toBe('function');
       expect(parameters.app.isInEnv(process.env.NODE_ENV)).toBeTruthy();
+      expect(parameters.app.noDebug).toBeTruthy();
     });
 
     test('`db` property', () => {

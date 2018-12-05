@@ -3,6 +3,7 @@ const path = require('path');
 const parameters = {
   app: {
     env: process.env.NODE_ENV,
+    noDebug: process.env.NO_DEBUG,
     host: process.env.HOST,
     port: process.env.PORT,
     httpLogs: null,

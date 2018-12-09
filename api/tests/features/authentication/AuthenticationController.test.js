@@ -1,15 +1,5 @@
 const { OAuth2Client } = require('google-auth-library');
 const request = require('../../request');
-const containter = require('../../../src/container');
-
-const db = containter.resolve('db');
-
-beforeAll(async () => {
-  // wait for DB connection to be up
-  await db.connect();
-});
-
-afterAll(async done => db.disconnect(done));
 
 const getPayload = jest.fn(() => ({ sub: '123456' }));
 

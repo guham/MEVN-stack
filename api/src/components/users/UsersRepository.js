@@ -3,7 +3,7 @@ class UsersRepository {
     this.UserModel = UserModel;
   }
 
-  async findOne(conditions = {}) {
+  async findOne(conditions) {
     return this.UserModel.findOne(conditions).exec();
   }
 

@@ -51,4 +51,32 @@ describe('Test Users repository', () => {
       }
     });
   });
+
+  describe('save', () => {
+    test('saves the user and returns the user\'s instance', async () => {
+      const user = await factory.create('user', {
+        sub: '123',
+      });
+      user.sub = '456';
+      const sameUser = await repository.save(user);
+      expect(user).toEqual(sameUser);
+    });
+  });
+
+  describe('findOrCreate', () => {
+    test('returns the user if exists', async () => {
+      const user = await factory.create('user', {
+        sub: '123',
+      });
+      const findedUser = await repository.findOrCreate(123);
+      expect(findedUser._id).toEqual(user._id);
+    });
+
+    test('creates and returns the user if not exist', async () => {
+      const spyAdd = jest.spyOn(repository, 'add');
+      const user = await repository.findOrCreate(123);
+      expect(spyAdd).toHaveBeenCalledWith([{ sub: 123 }]);
+      expect(user).toBeInstanceOf(UserModel);
+    });
+  });
 });

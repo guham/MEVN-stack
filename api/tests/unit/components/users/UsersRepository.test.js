@@ -18,7 +18,7 @@ describe('Test Users repository', () => {
 
     test('returns `null` if the user does not exist', async () => {
       const user = await repository.findOne({ sub: 123 });
-      expect(user).toBe(null);
+      expect(user).toBeNull();
     });
   });
 

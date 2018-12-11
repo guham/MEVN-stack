@@ -16,17 +16,23 @@ const getDefaultUserPayload = () => defaultUserPayload;
 const getValidAccessToken = async customUserPayload => authenticationService.signAccessToken({ ...defaultUserPayload, ...customUserPayload });
 const getExpiredAccessToken = () => token;
 const getInvalidAccessToken = () => invalidToken;
+const getDecodedAccessToken = async () => authenticationService.retrieveDecodedAccessToken(`Bearer ${await getValidAccessToken()}`);
 
 const getValidRefreshToken = async customUserPayload => authenticationService.signRefreshToken({ ...defaultUserPayload, ...customUserPayload });
 const getExpiredRefreshToken = () => token;
 const getInvalidRefreshToken = () => invalidToken;
+const getDecodedRefreshToken = async () => authenticationService.retrieveDecodedRefreshToken(await getValidRefreshToken());
 
 module.exports = {
   getDefaultUserPayload,
+  // access token
   getValidAccessToken,
   getExpiredAccessToken,
   getInvalidAccessToken,
+  getDecodedAccessToken,
+  // refresh token
   getValidRefreshToken,
   getExpiredRefreshToken,
   getInvalidRefreshToken,
+  getDecodedRefreshToken,
 };

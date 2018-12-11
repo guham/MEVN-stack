@@ -1,12 +1,11 @@
-const { OAuth2Client } = require('google-auth-library');
 const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 const joi = require('joi');
 
 class AuthenticationService {
-  constructor({ parameters }) {
+  constructor({ parameters, oauth2Client }) {
     this.authParameters = parameters.auth;
-    this.client = new OAuth2Client(this.authParameters.clientId);
+    this.client = oauth2Client;
     this.options = {
       issuer: this.authParameters.jwtIssuer,
     };

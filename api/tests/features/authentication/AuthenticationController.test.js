@@ -1,15 +1,13 @@
 const { OAuth2Client } = require('google-auth-library');
 const request = require('../../request');
-
-const getPayload = jest.fn(() => ({ sub: '123456' }));
-
-OAuth2Client.prototype.verifyIdToken = jest.fn(() => Promise.resolve(({
-  getPayload,
-})));
+const { getDefaultUserPayload } = require('../../tokens');
 
 describe('Test authentication routes', () => {
   describe('Test "/auth/tokens" path', () => {
     test('Should respond a JSON containing the access token, a refresh token and the expiration date with status 200', async () => {
+      OAuth2Client.prototype.verifyIdToken = jest.fn(() => Promise.resolve(({
+        getPayload: jest.fn(() => (getDefaultUserPayload())),
+      })));
       const idToken = 'google-id-token';
       const verifyIdTokenOptions = {
         idToken,

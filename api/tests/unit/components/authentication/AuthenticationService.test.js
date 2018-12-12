@@ -74,7 +74,7 @@ describe('Test Authentication service', () => {
     });
   });
 
-  describe('Test tokens related methods', () => {
+  describe('Test token-related methods', () => {
     describe('validateTokenSchema', () => {
       test('validates the decoded token and returns it if the token is valid', async () => {
         authenticationService = new AuthenticationService({ parameters, oauth2Client: client });
@@ -95,14 +95,46 @@ describe('Test Authentication service', () => {
         await expect(authenticationService.validateTokenSchema(token, 'Custom error message')).rejects.toThrow('Custom error message');
       });
     });
+
+    describe('createAndReturnTokens', () => {
+      test('should create and return the access and refresh tokens with the expiration date', async () => {
+        authenticationService = new AuthenticationService({ parameters, oauth2Client: client });
+        const tokens = await authenticationService.createAndReturnTokens(getDefaultUserPayload());
+        expect(tokens).toHaveProperty('accessToken');
+        expect(tokens).toHaveProperty('refreshToken');
+        expect(tokens).toHaveProperty('expirationDate');
+      });
+
+      test('throws an error if the payload is not valid or there is an internal error', async () => {
+        authenticationService = new AuthenticationService({ parameters, oauth2Client: client });
+        await expect(authenticationService.createAndReturnTokens({
+          invalidPayload: 1,
+        })).rejects.toThrow();
+      });
+    });
   });
 
-  describe('Test methods related to access token', () => {
+  describe('Test access token related methods', () => {
     describe('signAccessToken', () => {
       test('throws an error if `sub` object property does not exist', async () => {
         const payload = {};
         authenticationService = new AuthenticationService({ parameters, oauth2Client: client });
         await expect(authenticationService.signAccessToken(payload)).rejects.toThrow('User identifier is missing');
+      });
+    });
+
+    describe('verifyAccessToken', () => {
+      test('returns the payload decoded if the token is valid', async () => {
+        authenticationService = new AuthenticationService({ parameters, oauth2Client: client });
+        const token = await authenticationService.signAccessToken(getDefaultUserPayload());
+        expect(authenticationService.verifyAccessToken(token)).toHaveProperty('exp');
+      });
+
+      test('throws an error if the token is not valid', async () => {
+        authenticationService = new AuthenticationService({ parameters, oauth2Client: client });
+        expect(() => {
+          authenticationService.verifyAccessToken(getInvalidAccessToken());
+        }).toThrow();
       });
     });
 
@@ -132,12 +164,47 @@ describe('Test Authentication service', () => {
     });
   });
 
-  describe('Test methods related to refresh token', () => {
+  describe('Test refresh token related methods', () => {
     describe('signRefreshToken', () => {
       test('throws an error if `sub` object property does not exist', async () => {
         const payload = {};
         authenticationService = new AuthenticationService({ parameters, oauth2Client: client });
         await expect(authenticationService.signRefreshToken(payload)).rejects.toThrow('User identifier is missing');
+      });
+    });
+
+    describe('verifyRefreshToken', () => {
+      test('returns the payload decoded if the token is valid', async () => {
+        authenticationService = new AuthenticationService({ parameters, oauth2Client: client });
+        const token = await authenticationService.signRefreshToken(getDefaultUserPayload());
+        expect(authenticationService.verifyRefreshToken(token)).toHaveProperty('exp');
+      });
+
+      test('throws an error if the token is not valid', async () => {
+        authenticationService = new AuthenticationService({ parameters, oauth2Client: client });
+        expect(() => {
+          authenticationService.verifyRefreshToken(getInvalidRefreshToken());
+        }).toThrow();
+      });
+    });
+
+    describe('retrieveDecodedRefreshToken', () => {
+      test('should returns the decoded payload if the token is valid', async () => {
+        authenticationService = new AuthenticationService({ parameters, oauth2Client: client });
+        const token = await getExpiredRefreshToken(); // valid token, expired or not
+        const decodedToken = await authenticationService.retrieveDecodedRefreshToken(token);
+        expect(decodedToken).toHaveProperty('header');
+        expect(decodedToken).toHaveProperty('payload');
+        expect(decodedToken).toHaveProperty('signature');
+      });
+
+      test('throws an error if the token is not valid', async () => {
+        authenticationService = new AuthenticationService({ parameters, oauth2Client: client });
+        try {
+          await authenticationService.retrieveDecodedRefreshToken(getInvalidRefreshToken());
+        } catch (error) {
+          expect(error.name).toBe('ValidationError');
+        }
       });
     });
 

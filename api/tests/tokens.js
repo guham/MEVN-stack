@@ -16,12 +16,13 @@ const getDefaultUserPayload = () => defaultUserPayload;
 const getValidAccessToken = async customUserPayload => authenticationService.signAccessToken({ ...defaultUserPayload, ...customUserPayload });
 const getExpiredAccessToken = () => token;
 const getInvalidAccessToken = () => invalidToken;
-const getDecodedAccessToken = async () => authenticationService.retrieveDecodedAccessToken(`Bearer ${await getValidAccessToken()}`);
+const getDecodedAccessToken = async customUserPayload => authenticationService.retrieveDecodedAccessToken(`Bearer ${await getValidAccessToken(customUserPayload)}`);
 
 const getValidRefreshToken = async customUserPayload => authenticationService.signRefreshToken({ ...defaultUserPayload, ...customUserPayload });
 const getExpiredRefreshToken = () => token;
 const getInvalidRefreshToken = () => invalidToken;
-const getDecodedRefreshToken = async () => authenticationService.retrieveDecodedRefreshToken(await getValidRefreshToken());
+const getDecodedRefreshToken = async customUserPayload => authenticationService.retrieveDecodedRefreshToken(await getValidRefreshToken(customUserPayload));
+const getVerifiedRefreshToken = async customUserPayload => authenticationService.validateAndVerifyRefreshToken(await getValidRefreshToken(customUserPayload));
 
 module.exports = {
   getDefaultUserPayload,
@@ -35,4 +36,5 @@ module.exports = {
   getExpiredRefreshToken,
   getInvalidRefreshToken,
   getDecodedRefreshToken,
+  getVerifiedRefreshToken,
 };

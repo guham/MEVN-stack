@@ -12,7 +12,8 @@
     "start": "node ./src/server.js",
     "dev": "nodemon --inspect=0.0.0.0:$NODE_DEBUG_PORT --nolazy --config nodemon.json ./src/server.js",
     "lint": "eslint --fix --color -f codeframe .",
-    "test": "NODE_ENV=test NO_DEBUG=true jest --colors --runInBand",
+    "test:unit": "NODE_ENV=test NO_DEBUG=true jest -c jest.config.unit.js --runInBand --colors",
+    "test:integration": "NODE_ENV=test NO_DEBUG=true jest -c jest.config.integration.js --runInBand --colors",
     "test:mutation": "NODE_ENV=test NO_DEBUG=true ./node_modules/.bin/stryker run"
   },
   "dependencies": {

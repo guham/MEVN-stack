@@ -92,13 +92,20 @@ lint-api: api.node_modules
 upgrade-api: ## Upgrade dependencies
 	$(YARN_API) upgrade
 
-test-api: ## Run unit & integration tests (option t=<regex> to run only tests with a name that matches the regex)
-test-api: api.node_modules
-	$(YARN_API) test -t=$(t)
+ut-api: ## Run unit tests (option t=<regex> to run only tests with a name that matches the regex)
+ut-api: api.node_modules
+	$(YARN_API) test:unit -t=$(t)
+
+it-api: ## Run integration tests (option t=<regex> to run only tests with a name that matches the regex)
+it-api: api.node_modules
+	$(YARN_API) test:integration -t=$(t)
 
 mt-api: ## Run mutation tests
 mt-api: api.node_modules
 	$(YARN_API) test:mutation
+
+test-api: ## Run unit & integration tests
+test-api: ut-api it-api
 
 deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|docker]
 	now --public --$(type) -A ../now-$(type).json \
@@ -117,7 +124,7 @@ deploy-api-now: ## Deploy on Now.sh (as a Node.js/Docker deployment) type=[npm|d
 now-alias: ## Add a new alias to the last deployment
 	now alias -A now-$(type).json
 
-.PHONY: logs-api lint-api upgrade-api test-api mt-api deploy-api-now now-alias
+.PHONY: logs-api lint-api upgrade-api test-api ut-api it-api mt-api deploy-api-now now-alias
 
 clean-api:
 	rm -rf .env api/node_modules api/yarn-error.log api/tests/coverage api/tests/mutation api/tests/access.log

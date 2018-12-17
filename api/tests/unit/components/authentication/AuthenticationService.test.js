@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const AuthenticationService = require('../../../../src/components/authentication/AuthenticationService');
 const {
   getValidAccessToken,
@@ -210,7 +209,6 @@ describe('Test Authentication service', () => {
 
     describe('validateAndVerifyRefreshToken', () => {
       test('throws an error if the refresh token is not valid', () => {
-        const error = new createError.Unauthorized();
         const invalidRefreshTokens = [
           null,
           '',
@@ -220,7 +218,7 @@ describe('Test Authentication service', () => {
         ];
         authenticationService = new AuthenticationService({ parameters, oauth2Client: client });
         invalidRefreshTokens.forEach(async (token) => {
-          await expect(authenticationService.validateAndVerifyRefreshToken(token)).rejects.toThrow(error);
+          await expect(authenticationService.validateAndVerifyRefreshToken(token)).rejects.toThrow('Invalid refresh token');
         });
       });
 

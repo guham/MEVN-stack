@@ -26,11 +26,11 @@ const authenticationController = ({ usersService, authenticationService }) => ({
       // remove the old refresh token
       const user = await usersService.findOne({ sub: accessToken.payload.uid });
       if (!user) {
-        throw new createError.Unauthorized();
+        throw new createError.Unauthorized('User not found');
       }
 
       if (!await usersService.removeUserRefreshToken(user, refreshToken)) {
-        throw new createError.Unauthorized();
+        throw new createError.Unauthorized('Refresh token not found');
       }
       // generate new access & refresh tokens
       const payload = {
@@ -40,7 +40,8 @@ const authenticationController = ({ usersService, authenticationService }) => ({
       // store the new refresh token
       await usersService.storeUserRefreshToken(user, tokens.refreshToken);
       res.json(tokens);
-    } catch (error) {
+    } catch (err) {
+      const error = new createError.Unauthorized(err.message || 'Unauthorized');
       next(error);
     }
   },

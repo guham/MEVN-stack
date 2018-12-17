@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 const joi = require('joi');
 
@@ -140,7 +139,8 @@ class AuthenticationService {
       await this.retrieveDecodedRefreshToken(refreshToken);
       return this.verifyRefreshToken(refreshToken);
     } catch (error) {
-      throw new createError.Unauthorized();
+      error.message = 'Invalid refresh token';
+      throw error;
     }
   }
 }

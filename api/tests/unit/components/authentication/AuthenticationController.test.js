@@ -77,7 +77,7 @@ describe('Test Authentication controller', () => {
 
       await controller.refreshTokens(req, res, next);
       expect(next).toHaveBeenCalled();
-      expect(next.mock.calls[0][0] instanceof createError.Unauthorized).toBeTruthy();
+      expect(next.mock.calls[0][0] instanceof createError.HttpError).toBeTruthy();
     });
 
     test('calls next() with an error object if the user does not exist in database', async () => {
@@ -89,10 +89,10 @@ describe('Test Authentication controller', () => {
 
       await controller.refreshTokens(req, res, next);
       expect(next).toHaveBeenCalled();
-      expect(next.mock.calls[0][0] instanceof createError.Unauthorized).toBeTruthy();
+      expect(next.mock.calls[0][0] instanceof createError.HttpError).toBeTruthy();
     });
 
-    test('calls res.json() didier', async () => {
+    test('calls next() with an error object if the refresh token does not belong to the user', async () => {
       req.body = {
         refreshToken: await getValidRefreshToken(),
       };
@@ -102,7 +102,7 @@ describe('Test Authentication controller', () => {
 
       await controller.refreshTokens(req, res, next);
       expect(next).toHaveBeenCalled();
-      expect(next.mock.calls[0][0] instanceof createError.Unauthorized).toBeTruthy();
+      expect(next.mock.calls[0][0] instanceof createError.HttpError).toBeTruthy();
     });
 
     test('calls res.json() with new tokens if the request has a valid access token and a valid and not expired refresh token', async () => {
@@ -151,7 +151,7 @@ describe('Test Authentication controller', () => {
       expect(next.mock.calls[0][0] instanceof Error).toBeTruthy();
     });
 
-    test('calls next() with an error 401 if the refresh token\'s user is not equal to the access token\'s user', async () => {
+    test('calls next() with an error object if the refresh token\'s user is not equal to the access token\'s user', async () => {
       req.body = {
         refreshToken: await getValidRefreshToken({ sub: '12' }), // valid or not refresh token
       };
@@ -164,10 +164,10 @@ describe('Test Authentication controller', () => {
 
       await controller.userSignOut(req, res, next);
       expect(next).toHaveBeenCalled();
-      expect(next.mock.calls[0][0] instanceof createError.Unauthorized).toBeTruthy();
+      expect(next.mock.calls[0][0] instanceof createError.HttpError).toBeTruthy();
     });
 
-    test('calls next() with an error 401 if the user doesn\'t exist in database', async () => {
+    test('calls next() with an error object if the user doesn\'t exist in database', async () => {
       req.body = {
         refreshToken: await getValidRefreshToken(), // valid or not refresh token
       };
@@ -176,10 +176,10 @@ describe('Test Authentication controller', () => {
 
       await controller.userSignOut(req, res, next);
       expect(next).toHaveBeenCalled();
-      expect(next.mock.calls[0][0] instanceof createError.Unauthorized).toBeTruthy();
+      expect(next.mock.calls[0][0] instanceof createError.HttpError).toBeTruthy();
     });
 
-    test('calls next() with an error 401 if the refresh token does not belong to the user', async () => {
+    test('calls next() with an error object if the refresh token does not belong to the user', async () => {
       req.body = {
         refreshToken: await getValidRefreshToken(), // valid or not refresh token
       };
@@ -189,7 +189,7 @@ describe('Test Authentication controller', () => {
 
       await controller.userSignOut(req, res, next);
       expect(next).toHaveBeenCalled();
-      expect(next.mock.calls[0][0] instanceof createError.Unauthorized).toBeTruthy();
+      expect(next.mock.calls[0][0] instanceof createError.HttpError).toBeTruthy();
     });
 
     test('calls res.json() with an empty object if the user can sign out successfully', async () => {

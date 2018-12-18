@@ -21,16 +21,16 @@ const authenticationController = ({ usersService, authenticationService }) => ({
         .validateAndVerifyRefreshToken(refreshToken);
       // the refresh token's user must be equal to the access' token user
       if (decodedRefreshToken.uid !== accessToken.payload.uid) {
-        throw new createError.Unauthorized();
+        throw new createError.Forbidden();
       }
       // remove the old refresh token
       const user = await usersService.findOne({ sub: accessToken.payload.uid });
       if (!user) {
-        throw new createError.Unauthorized('User not found');
+        throw new createError.Forbidden('User not found');
       }
 
       if (!await usersService.removeUserRefreshToken(user, refreshToken)) {
-        throw new createError.Unauthorized('Refresh token not found');
+        throw new createError.Forbidden('Refresh token not found');
       }
       // generate new access & refresh tokens
       const payload = {
@@ -41,37 +41,38 @@ const authenticationController = ({ usersService, authenticationService }) => ({
       await usersService.storeUserRefreshToken(user, tokens.refreshToken);
       res.json(tokens);
     } catch (err) {
-      const error = new createError.Unauthorized(err.message || 'Unauthorized');
+      const error = err instanceof createError.HttpError ? err : new createError.Unauthorized(err.message || 'Unauthorized');
       next(error);
     }
   },
 
   userSignOut: async (req, res, next) => {
     try {
-      // access token
       const { authorization } = req.headers;
+      const { refreshToken } = req.body;
+      // access token
       const decodedAccessToken = await authenticationService
         .retrieveDecodedAccessToken(authorization);
       // refresh token
-      const { refreshToken } = req.body;
       const decodedRefreshToken = await authenticationService
         .retrieveDecodedRefreshToken(refreshToken);
       // the refresh token's user must be equal to the access' token user
       if (decodedRefreshToken.payload.uid !== decodedAccessToken.payload.uid) {
-        throw new createError.Unauthorized();
+        throw new createError.Forbidden();
       }
 
       const user = await usersService.findOne({ sub: decodedAccessToken.payload.uid });
       if (!user) {
-        throw new createError.Unauthorized();
+        throw new createError.Forbidden('User not found');
       }
 
       if (!await usersService.removeUserRefreshToken(user, refreshToken)) {
-        throw new createError.Unauthorized();
+        throw new createError.Forbidden('Refresh token not found');
       }
 
       res.json({});
-    } catch (error) {
+    } catch (err) {
+      const error = err instanceof createError.HttpError ? err : new createError.Unauthorized(err.message || 'Unauthorized');
       next(error);
     }
   },

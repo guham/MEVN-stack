@@ -1,19 +1,17 @@
 const request = require('../../request');
 
 describe('Test default routes', () => {
-  describe('Test "/" path', () => {
-    test('Should respond "Home" with a 200', async () => {
-      const response = await request().get('/');
-      expect(response.statusCode).toBe(200);
-      expect(response.body).toEqual({});
+  describe('Test `/` path', () => {
+    test('returns an empty JSON with status 200', async () => {
+      const { body } = await request().get('/').expect(200);
+      expect(body).toEqual({});
     });
   });
 
-  describe('Test "/undefined" path', () => {
-    test('Should respond with a 404', async () => {
-      const response = await request().get('/undefined');
-      expect(response.statusCode).toBe(404);
-      expect(response.body).toEqual({
+  describe('Test `/undefined` path', () => {
+    test('returns the not found error with status 404', async () => {
+      const { body } = await request().get('/undefined').expect(404);
+      expect(body).toEqual({
         type: 'NotFoundError',
         message: 'Not Found',
         error: {},
@@ -21,10 +19,9 @@ describe('Test default routes', () => {
     });
   });
 
-  describe('Test "/favicon.ico" path', () => {
-    test('Should respond with a 204', async () => {
-      const response = await request().get('/favicon.ico');
-      expect(response.statusCode).toBe(204);
+  describe('Test `/favicon.ico` path', () => {
+    test('should respond with a 204', async () => {
+      await request().get('/favicon.ico').expect(204);
     });
   });
 });

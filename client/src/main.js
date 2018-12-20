@@ -34,7 +34,8 @@ const AddUnauthorizedInterceptor = () => client.interceptors.response.use(null, 
   const shouldRefreshToken = [401, 403].includes(error.status)
     && originalRequest
     && store.getters['user/isAuthenticated']
-    && store.getters['user/accessToken'] !== null;
+    && store.getters['user/accessToken'] !== null
+    && store.getters['user/refreshToken'] !== null;
 
   if (shouldRefreshToken) {
     client.interceptors.response.eject(unauthorizedInterceptor);
